@@ -16,6 +16,9 @@ public class Game {
     @Id
     @GeneratedValue(strategy = GenerationType.IDENTITY)
     private Long id;
+    @ManyToOne
+    @JoinColumn(name="creator")
+    private Player creator;
     private String name;
     @ManyToOne
     @JoinColumn(name="address_id")
@@ -37,7 +40,10 @@ public class Game {
     )
     private List<Player> players;
 
-    public Game(String name, Address address, ZonedDateTime dateAndTime, int duration, double recommendedAbilityLevel, double recommendedSeriousnessLevel, double actualAbilityLevel, double actualSeriousnessLevel, boolean completed) {
+    private int maxPlayers;
+
+    public Game(Player creator, String name, Address address, ZonedDateTime dateAndTime, int duration, double recommendedAbilityLevel, double recommendedSeriousnessLevel, double actualAbilityLevel, double actualSeriousnessLevel, boolean completed, int maxPlayers) {
+        this.creator = creator;
         this.name = name;
         this.address = address;
         this.dateAndTime = dateAndTime;
@@ -48,6 +54,7 @@ public class Game {
         this.actualSeriousnessLevel = actualSeriousnessLevel;
         this.completedStatus = completed;
         this.players = new ArrayList<>();
+        this.maxPlayers = maxPlayers;
     }
 
     public Game() {
@@ -55,6 +62,10 @@ public class Game {
 
     public Long getId() {
         return id;
+    }
+
+    public Player getCreator() {
+        return creator;
     }
 
     public String getName() {
@@ -97,8 +108,16 @@ public class Game {
         return players;
     }
 
+    public int getMaxPlayers() {
+        return maxPlayers;
+    }
+
     public void setId(Long id) {
         this.id = id;
+    }
+
+    public void setCreator(Player creator) {
+        this.creator = creator;
     }
 
     public void setName(String name) {
@@ -139,5 +158,9 @@ public class Game {
 
     public void setPlayers(List<Player> players) {
         this.players = players;
+    }
+
+    public void setMaxPlayers(int maxPlayers) {
+        this.maxPlayers = maxPlayers;
     }
 }

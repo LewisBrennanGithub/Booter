@@ -4,6 +4,7 @@ import com.booter.booter.games.Game;
 import com.booter.booter.places.Address;
 
 import javax.persistence.*;
+import java.time.ZonedDateTime;
 import java.util.ArrayList;
 import java.util.List;
 
@@ -23,7 +24,13 @@ public class Player {
     @JoinColumn(name="address_id")
     private Address address;
     private double compositeAbilityLevel;
+    private double selfAssessedAbilityLevel;
+    private double communityAssessedAbilityLevel;
+    private int communityAssessedAbilityLevelCount;
     private double compositeSeriousnessLevel;
+    private double selfAssessedSeriousnessLevel;
+    private double communityAssessedSeriousnessLevel;
+    private int communityAssessedSeriousnessLevelCount;
     @ManyToMany(mappedBy = "players")
     private List<Game> games;
 
@@ -121,4 +128,42 @@ public class Player {
     public void setGames(List<Game> games) {
         this.games = games;
     }
+
+//    SPECIFIC METHODS/GETTERS/SETTERS
+//    THIS WILL NEED HOOKED UP TO THE DATABASE
+    public Game createGame(Player creator, String name, Address address, ZonedDateTime dateAndTime, int duration, double recommendedAbilityLevel, double recommendedSeriousnessLevel, double actualAbilityLevel, double actualSeriousnessLevel, int maxPlayers ) {
+        Game newGame = new Game(this, name, address, dateAndTime, duration, recommendedAbilityLevel, recommendedSeriousnessLevel, actualAbilityLevel, actualSeriousnessLevel, false, maxPlayers);
+        this.games.add(newGame);
+        address.getGames().add(newGame);
+        return newGame;
+    }
+
+    public Game getLastGameCreated() {
+        return games.get(games.size() - 1);
+    }
+//    ^^ CONSIDER THIS ^^
+//    public Game getLastGameCreated() {if (!games.isEmpty()) {return games.get(games.size() - 1);} else {return null;}}
+
+    public void joinGame(Game game) {
+        for (Player existingPlayer : game.getPlayers()) {
+            if (existingPlayer.getId().equals(this.getId())) {
+                return;
+            }
+        }
+        if (game.getPlayers().size() < game.getMaxPlayers()) {
+            this.games.add(game);
+            game.getPlayers().add(this);
+        }
+    }
+
+    public void setCompletedStatus(Game game, boolean status) {
+        if (game.getCreator().equals(this)) {
+            game.setCompletedStatus(status);
+        }
+    }
+
+    public void rateOtherPlayerAbility(Player player, double rating) {
+        player.compositeAbilityLevel = rating;
+    }
+
 }
