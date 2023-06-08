@@ -1,22 +1,26 @@
-package com.booter.booter.places;
-
-import com.booter.booter.games.Game;
+package com.booter.models;
 
 import javax.persistence.*;
 import java.util.ArrayList;
 import java.util.List;
 
 @Entity
+@Table(name = "addresses")
 public class Address {
 
     @Id
     @GeneratedValue(strategy = GenerationType.IDENTITY)
     private Long id;
 //    REMEMBER ON THE FRONT END THAT THESE WILL BE *REQUIRED* FIELDS!
+    @Column(name = "property_number_or_name")
     private String propertyNumberOrName;
+    @Column(name = "street")
     private String street;
+    @Column(name = "city")
     private String city;
+    @Column(name = "country")
     private String country;
+    @Column(name = "post_code")
     private String postCode;
     @OneToMany(mappedBy = "address")
     private List<Game> games;

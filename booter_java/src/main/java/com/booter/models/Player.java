@@ -1,7 +1,4 @@
-package com.booter.booter.people;
-
-import com.booter.booter.games.Game;
-import com.booter.booter.places.Address;
+package com.booter.models;
 
 import javax.persistence.*;
 import java.time.ZonedDateTime;
@@ -9,31 +6,47 @@ import java.util.ArrayList;
 import java.util.List;
 
 @Entity
+@Table (name = "players")
 public class Player {
 
     @Id
     @GeneratedValue(strategy = GenerationType.IDENTITY)
     private Long id;
+    @Column(name="first_name")
     private String firstName;
+    @Column(name="last_name")
     private String lastName;
+    @Column(name="user_name")
     private String userName;
+    @Column(name="phone_number")
     private String phoneNumber;
+    @Column(name="age")
     private int age;
     @ManyToOne
     @JoinColumn(name="address_id")
     private Address address;
+    @Column(name="displayed_ability_level")
     private double displayedAbilityLevel;
+    @Column(name="composite_ability_level")
     private double compositeAbilityLevel;
+    @Column(name="self_assessed_ability_level")
     private double selfAssessedAbilityLevel;
+    @Column(name="community_assessed_ability_level")
     private double communityAssessedAbilityLevel;
+    @Column(name="community_assessed_ability_count")
     private int communityAssessedAbilityLevelCount;
+    @Column(name="displayed_seriousness_level")
     private double displayedSeriousnessLevel;
+    @Column(name="composite_seriousness_level")
     private double compositeSeriousnessLevel;
+    @Column(name="self_assessed_seriousness_level")
     private double selfAssessedSeriousnessLevel;
+    @Column(name="community_assessed_seriousness_level")
     private double communityAssessedSeriousnessLevel;
+    @Column(name="community_assessed_serious_count")
     private int communityAssessedSeriousnessLevelCount;
-    @ManyToMany(mappedBy = "players")
-    private List<Game> games;
+    @ManyToMany(mappedBy = "players", fetch = FetchType.LAZY, cascade = CascadeType.ALL)
+    private List<Game> games = new ArrayList<>();
 
     public Player(String firstName, String lastName, String userName, String phoneNumber, Address address, int age, double selfAssessedAbilityLevel, double selfAssessedSeriousnessLevel) {
         this.firstName = firstName;
@@ -43,13 +56,13 @@ public class Player {
         this.address = address;
         this.age = age;
         this.displayedAbilityLevel = selfAssessedAbilityLevel;
-        this.compositeAbilityLevel = selfAssessedAbilityLevel; // initially the same as self-assessed
+        this.compositeAbilityLevel = selfAssessedAbilityLevel;
         this.selfAssessedAbilityLevel = selfAssessedAbilityLevel;
         this.communityAssessedAbilityLevel = 0.0;
         this.communityAssessedAbilityLevelCount = 0;
         this.displayedSeriousnessLevel = selfAssessedSeriousnessLevel;
         this.selfAssessedSeriousnessLevel = selfAssessedSeriousnessLevel;
-        this.compositeSeriousnessLevel = selfAssessedSeriousnessLevel; // initially the same as self-assessed
+        this.compositeSeriousnessLevel = selfAssessedSeriousnessLevel;
         this.communityAssessedSeriousnessLevel = 0.0;
         this.communityAssessedSeriousnessLevelCount = 0;
         this.games = new ArrayList<>();
@@ -207,7 +220,7 @@ public class Player {
     public Game createGame(String name, Address address, ZonedDateTime dateAndTime, int duration, double recommendedAbilityLevel, double recommendedSeriousnessLevel, double actualAbilityLevel, double actualSeriousnessLevel, int maxPlayers ) {
         Game newGame = new Game(this, name, address, dateAndTime, duration, recommendedAbilityLevel, recommendedSeriousnessLevel, actualAbilityLevel, actualSeriousnessLevel, false, maxPlayers);
         this.games.add(newGame);
-        address.getGames().add(newGame);
+//        address.getGames().add(newGame);
         return newGame;
     }
 
@@ -279,14 +292,6 @@ public class Player {
     public void updateSelfAssessedSeriousnessLevel(double newSeriousnessLevel) {
         selfAssessedSeriousnessLevel = newSeriousnessLevel;
         updateCompositeSeriousnessLevel();
-    }
-
-    public void addCommunityAssessedSeriousnessRating(double newRating) {
-        communityAssessedSeriousnessLevelCount++;
-        if(communityAssessedAbilityLevelCount != 0) {
-            communityAssessedSeriousnessLevel = (communityAssessedSeriousnessLevel * (double) communityAssessedSeriousnessLevelCount + newRating) / (communityAssessedSeriousnessLevelCount);
-            updateCompositeSeriousnessLevel();
-        }
     }
 
     public void addCommunityAssessedSeriousnessRating(Player player, double newRating) {

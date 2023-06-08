@@ -1,8 +1,8 @@
-package com.booter.booter.gameTests;
+package com.booter.gameTests;
 
-import com.booter.booter.games.Game;
-import com.booter.booter.people.Player;
-import com.booter.booter.places.Address;
+import com.booter.models.Game;
+import com.booter.models.Player;
+import com.booter.models.Address;
 import org.junit.jupiter.api.BeforeEach;
 import org.junit.jupiter.api.Test;
 

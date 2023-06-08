@@ -1,4 +1,4 @@
-package com.booter.booter;
+package com.booter;
 
 import org.junit.jupiter.api.Test;
 import org.springframework.boot.test.context.SpringBootTest;

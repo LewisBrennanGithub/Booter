@@ -1,7 +1,5 @@
-package com.booter.booter.games;
+package com.booter.models;
 
-import com.booter.booter.people.Player;
-import com.booter.booter.places.Address;
 import com.fasterxml.jackson.annotation.JsonBackReference;
 import org.hibernate.annotations.Cascade;
 
@@ -11,24 +9,33 @@ import java.util.List;
 import java.time.ZonedDateTime;
 
 @Entity
+@Table (name = "games")
 public class Game {
 
     @Id
     @GeneratedValue(strategy = GenerationType.IDENTITY)
     private Long id;
-    @ManyToOne
-    @JoinColumn(name="creator")
+    @ManyToOne(cascade = CascadeType.PERSIST, fetch = FetchType.LAZY)
+    @JoinColumn(name="creator_id")
     private Player creator;
+    @Column(name="name")
     private String name;
-    @ManyToOne
+    @ManyToOne(cascade = CascadeType.PERSIST, fetch = FetchType.LAZY)
     @JoinColumn(name="address_id")
     private Address address;
+    @Column(name="date_and_time")
     private ZonedDateTime dateAndTime;
+    @Column(name="duration")
     private int duration;
+    @Column(name="recommended_ability_level")
     private double recommendedAbilityLevel;
+    @Column(name="recommended_seriousness_level")
     private double recommendedSeriousnessLevel;
+    @Column(name="actual_ability_level")
     private double actualAbilityLevel;
+    @Column(name="actual_seriousness_level")
     private double actualSeriousnessLevel;
+    @Column(name="completed_status")
     private boolean completedStatus;
     @JsonBackReference
     @ManyToMany
@@ -39,7 +46,7 @@ public class Game {
             inverseJoinColumns = {@JoinColumn(name="player_id", nullable = false, updatable = false)}
     )
     private List<Player> players;
-
+    @Column(name="max_players")
     private int maxPlayers;
 
     public Game(Player creator, String name, Address address, ZonedDateTime dateAndTime, int duration, double recommendedAbilityLevel, double recommendedSeriousnessLevel, double actualAbilityLevel, double actualSeriousnessLevel, boolean completed, int maxPlayers) {
