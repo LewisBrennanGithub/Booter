@@ -15,14 +15,16 @@ public class Game {
     @Id
     @GeneratedValue(strategy = GenerationType.IDENTITY)
     private Long id;
+    @JsonBackReference("player-lastGameCreated")
     @ManyToOne(fetch = FetchType.LAZY)
     @JoinColumn(name="creator_id")
-    @JsonBackReference
     private Player creator;
+
     @Column(name="name")
     private String name;
     @ManyToOne(fetch = FetchType.LAZY)
     @JoinColumn(name="address_id")
+    @JsonBackReference
     private Address address;
     @Column(name="date_and_time")
     private ZonedDateTime dateAndTime;
@@ -38,7 +40,7 @@ public class Game {
     private double actualSeriousnessLevel;
     @Column(name="completed_status")
     private boolean completedStatus;
-    @JsonManagedReference
+    @JsonBackReference("player-games")
     @ManyToMany
     @JoinTable(
             name = "players_games",

@@ -27,7 +27,7 @@ public class Player {
     private int age;
     @ManyToOne
     @JoinColumn(name="address_id")
-    @JsonBackReference // Add this line here
+    @JsonBackReference
     private Address address;
     @Column(name="displayed_ability_level")
     private double displayedAbilityLevel;
@@ -49,12 +49,12 @@ public class Player {
     private double communityAssessedSeriousnessLevel;
     @Column(name="community_assessed_serious_count")
     private int communityAssessedSeriousnessLevelCount;
-    @JsonBackReference
+    @JsonManagedReference("player-games")
     @ManyToMany(mappedBy = "players", fetch = FetchType.LAZY)
     private List<Game> games = new ArrayList<>();
 
+    @JsonManagedReference("player_last_game_created")
     @OneToOne(mappedBy = "creator", fetch = FetchType.LAZY)
-    @JsonManagedReference
     private Game lastGameCreated;
 
     public Player(String firstName, String lastName, String userName, String phoneNumber, Address address, int age, double selfAssessedAbilityLevel, double selfAssessedSeriousnessLevel) {
