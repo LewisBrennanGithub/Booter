@@ -36,7 +36,7 @@ public class PlayerTest {
         address2 = new Address("8", "George Street", "Manchester", "United Kingdom", "M1 4AB");
         address3 = new Address("10", "Piccadilly Square", "London", "United Kingdom", "SW1A 1AA");
 
-        player1 = new Player("Clive", "Fumagalli", "Fumi", "0123456789", address1, 22, 5.0, 4.0);
+        player1 = new Player("Clive", "Fumagalli", "Fumi", "0123456789", address1, 22, 2.0, 4.0);
         player1.setId(1L);
 
         player2 = new Player("John", "Doe", "Johnny", "0223456789", address2, 25, 4.0, 4.0);
@@ -97,56 +97,50 @@ public class PlayerTest {
     public void canGetPlayerAge() { assertEquals(22, player1.getAge());}
 
     @Test
-    public void canGetPlayerCompositeAbilityLevel(){ assertEquals(82.0, player1.getCompositeAbilityLevel(), 0.0);}
-
-    @Test
-    public void canGetPlayerCompositeSeriousnessLevel(){ assertEquals(65.0, player1.getCompositeSeriousnessLevel(), 0.0);}
-
-    @Test
     public void playerCanCreateGameAndGetName() {
-        player1.createGame(player1, "Soccer", address1, dateAndTime1, 90, 60.0, 60.0, 80.0, 40.0, 10);
+        player1.createGame("Soccer", address1, dateAndTime1, 90, 3.0, 3.0, 4.0, 2.0, 10);
         Game lastGameCreated = player1.getLastGameCreated();
         assertEquals("Soccer", lastGameCreated.getName());
     }
 
     @Test
     public void playerCanCreateGameAndGetTime() {
-        player1.createGame(player1, "Soccer", address1, dateAndTime1, 90, 60.0, 60.0, 80.0, 40.0, 10);
+        player1.createGame("Soccer", address1, dateAndTime1, 90, 3.0, 3.0, 4.0, 2.0, 10);
         Game lastGameCreated = player1.getLastGameCreated();
         assertEquals(14, lastGameCreated.getDateAndTime().getHour());
     }
 
     @Test
     public void playerCanCreateGameAndGetEmptyListOfPlayers() {
-        player1.createGame(player1,"Soccer", address1, dateAndTime1, 90, 60.0, 60.0, 80.0, 40.0, 10);
+        player1.createGame("Soccer", address1, dateAndTime1, 90, 3.0, 3.0, 4.0, 2.0, 10);
         Game lastGameCreated = player1.getLastGameCreated();
         assertEquals(0, lastGameCreated.getPlayers().size());
     }
 
     @Test
     public void playerCanCreateGameAndCompletedStatus() {
-        player1.createGame(player1,"Soccer", address1, dateAndTime1, 90, 60.0, 60.0, 80.0, 40.0, 10);
+        player1.createGame("Soccer", address1, dateAndTime1, 90, 3.0, 3.0, 4.0, 2.0, 10);
         Game lastGameCreated = player1.getLastGameCreated();
         assertEquals(false, lastGameCreated.getCompletedStatus());
     }
 
     @Test
     public void playerCanCreateGameAndGetMaxPlayers() {
-        player1.createGame(player1,"Soccer", address1, dateAndTime1, 90, 60.0, 60.0, 80.0, 40.0, 10);
+        player1.createGame("Soccer", address1, dateAndTime1, 90, 3.0, 3.0, 4.0, 2.0, 10);
         Game lastGameCreated = player1.getLastGameCreated();
         assertEquals(10, lastGameCreated.getMaxPlayers());
     }
 
     @Test
     public void playerCanCreateGameAndGetActualAbilityLevel() {
-        player1.createGame(player1,"Soccer", address1, dateAndTime1, 90, 60.0, 60.0, 80.0, 40.0, 10);
+        player1.createGame("Soccer", address1, dateAndTime1, 90, 3.0, 3.0, 4.0, 2.0, 10);
         Game lastGameCreated = player1.getLastGameCreated();
-        assertEquals(80.0, lastGameCreated.getActualAbilityLevel(), 0.0);
+        assertEquals(4.0, lastGameCreated.getActualAbilityLevel(), 0.0);
     }
 
     @Test
     public void playerCanCreateGameAndJoinIt() {
-        player1.createGame(player1,"Soccer", address1, dateAndTime1, 90, 60.0, 60.0, 80.0, 40.0, 10);
+        player1.createGame("Soccer", address1, dateAndTime1, 90, 3.0, 3.0, 4.0, 2.0, 10);
         Game lastGameCreated = player1.getLastGameCreated();
         player1.joinGame(lastGameCreated);
         assertEquals(1, lastGameCreated.getPlayers().size());
@@ -154,7 +148,7 @@ public class PlayerTest {
 
     @Test
     public void playerCanGreatGameAndCantJoinTwice() {
-        player1.createGame(player1,"Soccer", address1, dateAndTime1, 90, 60.0, 60.0, 80.0, 40.0, 10);
+        player1.createGame("Soccer", address1, dateAndTime1, 90, 3.0, 3.0, 4.0, 2.0, 10);
         Game lastGameCreated = player1.getLastGameCreated();
         player1.joinGame(lastGameCreated);
         player1.joinGame(lastGameCreated);
@@ -163,7 +157,7 @@ public class PlayerTest {
 
     @Test
     public void playerCanCreateGameAndFillItUp() {
-        player1.createGame(player1,"Soccer", address1, dateAndTime1, 90, 60.0, 60.0, 80.0, 40.0, 6);
+        player1.createGame("Soccer", address1, dateAndTime1, 90, 3.0, 3.0, 4.0, 2.0, 10);
         Game lastGameCreated = player1.getLastGameCreated();
         player1.joinGame(lastGameCreated);
         player2.joinGame(lastGameCreated);
@@ -176,7 +170,7 @@ public class PlayerTest {
 
     @Test
     public void playerCanCreateGameAndOtherPlayersCantJoinIfFull() {
-        player1.createGame(player1,"Soccer", address1, dateAndTime1, 90, 60.0, 60.0, 80.0, 40.0, 6);
+        player1.createGame("Soccer", address1, dateAndTime1, 90, 3.0, 3.0, 4.0, 2.0, 6);
         Game lastGameCreated = player1.getLastGameCreated();
         player1.joinGame(lastGameCreated);
         player2.joinGame(lastGameCreated);
@@ -190,14 +184,14 @@ public class PlayerTest {
 
     @Test
     public void playerCanCreateEmptyGameAndGetCreatorId() {
-        player1.createGame(player1,"Soccer", address1, dateAndTime1, 90, 60.0, 60.0, 80.0, 40.0, 6);
+        player1.createGame("Soccer", address1, dateAndTime1, 90, 3.0, 3.0, 4.0, 2.0, 10);
         Game lastGameCreated = player1.getLastGameCreated();
         assertEquals(1L, lastGameCreated.getCreator().getId());
     }
 
     @Test
     public void playerCanCreateAGameAndAddSelfAndGetCreatorId() {
-        player1.createGame(player1,"Soccer", address1, dateAndTime1, 90, 60.0, 60.0, 80.0, 40.0, 6);
+        player1.createGame("Soccer", address1, dateAndTime1, 90, 3.0, 3.0, 4.0, 2.0, 10);
         Game lastGameCreated = player1.getLastGameCreated();
         player1.joinGame(lastGameCreated);
         assertEquals(1L, lastGameCreated.getCreator().getId());
@@ -205,7 +199,7 @@ public class PlayerTest {
 
     @Test
     public void playerCanCreateAGameAndHaveMultiplePlayersAndGetCreatorId() {
-        player1.createGame(player1,"Soccer", address1, dateAndTime1, 90, 60.0, 60.0, 80.0, 40.0, 6);
+        player1.createGame("Soccer", address1, dateAndTime1, 90, 3.0, 3.0, 4.0, 2.0, 10);
         Game lastGameCreated = player1.getLastGameCreated();
         player1.joinGame(lastGameCreated);
         player2.joinGame(lastGameCreated);
@@ -214,18 +208,118 @@ public class PlayerTest {
 
     @Test
     public void playerCanSetCompletedStatusToTrue() {
-        player1.createGame(player1,"Soccer", address1, dateAndTime1, 90, 60.0, 60.0, 80.0, 40.0, 6);
+        player1.createGame("Soccer", address1, dateAndTime1, 90, 3.0, 3.0, 4.0, 2.0, 10);
         Game lastGameCreated = player1.getLastGameCreated();
         player1.setCompletedStatus(lastGameCreated, true);
         assertEquals(true, lastGameCreated.getCompletedStatus());
     }
 
-    @
+    @Test
+    public void playerCannotSetCompletedStatusToTrueIfNotCreator() {
+        player1.createGame("Soccer", address1, dateAndTime1, 90, 3.0, 3.0, 4.0, 2.0, 10);
+        Game lastGameCreated = player1.getLastGameCreated();
+        player2.setCompletedStatus(lastGameCreated, true);
+        assertEquals(false, lastGameCreated.getCompletedStatus());
+    }
+
+//    RATINGS
 
     @Test
-    public void playerCanRatePlayer() {
-        player1.rateOtherPlayerAbility(player2, 20.00);
-        assertEquals(20.0, player2.getCompositeAbilityLevel());
+    public void playerCanStarterDisplayedAbilityRating() {
+        assertEquals(2.0, player1.getDisplayedAbilityLevel(), 0.0);
+    }
+
+    @Test
+    public void playerCanRateOtherPlayerWithoutImpactOnDisplayedLevel() {
+        player2.addCommunityAssessedAbilityRating(player1,5.0);
+        assertEquals(2.0, player1.getDisplayedAbilityLevel(), 0.0);
+    }
+
+    @Test
+    public void playersCanRateOtherPlayersWithImpactOnDisplayedLevel() {
+        player2.addCommunityAssessedAbilityRating(player1,5.0);
+        player2.addCommunityAssessedAbilityRating(player1,5.0);
+        player1.displayedAbilityLevelVariableMethod();
+        assertEquals(4.1, player1.getDisplayedAbilityLevel(), 0.0);
+    }
+
+    @Test
+    public void lotsOfPlayersCanRateOtherPlayersWithImpactOnDisplayedLevel() {
+        player2.addCommunityAssessedAbilityRating(player1,5.0);
+        player2.addCommunityAssessedAbilityRating(player1,5.0);
+        player3.addCommunityAssessedAbilityRating(player1,5.0);
+        player3.addCommunityAssessedAbilityRating(player1,5.0);
+        player1.displayedAbilityLevelVariableMethod();
+        assertEquals(4.1, player1.getDisplayedAbilityLevel(), 0.0);
+    }
+
+    @Test
+    public void playerCanRateOtherPlayerSeriousnessWithoutImpactOnDisplayedLevel() {
+        player2.addCommunityAssessedSeriousnessRating(player1,5.0);
+        assertEquals(4.0, player1.getDisplayedSeriousnessLevel(), 0.0);
+    }
+
+    @Test
+    public void playersCanRateOtherPlayersSeriousnessWithImpactOnDisplayedLevel() {
+        player2.addCommunityAssessedSeriousnessRating(player1,5.0);
+        player2.addCommunityAssessedSeriousnessRating(player1,5.0);
+        player1.displayedSeriousnessLevelVariableMethod();
+        assertEquals(4.7, player1.getDisplayedSeriousnessLevel(), 0.0);
+    }
+
+    @Test
+    public void lotsOfPlayersCanRateOtherPlayersSeriousnessWithImpactOnDisplayedLevel() {
+        player2.addCommunityAssessedSeriousnessRating(player1,5.0);
+        player2.addCommunityAssessedSeriousnessRating(player1,5.0);
+        player3.addCommunityAssessedSeriousnessRating(player1,5.0);
+        player3.addCommunityAssessedSeriousnessRating(player1,5.0);
+        player1.displayedSeriousnessLevelVariableMethod();
+        assertEquals(4.7, player1.getDisplayedSeriousnessLevel(), 0.0);
+    }
+
+    @Test
+    public void lotsOfPlayersCanRateOtherPlayersSeriousnessWithoutImpactOnSelfLevel() {
+        player2.addCommunityAssessedSeriousnessRating(player1,5.0);
+        player2.addCommunityAssessedSeriousnessRating(player1,5.0);
+        player3.addCommunityAssessedSeriousnessRating(player1,5.0);
+        player3.addCommunityAssessedSeriousnessRating(player1,5.0);
+        player1.displayedSeriousnessLevelVariableMethod();
+        assertEquals(2.0, player1.getSelfAssessedAbilityLevel(), 0.0);
+    }
+
+    @Test
+    public void lotsOfPlayersCanRateOtherPlayersSeriousnessWithImpactOnCommunityLevel() {
+        player2.addCommunityAssessedSeriousnessRating(player1,5.0);
+        player2.addCommunityAssessedSeriousnessRating(player1,5.0);
+        player3.addCommunityAssessedSeriousnessRating(player1,5.0);
+        player3.addCommunityAssessedSeriousnessRating(player1,5.0);
+        player1.displayedSeriousnessLevelVariableMethod();
+        assertEquals(5.0, player1.getCommunityAssessedSeriousnessLevel(), 0.0);
+    }
+
+    @Test
+    public void canGetSeriousnessRatingCount() {
+        player2.addCommunityAssessedSeriousnessRating(player1,5.0);
+        player2.addCommunityAssessedSeriousnessRating(player1,5.0);
+        player3.addCommunityAssessedSeriousnessRating(player1,5.0);
+        player3.addCommunityAssessedSeriousnessRating(player1,5.0);
+        player1.displayedSeriousnessLevelVariableMethod();
+        assertEquals(4, player1.getCommunityAssessedSeriousnessLevelCount(), 0.0);
+    }
+
+    @Test
+    public void canGetAbilityRatingCount() {
+        player2.addCommunityAssessedAbilityRating(player1,5.0);
+        player2.addCommunityAssessedAbilityRating(player1,5.0);
+        player3.addCommunityAssessedAbilityRating(player1,5.0);
+        player3.addCommunityAssessedAbilityRating(player1,5.0);
+        player1.displayedAbilityLevelVariableMethod();
+        assertEquals(4, player1.getCommunityAssessedAbilityLevelCount(), 0.0);
+    }
+
+    @Test
+    public void AbilityLevelCountStartsAtZero() {
+        assertEquals(0, player1.getCommunityAssessedAbilityLevelCount(), 0.0);
     }
 
 }
