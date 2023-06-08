@@ -1,7 +1,7 @@
 package com.booter.models;
 
 import com.fasterxml.jackson.annotation.JsonBackReference;
-import org.hibernate.annotations.Cascade;
+import com.fasterxml.jackson.annotation.JsonManagedReference;
 
 import javax.persistence.*;
 import java.util.ArrayList;
@@ -15,12 +15,13 @@ public class Game {
     @Id
     @GeneratedValue(strategy = GenerationType.IDENTITY)
     private Long id;
-    @ManyToOne(cascade = CascadeType.PERSIST, fetch = FetchType.LAZY)
+    @ManyToOne(fetch = FetchType.LAZY)
     @JoinColumn(name="creator_id")
+    @JsonBackReference
     private Player creator;
     @Column(name="name")
     private String name;
-    @ManyToOne(cascade = CascadeType.PERSIST, fetch = FetchType.LAZY)
+    @ManyToOne(fetch = FetchType.LAZY)
     @JoinColumn(name="address_id")
     private Address address;
     @Column(name="date_and_time")
@@ -37,9 +38,8 @@ public class Game {
     private double actualSeriousnessLevel;
     @Column(name="completed_status")
     private boolean completedStatus;
-    @JsonBackReference
+    @JsonManagedReference
     @ManyToMany
-    @Cascade(org.hibernate.annotations.CascadeType.SAVE_UPDATE)
     @JoinTable(
             name = "players_games",
             joinColumns = {@JoinColumn(name = "game_id", nullable = false, updatable = false)},

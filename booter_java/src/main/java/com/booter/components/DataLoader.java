@@ -18,13 +18,10 @@ import java.util.List;
 
 @Component
 public class DataLoader implements ApplicationRunner {
-
     @Autowired
     PlayerRepository playerRepository;
-
     @Autowired
     GameRepository gameRepository;
-
     @Autowired
     AddressRepository addressRepository;
 
@@ -32,6 +29,10 @@ public class DataLoader implements ApplicationRunner {
     }
 
     public void run(ApplicationArguments args) {
+        gameRepository.deleteAll();
+        playerRepository.deleteAll();
+        addressRepository.deleteAll();
+
         Address dumbiedykesLane6 = new Address("6", "Dumbiedykes Lane", "Edinburgh", "United Kingdom", "ED12 2YP");
         addressRepository.save(dumbiedykesLane6);
 
@@ -104,7 +105,6 @@ public class DataLoader implements ApplicationRunner {
         Player isaac = new Player("Isaac", "Rodriguez", "IRodriguez", "0934567890", kingStreet28, 28, 3.5, 3.5);
         playerRepository.save(isaac);
 
-
         ZonedDateTime game1DateTime = ZonedDateTime.now().plusDays(3);
         List<Player> game1Players = new ArrayList<>(Arrays.asList(clive, john, jane, alice, bob));
         Game game1 = new Game(clive, "Soccer Match", dumbiedykesLane6, game1DateTime, 90, 3.5, 4.0, 3.5, 4.0, false, 5);
@@ -125,7 +125,7 @@ public class DataLoader implements ApplicationRunner {
 
         ZonedDateTime game4DateTime = ZonedDateTime.now().plusDays(14);
         Game game4 = new Game(hannah, "Volleyball Game", bakerStreet12, game4DateTime, 60, 4.5, 4.0, 4.5, 4.0, false, 6);
-        gameRepository.save(game4); 
+        gameRepository.save(game4);
 
     }
 }

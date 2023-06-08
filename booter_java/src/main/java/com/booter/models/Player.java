@@ -1,5 +1,8 @@
 package com.booter.models;
 
+import com.fasterxml.jackson.annotation.JsonBackReference;
+import com.fasterxml.jackson.annotation.JsonManagedReference;
+
 import javax.persistence.*;
 import java.time.ZonedDateTime;
 import java.util.ArrayList;
@@ -24,6 +27,7 @@ public class Player {
     private int age;
     @ManyToOne
     @JoinColumn(name="address_id")
+    @JsonBackReference // Add this line here
     private Address address;
     @Column(name="displayed_ability_level")
     private double displayedAbilityLevel;
@@ -45,8 +49,13 @@ public class Player {
     private double communityAssessedSeriousnessLevel;
     @Column(name="community_assessed_serious_count")
     private int communityAssessedSeriousnessLevelCount;
-    @ManyToMany(mappedBy = "players", fetch = FetchType.LAZY, cascade = CascadeType.ALL)
+    @JsonBackReference
+    @ManyToMany(mappedBy = "players", fetch = FetchType.LAZY)
     private List<Game> games = new ArrayList<>();
+
+    @OneToOne(mappedBy = "creator", fetch = FetchType.LAZY)
+    @JsonManagedReference
+    private Game lastGameCreated;
 
     public Player(String firstName, String lastName, String userName, String phoneNumber, Address address, int age, double selfAssessedAbilityLevel, double selfAssessedSeriousnessLevel) {
         this.firstName = firstName;
@@ -224,9 +233,9 @@ public class Player {
         return newGame;
     }
 
-    public Game getLastGameCreated() {
-        return games.get(games.size() - 1);
-    }
+//    public Game getLastGameCreated() {
+//        return games.get(games.size() - 1);
+//    }
 //    ^^ CONSIDER THIS ^^
 //    public Game getLastGameCreated() {if (!games.isEmpty()) {return games.get(games.size() - 1);} else {return null;}}
 

@@ -1,5 +1,7 @@
 package com.booter.models;
 
+import com.fasterxml.jackson.annotation.JsonManagedReference;
+
 import javax.persistence.*;
 import java.util.ArrayList;
 import java.util.List;
@@ -22,7 +24,8 @@ public class Address {
     private String country;
     @Column(name = "post_code")
     private String postCode;
-    @OneToMany(mappedBy = "address")
+    @JsonManagedReference
+    @ManyToMany(mappedBy = "players", fetch = FetchType.LAZY)
     private List<Game> games;
 
     public Address(String propertyNumberOrName, String street, String city, String country, String postCode) {
@@ -35,7 +38,6 @@ public class Address {
     }
 
     public Address() {
-        this.games = new ArrayList<>();
     }
 
     public Long getId() {
