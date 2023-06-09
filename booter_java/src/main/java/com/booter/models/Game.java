@@ -1,7 +1,6 @@
 package com.booter.models;
 
-import com.fasterxml.jackson.annotation.JsonBackReference;
-import com.fasterxml.jackson.annotation.JsonManagedReference;
+import com.fasterxml.jackson.annotation.*;
 
 import javax.persistence.*;
 import java.util.ArrayList;
@@ -16,15 +15,15 @@ public class Game {
     @GeneratedValue(strategy = GenerationType.IDENTITY)
     private Long id;
     @JsonBackReference("player-lastGameCreated")
-    @ManyToOne(fetch = FetchType.LAZY)
+    @ManyToOne
     @JoinColumn(name="creator_id")
     private Player creator;
 
     @Column(name="name")
     private String name;
-    @ManyToOne(fetch = FetchType.LAZY)
+    @ManyToOne
     @JoinColumn(name="address_id")
-    @JsonBackReference
+    @JsonManagedReference
     private Address address;
     @Column(name="date_and_time")
     private ZonedDateTime dateAndTime;
@@ -40,7 +39,7 @@ public class Game {
     private double actualSeriousnessLevel;
     @Column(name="completed_status")
     private boolean completedStatus;
-    @JsonBackReference("player-games")
+    @JsonManagedReference
     @ManyToMany
     @JoinTable(
             name = "players_games",

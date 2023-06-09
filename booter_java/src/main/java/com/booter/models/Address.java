@@ -1,5 +1,6 @@
 package com.booter.models;
 
+import com.fasterxml.jackson.annotation.JsonBackReference;
 import com.fasterxml.jackson.annotation.JsonManagedReference;
 
 import javax.persistence.*;
@@ -24,8 +25,8 @@ public class Address {
     private String country;
     @Column(name = "post_code")
     private String postCode;
-    @JsonManagedReference
-    @ManyToMany(mappedBy = "players", fetch = FetchType.LAZY)
+    @JsonBackReference
+    @OneToMany(mappedBy = "address")
     private List<Game> games;
 
     public Address(String propertyNumberOrName, String street, String city, String country, String postCode) {

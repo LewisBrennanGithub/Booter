@@ -1,7 +1,6 @@
 package com.booter.models;
 
-import com.fasterxml.jackson.annotation.JsonBackReference;
-import com.fasterxml.jackson.annotation.JsonManagedReference;
+import com.fasterxml.jackson.annotation.*;
 
 import javax.persistence.*;
 import java.time.ZonedDateTime;
@@ -27,7 +26,7 @@ public class Player {
     private int age;
     @ManyToOne
     @JoinColumn(name="address_id")
-    @JsonBackReference
+    @JsonManagedReference
     private Address address;
     @Column(name="displayed_ability_level")
     private double displayedAbilityLevel;
@@ -49,13 +48,13 @@ public class Player {
     private double communityAssessedSeriousnessLevel;
     @Column(name="community_assessed_serious_count")
     private int communityAssessedSeriousnessLevelCount;
-    @JsonManagedReference("player-games")
-    @ManyToMany(mappedBy = "players", fetch = FetchType.LAZY)
+    @ManyToMany(mappedBy = "players")
+    @JsonBackReference
     private List<Game> games = new ArrayList<>();
 
-    @JsonManagedReference("player_last_game_created")
-    @OneToOne(mappedBy = "creator", fetch = FetchType.LAZY)
-    private Game lastGameCreated;
+//    @JsonManagedReference("player_last_game_created")
+//    @OneToOne(mappedBy = "creator")
+//    private Game lastGameCreated;
 
     public Player(String firstName, String lastName, String userName, String phoneNumber, Address address, int age, double selfAssessedAbilityLevel, double selfAssessedSeriousnessLevel) {
         this.firstName = firstName;
