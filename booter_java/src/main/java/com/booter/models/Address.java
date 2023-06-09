@@ -25,9 +25,13 @@ public class Address {
     private String country;
     @Column(name = "post_code")
     private String postCode;
-//    @JsonManagedReference("address-games")
+    @JsonBackReference("address_games")
     @OneToMany(mappedBy = "address")
     private List<Game> games;
+
+    @JsonBackReference("player_address")
+    @OneToMany(mappedBy = "address")
+    private List<Player> players = new ArrayList<>();
 
     public Address(String propertyNumberOrName, String street, String city, String country, String postCode) {
         this.propertyNumberOrName = propertyNumberOrName;

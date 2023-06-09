@@ -14,7 +14,7 @@ public class Game {
     @Id
     @GeneratedValue(strategy = GenerationType.IDENTITY)
     private Long id;
-    @JsonBackReference("player-lastGameCreated")
+//    @JsonBackReference("player_last_GameCreated")
     @ManyToOne
     @JoinColumn(name="creator_id")
     private Player creator;
@@ -22,9 +22,8 @@ public class Game {
     private String name;
     @ManyToOne
     @JoinColumn(name="address_id")
-//    @JsonBackReference("address-games")
+    @JsonManagedReference("address_games")
     private Address address;
-
     @Column(name="date_and_time")
     private ZonedDateTime dateAndTime;
     @Column(name="duration")
@@ -39,7 +38,7 @@ public class Game {
     private double actualSeriousnessLevel;
     @Column(name="completed_status")
     private boolean completedStatus;
-    @JsonManagedReference
+    @JsonManagedReference("game_players")
     @ManyToMany
     @JoinTable(
             name = "players_games",

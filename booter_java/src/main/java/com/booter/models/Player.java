@@ -10,7 +10,6 @@ import java.util.List;
 @Entity
 @Table (name = "players")
 public class Player {
-
     @Id
     @GeneratedValue(strategy = GenerationType.IDENTITY)
     private Long id;
@@ -26,7 +25,7 @@ public class Player {
     private int age;
     @ManyToOne
     @JoinColumn(name="address_id")
-    @JsonManagedReference
+    @JsonManagedReference("player_address")
     private Address address;
     @Column(name="displayed_ability_level")
     private double displayedAbilityLevel;
@@ -49,7 +48,7 @@ public class Player {
     @Column(name="community_assessed_serious_count")
     private int communityAssessedSeriousnessLevelCount;
     @ManyToMany(mappedBy = "players")
-    @JsonBackReference
+    @JsonBackReference("game_players")
     private List<Game> games = new ArrayList<>();
 
 //    @JsonManagedReference("player_last_game_created")
