@@ -25,7 +25,7 @@ public class Address {
     private String country;
     @Column(name = "post_code")
     private String postCode;
-    @JsonBackReference
+//    @JsonManagedReference("address-games")
     @OneToMany(mappedBy = "address")
     private List<Game> games;
 

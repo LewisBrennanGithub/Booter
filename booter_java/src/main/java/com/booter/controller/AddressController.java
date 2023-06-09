@@ -5,9 +5,7 @@ import com.booter.repository.AddressRepository;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.http.HttpStatus;
 import org.springframework.http.ResponseEntity;
-import org.springframework.web.bind.annotation.GetMapping;
-import org.springframework.web.bind.annotation.PathVariable;
-import org.springframework.web.bind.annotation.RestController;
+import org.springframework.web.bind.annotation.*;
 
 import java.util.List;
 @RestController
@@ -25,4 +23,11 @@ public class AddressController {
     public ResponseEntity getAddress(@PathVariable Long id){
         return new ResponseEntity<>(addressRepository.findById(id), HttpStatus.OK);
     }
+
+    @PostMapping(value = "/addresses", consumes = "application/json")
+    public ResponseEntity<Address> postAddress(@RequestBody Address address) {
+        addressRepository.save(address);
+        return new ResponseEntity<>(address, HttpStatus.CREATED);
+    }
+
 }

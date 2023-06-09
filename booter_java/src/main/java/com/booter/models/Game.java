@@ -18,13 +18,13 @@ public class Game {
     @ManyToOne
     @JoinColumn(name="creator_id")
     private Player creator;
-
     @Column(name="name")
     private String name;
     @ManyToOne
     @JoinColumn(name="address_id")
-    @JsonManagedReference
+//    @JsonBackReference("address-games")
     private Address address;
+
     @Column(name="date_and_time")
     private ZonedDateTime dateAndTime;
     @Column(name="duration")

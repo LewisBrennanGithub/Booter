@@ -1,4 +1,4 @@
-package com.booter.peopleTests;
+package com.booter;
 import com.booter.models.Game;
 import com.booter.models.Player;
 import com.booter.models.Address;

@@ -7,9 +7,7 @@ import com.booter.repository.PlayerRepository;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.http.HttpStatus;
 import org.springframework.http.ResponseEntity;
-import org.springframework.web.bind.annotation.GetMapping;
-import org.springframework.web.bind.annotation.PathVariable;
-import org.springframework.web.bind.annotation.RestController;
+import org.springframework.web.bind.annotation.*;
 
 import java.util.List;
 import java.util.Optional;
@@ -33,16 +31,18 @@ public class PlayerController {
     @GetMapping("/players/{playerId}/games")
     public ResponseEntity<List<Game>> getPlayerGames(@PathVariable Long playerId) {
         Optional<Player> playerOptional = playerRepository.findById(playerId);
-
         if (!playerOptional.isPresent()) {
-            // handle player not found
             return new ResponseEntity<>(HttpStatus.NOT_FOUND);
         }
-
         Player player = playerOptional.get();
         List<Game> games = player.getGames();
-
         return new ResponseEntity<>(games, HttpStatus.OK);
+    }
+
+    @PostMapping(value = "/players")
+    public ResponseEntity<Player> postPlayer(@RequestBody Player player){
+        playerRepository.save(player);
+        return new ResponseEntity<>(player, HttpStatus.CREATED);
     }
 
 }
