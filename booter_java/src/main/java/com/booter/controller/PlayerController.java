@@ -3,6 +3,7 @@ package com.booter.controller;
 import com.booter.models.Address;
 import com.booter.models.Game;
 import com.booter.models.Player;
+import com.booter.repository.GameRepository;
 import com.booter.repository.PlayerRepository;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.http.HttpStatus;
@@ -17,6 +18,9 @@ public class PlayerController {
 
     @Autowired
     PlayerRepository playerRepository;
+
+    @Autowired
+    private GameRepository gameRepository;
 
     @GetMapping(value = "/players")
     public ResponseEntity<List<Player>> getAllPlayers(){
@@ -43,6 +47,57 @@ public class PlayerController {
     public ResponseEntity<Player> postPlayer(@RequestBody Player player){
         playerRepository.save(player);
         return new ResponseEntity<>(player, HttpStatus.CREATED);
+    }
+
+    @PutMapping("/players/{playerId}/joinGame/{gameId}")
+    public ResponseEntity<?> joinGame(@PathVariable Long playerId, @PathVariable Long gameId) {
+        Optional<Player> playerOptional = playerRepository.findById(playerId);
+        Optional<Game> gameOptional = gameRepository.findById(gameId);
+        Player player = playerOptional.get();
+        Game game = gameOptional.get();
+        player.joinGame(game);
+        playerRepository.save(player);
+        gameRepository.save(game);
+
+        return new ResponseEntity<>("Player joined the game", HttpStatus.OK);
+    }
+//CONSIDER YOUR CODE HERE, MAY WANT DIFFERENT OPTIONS BASED ON TRUE OR FALSE
+    @PutMapping("/players/{playerId}/setCompletedStatus/{gameId}")
+    public ResponseEntity<?> setCompletedStatus(@PathVariable Long playerId, @PathVariable Long gameId) {
+        Optional<Player> playerOptional = playerRepository.findById(playerId);
+        Optional<Game> gameOptional = gameRepository.findById(gameId);
+        Player player = playerOptional.get();
+        Game game = gameOptional.get();
+        player.setCompletedStatus(game, true);
+        gameRepository.save(game);
+        return new ResponseEntity<>("Player has changed game completed status", HttpStatus.OK);
+    }
+    @PutMapping("/players/{ratingAbilityPlayerId}/rateOtherPlayerAbility/{ratedAbilityPlayerId}")
+    public ResponseEntity<?> rateOtherPlayerAbility(
+            @PathVariable Long ratingAbilityPlayerId,
+            @PathVariable Long ratedAbilityPlayerId,
+            @RequestParam double abilityRating) {
+        Optional<Player> ratingAbilityPlayerOptional = playerRepository.findById(ratingAbilityPlayerId);
+        Optional<Player> ratedAbilityPlayerOptional = playerRepository.findById(ratedAbilityPlayerId);
+        Player ratingAbilityPlayer = ratingAbilityPlayerOptional.get();
+        Player ratedAbilityPlayer = ratedAbilityPlayerOptional.get();
+        ratingAbilityPlayer.addCommunityAssessedAbilityRating(ratedAbilityPlayer, abilityRating);
+        playerRepository.save(ratedAbilityPlayer);
+        return new ResponseEntity<>("Player has rated other player's ability", HttpStatus.OK);
+    }
+
+    @PutMapping("/players/{ratingSeriousnessPlayerId}/rateOtherPlayerSeriousness/{ratedSeriousnessPlayerId}")
+    public ResponseEntity<?> rateOtherPlayerSeriousness(
+            @PathVariable Long ratingSeriousnessPlayerId,
+            @PathVariable Long ratedSeriousnessPlayerId,
+            @RequestParam double seriousnessRating) {
+        Optional<Player> ratingSeriousnessPlayerOptional = playerRepository.findById(ratingSeriousnessPlayerId);
+        Optional<Player> ratedSeriousnessPlayerOptional = playerRepository.findById(ratedSeriousnessPlayerId);
+        Player ratingSeriousnessPlayer = ratingSeriousnessPlayerOptional.get();
+        Player ratedSeriousnessPlayer = ratedSeriousnessPlayerOptional.get();
+        ratingSeriousnessPlayer.addCommunityAssessedSeriousnessRating(ratedSeriousnessPlayer, seriousnessRating);
+        playerRepository.save(ratedSeriousnessPlayer);
+        return new ResponseEntity<>("Player has rated other player's seriousness", HttpStatus.OK);
     }
 
 }

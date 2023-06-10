@@ -9,6 +9,9 @@ import java.util.List;
 
 @Entity
 @Table (name = "players")
+@JsonIdentityInfo(
+        generator = ObjectIdGenerators.PropertyGenerator.class,
+        property = "id")
 public class Player {
     @Id
     @GeneratedValue(strategy = GenerationType.IDENTITY)
@@ -25,7 +28,6 @@ public class Player {
     private int age;
     @ManyToOne
     @JoinColumn(name="address_id")
-    @JsonManagedReference("player_address")
     private Address address;
     @Column(name="displayed_ability_level")
     private double displayedAbilityLevel;
@@ -48,9 +50,9 @@ public class Player {
     @Column(name="community_assessed_serious_count")
     private int communityAssessedSeriousnessLevelCount;
     @ManyToMany(mappedBy = "players")
-    @JsonBackReference("game_players")
     private List<Game> games = new ArrayList<>();
 
+//    KEEP FOR UNIT TESTING
 //    @JsonManagedReference("player_last_game_created")
 //    @OneToOne(mappedBy = "creator")
 //    private Game lastGameCreated;
@@ -236,8 +238,6 @@ public class Player {
 //    public Game getLastGameCreated() {
 //        return games.get(games.size() - 1);
 //    }
-//    ^^ CONSIDER THIS ^^
-//    public Game getLastGameCreated() {if (!games.isEmpty()) {return games.get(games.size() - 1);} else {return null;}}
 
     public void joinGame(Game game) {
         for (Player existingPlayer : game.getPlayers()) {
@@ -273,15 +273,24 @@ public class Player {
         }
 
     public void updateSelfAssessedAbilityLevel(double newAbilityLevel) {
+        if (newAbilityLevel < 0.0 || newAbilityLevel > 5.0 || newAbilityLevel % 1.0 != 0) {
+            System.out.println("Invalid rating. Please enter a rating between 0.0 and 5.0 in increments of 1.0.");
+            return;
+        }
         selfAssessedAbilityLevel = newAbilityLevel;
         updateCompositeAbilityLevel();
     }
 
     public void addCommunityAssessedAbilityRating(Player player, double newRating) {
+        if (newRating < 0.0 || newRating > 5.0 || newRating % 1.0 != 0) {
+            System.out.println("Invalid rating. Please enter a rating between 0.0 and 5.0 in increments of 1.0.");
+            return;
+        }
         player.communityAssessedAbilityLevelCount++;
         if(player.communityAssessedAbilityLevelCount != 0) {
             player.communityAssessedAbilityLevel = (player.communityAssessedAbilityLevel * ((double)player.communityAssessedAbilityLevelCount - 1) + newRating) / (player.communityAssessedAbilityLevelCount);
             player.updateCompositeAbilityLevel();
+            player.displayedAbilityLevelVariableMethod();
         }
     }
 
@@ -299,15 +308,24 @@ public class Player {
         }
 
     public void updateSelfAssessedSeriousnessLevel(double newSeriousnessLevel) {
+        if (newSeriousnessLevel < 0.0 || newSeriousnessLevel > 5.0 || newSeriousnessLevel % 1.0 != 0) {
+            System.out.println("Invalid rating. Please enter a rating between 0.0 and 5.0 in increments of 1.0.");
+            return;
+        }
         selfAssessedSeriousnessLevel = newSeriousnessLevel;
         updateCompositeSeriousnessLevel();
     }
 
     public void addCommunityAssessedSeriousnessRating(Player player, double newRating) {
+        if (newRating < 0.0 || newRating > 5.0 || newRating % 1.0 != 0) {
+            System.out.println("Invalid rating. Please enter a rating between 0.0 and 5.0 in increments of 1.0.");
+            return;
+        }
         player.communityAssessedSeriousnessLevelCount++;
         if(player.communityAssessedSeriousnessLevelCount != 0) {
             player.communityAssessedSeriousnessLevel = (player.communityAssessedSeriousnessLevel * ((double)player.communityAssessedSeriousnessLevelCount - 1) + newRating) / (player.communityAssessedSeriousnessLevelCount);
             player.updateCompositeSeriousnessLevel();
+            player.displayedSeriousnessLevelVariableMethod();
         }
     }
 

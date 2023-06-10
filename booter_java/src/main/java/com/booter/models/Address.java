@@ -1,6 +1,7 @@
 package com.booter.models;
 
 import com.fasterxml.jackson.annotation.JsonBackReference;
+import com.fasterxml.jackson.annotation.JsonIgnore;
 import com.fasterxml.jackson.annotation.JsonManagedReference;
 
 import javax.persistence.*;
@@ -25,11 +26,11 @@ public class Address {
     private String country;
     @Column(name = "post_code")
     private String postCode;
-    @JsonBackReference("address_games")
+    @JsonIgnore
     @OneToMany(mappedBy = "address")
     private List<Game> games;
 
-    @JsonBackReference("player_address")
+    @JsonIgnore
     @OneToMany(mappedBy = "address")
     private List<Player> players = new ArrayList<>();
 
