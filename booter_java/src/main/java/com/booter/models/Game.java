@@ -9,21 +9,22 @@ import java.time.ZonedDateTime;
 
 @Entity
 @Table (name = "games")
+@JsonIdentityInfo(
+        generator = ObjectIdGenerators.PropertyGenerator.class,
+        property = "id")
 public class Game {
 
     @Id
     @GeneratedValue(strategy = GenerationType.IDENTITY)
     private Long id;
-    @JsonBackReference("player-lastGameCreated")
+
     @ManyToOne
     @JoinColumn(name="creator_id")
     private Player creator;
-
     @Column(name="name")
     private String name;
     @ManyToOne
     @JoinColumn(name="address_id")
-    @JsonManagedReference
     private Address address;
     @Column(name="date_and_time")
     private ZonedDateTime dateAndTime;
@@ -39,7 +40,8 @@ public class Game {
     private double actualSeriousnessLevel;
     @Column(name="completed_status")
     private boolean completedStatus;
-    @JsonManagedReference
+
+    @JsonIgnore
     @ManyToMany
     @JoinTable(
             name = "players_games",
@@ -47,6 +49,7 @@ public class Game {
             inverseJoinColumns = {@JoinColumn(name="player_id", nullable = false, updatable = false)}
     )
     private List<Player> players;
+
     @Column(name="max_players")
     private int maxPlayers;
 

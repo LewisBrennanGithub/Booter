@@ -48,7 +48,7 @@ public class DataLoader implements ApplicationRunner {
         Address highStreet14 = new Address("14", "High Street", "Birmingham", "United Kingdom", "B4 7SL");
         addressRepository.save(highStreet14);
 
-        Address castleStreet16 = new Address("16", "Castle Street", "Edinburgh", "United Kingdom", "EH2 3AT");
+        Address castleStreet16 = new Address("Burton House", "Castle Street", "Edinburgh", "United Kingdom", "EH2 3AT");
         addressRepository.save(castleStreet16);
 
         Address marketStreet18 = new Address("18", "Market Street", "Manchester", "United Kingdom", "M1 1PD");
@@ -57,7 +57,7 @@ public class DataLoader implements ApplicationRunner {
         Address queenStreet20 = new Address("20", "Queen Street", "Cardiff", "United Kingdom", "CF10 2BU");
         addressRepository.save(queenStreet20);
 
-        Address parkLane22 = new Address("22", "Park Lane", "Leeds", "United Kingdom", "LS3 1AA");
+        Address parkLane22 = new Address("Herdville Manor", "Park Lane", "Leeds", "United Kingdom", "LS3 1AA");
         addressRepository.save(parkLane22);
 
         Address victoriaStreet24 = new Address("24", "Victoria Street", "Liverpool", "United Kingdom", "L1 6DE");

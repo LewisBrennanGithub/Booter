@@ -1,4 +1,4 @@
-package com.booter.placesTests;
+package com.booter;
 
 import com.booter.models.Address;
 import org.junit.jupiter.api.BeforeEach;

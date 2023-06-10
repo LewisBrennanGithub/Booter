@@ -1,15 +1,15 @@
 package com.booter.controller;
 
 import com.booter.models.Game;
+import com.booter.models.Player;
 import com.booter.repository.GameRepository;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.http.HttpStatus;
 import org.springframework.http.ResponseEntity;
-import org.springframework.web.bind.annotation.GetMapping;
-import org.springframework.web.bind.annotation.PathVariable;
-import org.springframework.web.bind.annotation.RestController;
+import org.springframework.web.bind.annotation.*;
 
 import java.util.List;
+import java.util.Optional;
 
 @RestController
 public class GameController {
@@ -25,5 +25,19 @@ public class GameController {
     @GetMapping(value = "/games/{id}")
     public ResponseEntity getGame(@PathVariable Long id){
         return new ResponseEntity<>(gameRepository.findById(id), HttpStatus.OK);
+    }
+
+    @GetMapping("/games/{gameId}/players")
+    public ResponseEntity<List<Player>> getGamePlayers(@PathVariable Long gameId) {
+        Optional<Game> gameOptional = gameRepository.findById(gameId);
+        Game game = gameOptional.get();
+        List<Player> players = game.getPlayers();
+        return new ResponseEntity<>(players, HttpStatus.OK);
+    }
+
+    @PostMapping(value= "/games")
+    public ResponseEntity<Game> postGame(@RequestBody Game game){
+        gameRepository.save(game);
+        return new ResponseEntity<>(game, HttpStatus.CREATED);
     }
 }
