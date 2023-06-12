@@ -17,7 +17,6 @@ public class Game {
     @Id
     @GeneratedValue(strategy = GenerationType.IDENTITY)
     private Long id;
-
     @ManyToOne
     @JoinColumn(name="creator_id")
     private Player creator;
@@ -174,4 +173,9 @@ public class Game {
     public void setMaxPlayers(int maxPlayers) {
         this.maxPlayers = maxPlayers;
     }
+
+    public void removePlayer(Player player) {
+        players.remove(player);
+    }
+
 }

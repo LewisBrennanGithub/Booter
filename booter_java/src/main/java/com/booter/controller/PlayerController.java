@@ -9,6 +9,7 @@ import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.http.HttpStatus;
 import org.springframework.http.ResponseEntity;
 import org.springframework.web.bind.annotation.*;
+import org.springframework.web.server.ResponseStatusException;
 
 import java.util.List;
 import java.util.Optional;
@@ -58,20 +59,21 @@ public class PlayerController {
         player.joinGame(game);
         playerRepository.save(player);
         gameRepository.save(game);
-
         return new ResponseEntity<>("Player joined the game", HttpStatus.OK);
     }
-//CONSIDER YOUR CODE HERE, MAY WANT DIFFERENT OPTIONS BASED ON TRUE OR FALSE
-    @PutMapping("/players/{playerId}/setCompletedStatus/{gameId}")
+
+    @PatchMapping("/players/{playerId}/setCompletedStatus/{gameId}")
     public ResponseEntity<?> setCompletedStatus(@PathVariable Long playerId, @PathVariable Long gameId) {
         Optional<Player> playerOptional = playerRepository.findById(playerId);
         Optional<Game> gameOptional = gameRepository.findById(gameId);
         Player player = playerOptional.get();
         Game game = gameOptional.get();
-        player.setCompletedStatus(game, true);
+        boolean currentStatus = game.getCompletedStatus();
+        player.setCompletedStatus(game, !currentStatus);
         gameRepository.save(game);
         return new ResponseEntity<>("Player has changed game completed status", HttpStatus.OK);
     }
+
     @PutMapping("/players/{ratingAbilityPlayerId}/rateOtherPlayerAbility/{ratedAbilityPlayerId}")
     public ResponseEntity<?> rateOtherPlayerAbility(
             @PathVariable Long ratingAbilityPlayerId,
@@ -98,6 +100,34 @@ public class PlayerController {
         ratingSeriousnessPlayer.addCommunityAssessedSeriousnessRating(ratedSeriousnessPlayer, seriousnessRating);
         playerRepository.save(ratedSeriousnessPlayer);
         return new ResponseEntity<>("Player has rated other player's seriousness", HttpStatus.OK);
+    }
+
+    @DeleteMapping("/players/{playerId}")
+    public ResponseEntity<?> deletePlayer(@PathVariable Long playerId) {
+        Optional<Player> playerOptional = playerRepository.findById(playerId);
+        Player player = playerOptional.get();
+        List<Game> games = player.getGames();
+        for (Game game : games) {
+            game.removePlayer(player);
+            gameRepository.save(game);
+        }
+        List<Game> createdGames = gameRepository.findByCreator(player);
+        for (Game createdGame : createdGames) {
+            List<Player> playersInGame = createdGame.getPlayers();
+            if (!playersInGame.isEmpty()) {
+                for (Player newCreator : playersInGame) {
+                    if (!newCreator.equals(player)) {
+                        createdGame.setCreator(newCreator);
+                        break;
+                    }
+                }
+            } else {
+                createdGame.setCreator(null);
+            }
+            gameRepository.save(createdGame);
+        }
+        playerRepository.deleteById(playerId);
+        return new ResponseEntity<>("Player deleted", HttpStatus.OK);
     }
 
 }
