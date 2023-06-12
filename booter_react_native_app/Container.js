@@ -128,7 +128,7 @@ const Container = () => {
 
 
   const addressObject = {
-    id: 471,
+    id: 1,
     propertyNumberOrName: 25,
     street: "cow road",
     city: "ivopy",
@@ -139,9 +139,9 @@ const Container = () => {
   const createGame = async (creatorId, name, address, dateAndTime, duration, recommendedAbilityLevel, recommendedSeriousnessLevel, actualAbilityLevel, actualSeriousnessLevel, completedStatus, maxPlayers) => {
     try {
       const gameData = {
-        creator: creatorId,
+        creator: {id: creatorId},
         name,
-        address: addressObject,
+        address: {id: addressObject},
         dateAndTime,
         duration,
         recommendedAbilityLevel,
@@ -167,7 +167,6 @@ const Container = () => {
   };
   
   
-
   const deleteGame = async (id) => {
     try {
       await fetch(`http://localhost:8080/games/${id}`, {
@@ -343,9 +342,9 @@ const Container = () => {
 
 
 const renderPlayer = ({ item }) => {
-  if (!playersGames[item.id]) {
-    fetchPlayerGames(item.id);
-  }
+  // if (!playersGames[item.id]) {
+  //   fetchPlayerGames(item.id);
+  // }
 
   const selectedPlayerStyle = selectedPlayer && selectedPlayer.id === item.id ? { backgroundColor: 'lightgrey' } : {};
 
@@ -355,9 +354,9 @@ const renderPlayer = ({ item }) => {
         <Text>userName: {item.userName}</Text>
         <Text>displayedAbilityLevel: {item.displayedAbilityLevel}</Text>
         <Text>displayedSeriousnessLevel: {item.displayedSeriousnessLevel}</Text>
-        {playersGames[item.id] && playersGames[item.id].map(game => (
+        {/* {playersGames[item.id] && playersGames[item.id].map(game => (
             <Text key={game.id}>Player: {game.name}</Text>
-        ))}
+        ))} */}
       </View>
     </TouchableOpacity>
   );
@@ -378,24 +377,36 @@ const renderLoggedPlayer = ({ item }) => {
 }
 
 const renderGame = ({ item }) => {
-  const { propertyNumberOrName, street, city, country, postCode } = item.address;
-  const addressString = `${propertyNumberOrName || 'N/A'}, ${street || 'N/A'}, ${city || 'N/A'}, ${country || 'N/A'}, ${postCode || 'N/A'}`;
+  console.log("Game Item:", item);
+  // const { propertyNumberOrName, street, city, country, postCode } = item.address;
+  // const addressString = `${propertyNumberOrName || 'N/A'}, ${street || 'N/A'}, ${city || 'N/A'}, ${country || 'N/A'}, ${postCode || 'N/A'}`;
 
   // Fetch players for this game if not already fetched
-  if (!gamePlayers[item.id]) {
-    fetchGamesPlayers(item.id);
-  }
+  // if (!gamePlayers[item.id]) {
+  //   fetchGamesPlayers(item.id);
+  // }
+
+  const handleJoinGame = () => {
+    if (loggedPlayer) {
+      playerJoinGame(loggedPlayer.id, item.id);
+    } else {
+      console.log("No player is logged in.");
+    }
+  };
 
   return (
     <View>
       <Text>Name: {item.name}</Text>
       <Text>Duration: {item.duration}</Text>
-      <Text>Address: {addressString}</Text>
+      {/* <Text>Address: {addressString}</Text> */}
 
       {/* Display players if they are fetched */}
-      {gamePlayers[item.id] && gamePlayers[item.id].map(player => (
+      {/* {gamePlayers[item.id] && gamePlayers[item.id].map(player => (
         <Text key={player.id}>Player: {player.userName}</Text>
-      ))}
+      ))} */}
+            <TouchableOpacity onPress={handleJoinGame} style={{ backgroundColor: 'blue', padding: 10, marginTop: 10 }}>
+        <Text style={{ color: 'white', textAlign: 'center' }}>Join Game</Text>
+      </TouchableOpacity>
     </View>
   );
 };
@@ -403,9 +414,9 @@ const renderGame = ({ item }) => {
 const handleCreateGame = () => {
   // You can change these values or get them from user input
   createGame(
-    472, // creatorId
+    loggedPlayer.id, // creatorId CONSIDER CHANGING BACK TO loggedPlayer.id without brackets
     'New Game', // name
-    471,
+    1,
     '2023-06-12T15:30:00Z', // dateAndTime
     120, // duration
     3, // recommendedAbilityLevel
@@ -422,17 +433,17 @@ const handleCreateGame = () => {
         <FlatList
             data={players}
             renderItem={renderLoggedPlayer}
-            keyExtractor={(item) => item.id.toString()}
+            keyExtractor={(item) => item.id ? item.id.toString() : ''}
         />
         <FlatList
             data={players}
             renderItem={renderPlayer}
-            keyExtractor={(item) => item.id.toString()}
+            keyExtractor={(item) => item.id ? item.id.toString() : ''}
         />   
         <FlatList
           data={games}
           renderItem={renderGame}
-          keyExtractor={(item) => item.id.toString()}
+          keyExtractor={(item) => item.id ? item.id.toString() : ''}
         />
         <Button
           title="Create New Game"

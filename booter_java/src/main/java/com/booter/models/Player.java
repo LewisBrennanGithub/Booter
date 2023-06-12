@@ -52,6 +52,10 @@ public class Player {
     @ManyToMany(mappedBy = "players")
     private List<Game> games = new ArrayList<>();
 
+    @JsonBackReference
+    @OneToMany(mappedBy = "creator")
+    private List<Game> createdGames;
+
 //    KEEP FOR UNIT TESTING
 //    @JsonManagedReference("player_last_game_created")
 //    @OneToOne(mappedBy = "creator")
@@ -230,9 +234,9 @@ public class Player {
     public Game createGame(String name, Address address, ZonedDateTime dateAndTime, int duration, double recommendedAbilityLevel, double recommendedSeriousnessLevel, double actualAbilityLevel, double actualSeriousnessLevel, int maxPlayers ) {
         Game newGame = new Game(this, name, address, dateAndTime, duration, recommendedAbilityLevel, recommendedSeriousnessLevel, actualAbilityLevel, actualSeriousnessLevel, false, maxPlayers);
         this.games.add(newGame);
-//        address.getGames().add(newGame);
         return newGame;
     }
+    // ^^ FOR UNITTESTS >> address.getGames().add(newGame);
 
 //    WILL ALSO NEED TO BE REMOVED AT SOME STAGE
 //    public Game getLastGameCreated() {
