@@ -123,9 +123,7 @@ public class DataLoader implements ApplicationRunner {
         gameRepository.save(game3);
 
         ZonedDateTime game4DateTime = ZonedDateTime.now().plusDays(14);
-//        List<Player> game4Players = new ArrayList<>(Arrays.asList(elizabeth, frank, george));
         Game game4 = new Game(hannah, "Amateur Hour", bakerStreet12, game4DateTime, 60, 4.5, 4.0, 4.5, 4.0, false, 6);
-//        game4.setPlayers(game4Players);
         gameRepository.save(game4);
 
     }

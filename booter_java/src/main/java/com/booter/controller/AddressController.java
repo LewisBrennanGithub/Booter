@@ -1,14 +1,17 @@
 package com.booter.controller;
 
 import com.booter.models.Address;
+import com.booter.models.Game;
 import com.booter.models.Player;
 import com.booter.repository.AddressRepository;
+import com.booter.repository.GameRepository;
 import com.booter.repository.PlayerRepository;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.http.HttpStatus;
 import org.springframework.http.ResponseEntity;
 import org.springframework.web.bind.annotation.*;
 
+import java.util.ArrayList;
 import java.util.List;
 import java.util.Optional;
 
@@ -20,6 +23,9 @@ public class AddressController {
 
     @Autowired
     PlayerRepository playerRepository;
+
+    @Autowired
+    GameRepository gameRepository;
 
     @GetMapping(value = "/addresses")
     public ResponseEntity<List<Address>> getAllAddresses(){
@@ -54,12 +60,22 @@ public class AddressController {
     @DeleteMapping(value = "/addresses/{id}")
     public ResponseEntity<Void> deleteAddress(@PathVariable Long id) {
         Optional<Address> addressOptional = addressRepository.findById(id);
+        if (addressOptional.isPresent()) {
+            Address address = addressOptional.get();
             List<Player> players = playerRepository.findByAddressId(id);
             for (Player player : players) {
-                player.setAddress(null);
+                player.setAddress(null); // Set address to null or remove the reference altogether
                 playerRepository.save(player);
+            }
+            List<Game> games = new ArrayList<>(address.getGames()); // Create a copy of the games list
+            for (Game game : games) {
+                game.removeAddressAssociation(); // Remove the association with the address
+                gameRepository.save(game);
             }
             addressRepository.deleteById(id);
             return new ResponseEntity<>(HttpStatus.NO_CONTENT);
+        } else {
+            return new ResponseEntity<>(HttpStatus.NOT_FOUND);
+        }
     }
 }

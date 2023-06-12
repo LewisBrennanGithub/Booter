@@ -1,6 +1,8 @@
 package com.booter.models;
 
 import com.fasterxml.jackson.annotation.*;
+import org.hibernate.annotations.OnDelete;
+import org.hibernate.annotations.OnDeleteAction;
 
 import javax.persistence.*;
 import java.util.ArrayList;
@@ -23,7 +25,8 @@ public class Game {
     @Column(name="name")
     private String name;
     @ManyToOne
-    @JoinColumn(name="address_id")
+    @JoinColumn(name="address_id", nullable = true)
+    @OnDelete(action = OnDeleteAction.NO_ACTION)
     private Address address;
     @Column(name="date_and_time")
     private ZonedDateTime dateAndTime;
@@ -176,6 +179,13 @@ public class Game {
 
     public void removePlayer(Player player) {
         players.remove(player);
+    }
+
+    public void removeAddressAssociation() {
+        if (this.address != null) {
+            this.address.getGames().remove(this);
+            this.address = null;
+        }
     }
 
 }
