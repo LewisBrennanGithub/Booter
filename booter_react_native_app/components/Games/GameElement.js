@@ -27,7 +27,7 @@ const GameElement = ({ players, game, handleDeleteGame, handleUpdateGameProp }) 
     return player ? player.userName : 'N/A';
   };
 
-  console.log('game:', game);
+  // console.log('game:', game);
 
   return (
     <View>
@@ -42,9 +42,8 @@ const GameElement = ({ players, game, handleDeleteGame, handleUpdateGameProp }) 
           <Text>Game Element</Text>
           <Text>Name: {game.name}</Text>
           <Text>Creator: {players && game && game.creator ? getPlayerUsername(game.creator.id) : 'N/A'}</Text>
-          <Text>
-  Address: {game.address ? `${game.address.street}, ${game.address.city}` : 'N/A'}
-</Text>
+          {/* <Text>Creator: {game.creator.id}</Text> */}
+          <Text>Address: {game.address ? `${game.address.street}, ${game.address.city}` : 'N/A'}</Text>
           <Text>Date and Time: {game.dateAndTime}</Text>
           <Text>Duration: {game.duration}</Text>
           <Text>Recommended Ability Level: {game.recommendedAbilityLevel}</Text>

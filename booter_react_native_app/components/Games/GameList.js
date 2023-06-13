@@ -6,8 +6,7 @@ const GameList = ({ players, games, handleDeleteGame }) => {
   return (
     <View>
       <Text>GameList</Text>
-      {games &&
-        games.map((game) => (
+      {games && games.map((game) => (
           <GameElement
             key={game.id}
             game={game}

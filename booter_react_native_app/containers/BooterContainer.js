@@ -8,12 +8,15 @@ import AddressForm from '../components/Addresses/AddressForm';
 import GameList from '../components/Games/GameList';
 import GameUpdateForm from '../components/Games/GameUpdateForm';
 import GameForm from '../components/Games/GameForm';
+import PlayerList from '../components/Players/PlayerList';
 
 const BooterContainer = () => {
   const [addresses, setAddresses] = useState(null);
   const [addressById, setAddressById] = useState(null);
   const [games, setGames] = useState(null);
+  const [gamesById, setGamesById] = useState(null);
   const [players, setPlayers] = useState(null);
+  const [playersById, setByPlayers] =useState(null);
 
   useEffect(() => {
     fetchAllData();
@@ -29,8 +32,13 @@ const fetchAllData = async () => {
     setAddresses(addressesData);
     // setGames(gamesData);
     setPlayers(playersData);
+    // 1
     const fetchedIndividualGames = await Promise.all(gamesData.map(game => GameServices.getGamesById(game.id)))
     setGames(fetchedIndividualGames);
+    // 2
+    // const fetchedIndividualGames = await Promise.all(gamesData.map(game => fetchGamesById(game.id)))
+    // setGames(fetchedIndividualGames);
+
   } catch (error) {
     console.error('Error fetching data:', error);
   }
@@ -52,11 +60,14 @@ const fetchAllPlayers = () => {
 
   const fetchGamesById = (id) => {
     GameServices.getGamesById(id).then(data => {
-      setAddressById(data);
+      setGamesById(data);
     });
   };
 
   // NEED TO IMPLEMENT FIND GAME-PLAYERS
+  // const fetchGamePlayers = (id) => {
+  //   GameServices.getGamePlayers(id).then(data => {set})
+  // }
 
   const handleDeleteGame = (id) => {
     GameServices.deleteGame(id).then(data => {
@@ -101,6 +112,7 @@ const fetchAllPlayers = () => {
   return (
     <View>
         <Text>BooterContainer</Text>
+        <PlayerList players={players}/>
         <GameForm addresses={addresses} onSubmit={handleAddGame} onCancel={() => {}} /> 
         <GameList players={players} games={games} handleDeleteGame={handleDeleteGame} />
         <AddressForm onSubmit={handleAddAddress} onCancel={() => {}} />
