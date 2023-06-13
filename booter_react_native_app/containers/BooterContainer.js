@@ -17,6 +17,7 @@ const BooterContainer = () => {
   const [gamesById, setGamesById] = useState(null);
   const [players, setPlayers] = useState(null);
   const [playersById, setByPlayers] =useState(null);
+  const [loggedPlayer, setLoggedPlayer] = useState(null);
 
   useEffect(() => {
     fetchAllData();
@@ -112,15 +113,26 @@ const fetchAllPlayers = () => {
   return (
     <View>
         <Text>BooterContainer</Text>
-        <PlayerList players={players}/>
-        <GameForm addresses={addresses} onSubmit={handleAddGame} onCancel={() => {}} /> 
-        <GameList players={players} games={games} handleDeleteGame={handleDeleteGame} />
-        <AddressForm onSubmit={handleAddAddress} onCancel={() => {}} />
+        <PlayerList 
+        players={players} 
+        loggedPlayer={loggedPlayer} setLoggedPlayer={setLoggedPlayer}
+        />
+        <GameForm 
+        addresses={addresses} 
+        onSubmit={handleAddGame} 
+        onCancel={() => {}} /> 
+        <GameList 
+        players={players} 
+        games={games} 
+        handleDeleteGame={handleDeleteGame} />
+        <AddressForm 
+        onSubmit={handleAddAddress} 
+        onCancel={() => {}} />
         <AddressList 
-            addresses={addresses} 
-            addressById={addressById}
-            fetchAddressById={fetchAddressById}
-            handleDeleteAddress={handleDeleteAddress}
+        addresses={addresses} 
+        addressById={addressById}
+        fetchAddressById={fetchAddressById}
+        handleDeleteAddress={handleDeleteAddress}
         />
     </View>
 );

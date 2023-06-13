@@ -1,10 +1,14 @@
-import { View, Text } from "react-native-web";
+import { View, Text, TouchableOpacity } from "react-native-web";
 
-const PlayerElement = ({player}) => {
+const PlayerElement = ({ player, loggedPlayer, setLoggedPlayer }) => {
+  const isSelected = loggedPlayer && loggedPlayer.id === player.id;
+
   return ( 
-    <View>
-      <Text>Username: {player.userName}</Text>
-    </View>
+    <TouchableOpacity onPress={() => setLoggedPlayer(player)}>
+      <View>
+        <Text style={{ color: isSelected ? 'green' : 'black' }}>Username: {player.userName}</Text>
+      </View>
+    </TouchableOpacity>
    );
 }
  
