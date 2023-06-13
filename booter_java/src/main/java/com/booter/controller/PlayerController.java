@@ -49,7 +49,7 @@ public class PlayerController {
         playerRepository.save(player);
         return new ResponseEntity<>(player, HttpStatus.CREATED);
     }
-
+// CONSIDER PATCH?
     @PutMapping("/players/{playerId}/joinGame/{gameId}")
     public ResponseEntity<?> joinGame(@PathVariable Long playerId, @PathVariable Long gameId) {
         Optional<Player> playerOptional = playerRepository.findById(playerId);

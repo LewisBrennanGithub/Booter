@@ -20,6 +20,7 @@ public class Game {
     @GeneratedValue(strategy = GenerationType.IDENTITY)
     private Long id;
     @ManyToOne
+    @JsonIgnore
     @JoinColumn(name="creator_id")
     private Player creator;
     @Column(name="name")

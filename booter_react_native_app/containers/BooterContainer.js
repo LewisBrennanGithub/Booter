@@ -2,6 +2,7 @@ import React, { useState, useEffect } from 'react';
 import { View, Text } from 'react-native';
 import * as GameServices from "../services/GameServices";
 import * as AddressServices from "../services/AddressServices";
+import * as PlayerServices from "../services/PlayerServices";
 import AddressList from '../components/Addresses/AddressList';
 import AddressForm from '../components/Addresses/AddressForm';
 import GameList from '../components/Games/GameList';
@@ -12,23 +13,35 @@ const BooterContainer = () => {
   const [addresses, setAddresses] = useState(null);
   const [addressById, setAddressById] = useState(null);
   const [games, setGames] = useState(null);
+  const [players, setPlayers] = useState(null);
 
   useEffect(() => {
     fetchAllData();
   }, []);
 
-  const fetchAllData = async () => {
-    try {
-      const [addressesData, gamesData] = await Promise.all([
-        AddressServices.getAddresses(),
-        GameServices.getGames()
-      ]);
-      setAddresses(addressesData);
-      setGames(gamesData);
-    } catch (error) {
-      console.error('Error fetching data:', error);
-    }
-  };
+const fetchAllData = async () => {
+  try {
+    const [addressesData, gamesData, playersData] = await Promise.all([
+      AddressServices.getAddresses(),
+      GameServices.getGames(),
+      PlayerServices.getPlayers()
+    ]);
+    setAddresses(addressesData);
+    // setGames(gamesData);
+    setPlayers(playersData);
+    const fetchedIndividualGames = await Promise.all(gamesData.map(game => GameServices.getGamesById(game.id)))
+    setGames(fetchedIndividualGames);
+  } catch (error) {
+    console.error('Error fetching data:', error);
+  }
+};
+
+// PLAYERS
+
+const fetchAllPlayers = () => {
+  PlayerServices.getPlayers().then(data => { setPlayers(data)
+  });
+}
 
 // GAMES
 
@@ -89,7 +102,7 @@ const BooterContainer = () => {
     <View>
         <Text>BooterContainer</Text>
         <GameForm addresses={addresses} onSubmit={handleAddGame} onCancel={() => {}} /> 
-        <GameList games={games} handleDeleteGame={handleDeleteGame} />
+        <GameList players={players} games={games} handleDeleteGame={handleDeleteGame} />
         <AddressForm onSubmit={handleAddAddress} onCancel={() => {}} />
         <AddressList 
             addresses={addresses} 

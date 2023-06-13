@@ -28,6 +28,7 @@ const handleAddGame = () => {
 //   console.log("Found Address:", selectedAddress);
 
   const newGame = {
+    // REMEMBER THIS IS HARD CODED
     creator: {id: 1},
     name,
     address: {

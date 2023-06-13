@@ -52,7 +52,6 @@ public class Player {
     @ManyToMany(mappedBy = "players")
     private List<Game> games = new ArrayList<>();
 
-    @JsonBackReference
     @OneToMany(mappedBy = "creator")
     private List<Game> createdGames;
 

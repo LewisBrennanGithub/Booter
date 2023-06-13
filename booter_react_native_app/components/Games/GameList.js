@@ -2,7 +2,7 @@ import React from 'react';
 import { View, Text } from 'react-native';
 import GameElement from './GameElement';
 
-const GameList = ({ games, handleDeleteGame }) => {
+const GameList = ({ players, games, handleDeleteGame }) => {
   return (
     <View>
       <Text>GameList</Text>
@@ -12,6 +12,7 @@ const GameList = ({ games, handleDeleteGame }) => {
             key={game.id}
             game={game}
             handleDeleteGame={handleDeleteGame}
+            players={players}
           />
         ))}
     </View>

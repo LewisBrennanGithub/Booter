@@ -12,7 +12,6 @@ export const getGamePlayers = (gameId) => {
 }
 
 export const postGame = (gameData) => {
-  console.log(gameData)
   return fetch('http://localhost:8080/games', {
     method: 'POST',
     body: JSON.stringify(gameData),
