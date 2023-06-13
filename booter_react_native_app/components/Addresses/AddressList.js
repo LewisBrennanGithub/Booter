@@ -6,8 +6,14 @@ import AddressElement from './AddressElement';
 const AddressList = ({ addresses, addressById, fetchAddressById, handleDeleteAddress }) => {
   return (
     <View>
-      {addresses && addresses.map((address, index) => (
-        <AddressElement key={index} address={address} handleDeleteAddress={handleDeleteAddress}/>
+      {addresses && addresses.map((address) => (
+        <AddressElement
+          key={address.id}
+          address={address}
+          addressById={addressById}
+          fetchAddressById={fetchAddressById}
+          handleDeleteAddress={handleDeleteAddress}
+        />
       ))}
 
       <Text>Select an address:</Text>
@@ -16,9 +22,9 @@ const AddressList = ({ addresses, addressById, fetchAddressById, handleDeleteAdd
           selectedValue={addressById || ''}
           onValueChange={(itemValue) => fetchAddressById(itemValue)}
         >
-          {addresses.map((address, index) => (
+          {addresses.map((address) => (
             <Picker.Item
-              key={index}
+              key={address.id}
               label={`${address.propertyNumberOrName}, ${address.street}, ${address.city}, ${address.country}, ${address.postCode}`}
               value={address.id}
             />

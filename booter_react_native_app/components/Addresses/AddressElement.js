@@ -1,8 +1,8 @@
 import React, { useState } from 'react';
 import { View, Text, Button } from 'react-native';
-import AddressForm from './AddressForm';
+import AddressUpdateForm from './AdressUpdateForm';
 
-const AddressElement = ({ address, handleDeleteAddress }) => {
+const AddressElement = ({ address, addressById, fetchAddressById, handleDeleteAddress }) => {
   const [isEditing, setIsEditing] = useState(false);
 
   const { id, propertyNumberOrName, street, city, country, postCode } = address;
@@ -11,33 +11,25 @@ const AddressElement = ({ address, handleDeleteAddress }) => {
   const handleEditAddress = () => {
     setIsEditing(true);
   };
-  
-  const handleUpdateAddress = (updatedData) => {
-    AddressServices.updateAddress(id, updatedData)
-      .then(() => {
-        // Handle successful update, e.g., show a success message or update the list of addresses
-        setIsEditing(false);
-      })
-      .catch((error) => {
-        // Handle error, e.g., show an error message
-      });
-  };
-  
+
   const handleCancelUpdate = () => {
     setIsEditing(false);
+  };
+
+  const handleUpdateAddress = () => {
+    setIsEditing(false);
+    fetchAddressById(address.id); // Fetch the updated address data after updating
   };
 
   return (
     <View>
       {isEditing ? (
-        // Render the update form
-        <AddressForm
+        <AddressUpdateForm
           address={address}
-          onSubmit={handleUpdateAddress}
+          onUpdate={handleUpdateAddress}
           onCancel={handleCancelUpdate}
         />
       ) : (
-        // Render the address details
         <>
           <Text>Address Element</Text>
           <Text>{addressString}</Text>
@@ -48,5 +40,5 @@ const AddressElement = ({ address, handleDeleteAddress }) => {
     </View>
   );
 };
- 
+
 export default AddressElement;
