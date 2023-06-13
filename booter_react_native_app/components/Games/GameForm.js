@@ -6,7 +6,7 @@ import ReactDatePicker from 'react-datepicker';
 import "react-datepicker/dist/react-datepicker.css"; // Import the CSS
 import * as GameServices from "../../services/GameServices";
 
-const GameForm = ({ game = {}, addresses, onSubmit, onCancel }) => {
+const GameForm = ({ game = {}, addresses, onSubmit, onCancel, loggedPlayer }) => {
   const [name, setName] = useState(game.name || '');
   const [address, setAddress] = useState(game.address ? game.address : '');
   const [dateAndTime, setDateAndTime] = useState(new Date());
@@ -29,7 +29,7 @@ const handleAddGame = () => {
 
   const newGame = {
     // REMEMBER THIS IS HARD CODED
-    creator: {id: 1},
+    creator: {id: loggedPlayer.id},
     name,
     address: {
 id: selectedAddress.id

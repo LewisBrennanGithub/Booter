@@ -120,11 +120,14 @@ const fetchAllPlayers = () => {
         <GameForm 
         addresses={addresses} 
         onSubmit={handleAddGame} 
-        onCancel={() => {}} /> 
+        onCancel={() => {}} 
+        loggedPlayer={loggedPlayer}  
+        /> 
         <GameList 
         players={players} 
         games={games} 
-        handleDeleteGame={handleDeleteGame} />
+        handleDeleteGame={handleDeleteGame} 
+        />
         <AddressForm 
         onSubmit={handleAddAddress} 
         onCancel={() => {}} />
