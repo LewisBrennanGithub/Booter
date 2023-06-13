@@ -52,6 +52,15 @@ const fetchAllPlayers = () => {
   });
 }
 
+const handleJoinGame = (gameId, player) => {
+  PlayerServices.playerJoinGame(player.id, gameId, {})
+    .then(data => {
+        console.log(data);
+        fetchAllGames();
+    })
+    .catch(err => console.error("Error joining game:", err));
+};
+
 // GAMES
 
   const fetchAllGames = () => {
@@ -126,7 +135,9 @@ const fetchAllPlayers = () => {
         <GameList 
         players={players} 
         games={games} 
-        handleDeleteGame={handleDeleteGame} 
+        handleDeleteGame={handleDeleteGame}
+        handleJoinGame={handleJoinGame}
+        loggedPlayer={loggedPlayer} 
         />
         <AddressForm 
         onSubmit={handleAddAddress} 

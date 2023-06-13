@@ -2,8 +2,11 @@ import React, { useState } from 'react';
 import { View, Text, Button } from 'react-native';
 import GameUpdateForm from './GameUpdateForm';
 
-const GameElement = ({ players, game, handleDeleteGame, handleUpdateGameProp }) => {
+const GameElement = ({ players, game, handleDeleteGame, handleJoinGame, loggedPlayer }) => {
   const [isEditing, setIsEditing] = useState(false);
+
+  const playerIsInGame = game?.players?.some(player => player.id === loggedPlayer?.id);
+  const gameIsFull = (game.players?.length ?? 0) >= game.maxPlayers;
 
   const handleEditGame = () => {
     setIsEditing(true);
@@ -19,14 +22,9 @@ const GameElement = ({ players, game, handleDeleteGame, handleUpdateGameProp }) 
   };
 
   const getPlayerUsername = (playerId) => {
-    console.log('players:', players);
-    console.log('game:', game);
     const player = players.find((player) => player.id === playerId);
-    console.log('player:', player);
     return player ? player.userName : 'N/A';
   };
-
-  // console.log('game:', game);
 
   return (
     <View>
@@ -41,7 +39,6 @@ const GameElement = ({ players, game, handleDeleteGame, handleUpdateGameProp }) 
           <Text>Game Element</Text>
           <Text>Name: {game.name}</Text>
           <Text>Creator: {players && game && game.creator ? getPlayerUsername(game.creator.id) : 'N/A'}</Text>
-          {/* <Text>Creator: {game.creator.id}</Text> */}
           <Text>Address: {game.address ? `${game.address.street}, ${game.address.city}` : 'N/A'}</Text>
           <Text>Date and Time: {game.dateAndTime}</Text>
           <Text>Duration: {game.duration}</Text>
@@ -51,6 +48,9 @@ const GameElement = ({ players, game, handleDeleteGame, handleUpdateGameProp }) 
           <Text>Actual Seriousness Level: {game.actualSeriousnessLevel}</Text>
           <Text>Completed: {game.completedStatus ? 'Yes' : 'No'}</Text>
           <Text>Max Players: {game.maxPlayers}</Text>
+          {!playerIsInGame && !gameIsFull && (
+            <Button title="Join" onPress={() => handleJoinGame(game.id, loggedPlayer)} />
+          )}
           <Button title="Edit" onPress={handleEditGame} />
           <Button title="Delete" onPress={() => handleDeleteGame(game.id)} />
         </>

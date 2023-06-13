@@ -37,13 +37,12 @@ export const updatePlayer = (id, updatedData) => {
 }
 
 export const playerJoinGame = (playerId, gameId, updatedData) => {
-  return fetch(`http://localhost:8080/players/${playerId}/games/${gameId}`, {
-    // CONSIDER PATCH?
+  return fetch(`http://localhost:8080/players/${playerId}/joinGame/${gameId}`, {
     method: "PATCH",
     body: JSON.stringify(updatedData),
     headers: { "Content-Type": "application/json"},
   })
-  .then(res => res.json())
+  .then(res => res.text())
 }
 
 export const playerSetGameCompletedStatus = (playerId, gameId) => {
