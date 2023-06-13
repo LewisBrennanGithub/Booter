@@ -26,7 +26,6 @@ export const postGame = (gameData) => {
     });
 };
 
-
 export const updateGame = (id, updatedData) => {
   return fetch(`http://localhost:8080/games/${id}`, {
     method: "PUT",
