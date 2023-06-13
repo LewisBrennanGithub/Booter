@@ -2,6 +2,7 @@ import React, { useState } from 'react';
 import { View, Text, Button } from 'react-native';
 import GameUpdateForm from './GameUpdateForm';
 
+
 const GameElement = ({ game, handleDeleteGame, handleUpdateGameProp }) => {
   const [isEditing, setIsEditing] = useState(false);
 
@@ -30,8 +31,10 @@ const GameElement = ({ game, handleDeleteGame, handleUpdateGameProp }) => {
         <>
           <Text>Game Element</Text>
           <Text>Name: {game.name}</Text>
-          <Text>Creator: {game.creator.userName}</Text>
-          <Text>Address: {game.address.street}, {game.address.city}</Text>
+          <Text>Creator: {game && game.creator ? game.creator.userName : 'N/A'}</Text>
+          <Text>
+  Address: {game.address ? `${game.address.street}, ${game.address.city}` : 'N/A'}
+</Text>
           <Text>Date and Time: {game.dateAndTime}</Text>
           <Text>Duration: {game.duration}</Text>
           <Text>Recommended Ability Level: {game.recommendedAbilityLevel}</Text>

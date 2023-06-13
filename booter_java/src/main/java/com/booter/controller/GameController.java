@@ -11,6 +11,7 @@ import org.springframework.http.HttpStatus;
 import org.springframework.http.ResponseEntity;
 import org.springframework.web.bind.annotation.*;
 
+import javax.xml.ws.Response;
 import java.util.List;
 import java.util.Optional;
 
@@ -59,5 +60,21 @@ public class GameController {
             }
             gameRepository.deleteById(id);
             return new ResponseEntity<>(HttpStatus.NO_CONTENT);
+    }
+
+    @PatchMapping("/games/{id}")
+    public ResponseEntity<Game> updateGame(@PathVariable Long id, @RequestBody Game game) {
+        Optional<Game> gameOptional = gameRepository.findById(id);
+            Game existingGame = gameOptional.get();
+            existingGame.setName(game.getName());
+            existingGame.setAddress(game.getAddress());
+            existingGame.setDateAndTime(game.getDateAndTime());
+            existingGame.setDuration(game.getDuration());
+            existingGame.setRecommendedAbilityLevel(game.getRecommendedAbilityLevel());
+            existingGame.setRecommendedSeriousnessLevel(game.getRecommendedSeriousnessLevel());
+            existingGame.setPlayers(game.getPlayers());
+            existingGame.setMaxPlayers(game.getMaxPlayers());
+            gameRepository.save(existingGame);
+            return new ResponseEntity<>(existingGame, HttpStatus.OK);
     }
 }

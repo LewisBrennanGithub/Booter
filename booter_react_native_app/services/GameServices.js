@@ -12,6 +12,7 @@ export const getGamePlayers = (gameId) => {
 }
 
 export const postGame = (gameData) => {
+  console.log(gameData)
   return fetch('http://localhost:8080/games', {
     method: 'POST',
     body: JSON.stringify(gameData),
@@ -28,7 +29,7 @@ export const postGame = (gameData) => {
 
 export const updateGame = (id, updatedData) => {
   return fetch(`http://localhost:8080/games/${id}`, {
-    method: "PUT",
+    method: "PATCH",
     body: JSON.stringify(updatedData),
     headers: { "Content-Type": "application/json"},
   })

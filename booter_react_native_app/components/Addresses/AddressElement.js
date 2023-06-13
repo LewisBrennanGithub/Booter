@@ -30,15 +30,22 @@ const AddressElement = ({ address, addressById, fetchAddressById, handleDeleteAd
           onCancel={handleCancelUpdate}
         />
       ) : (
-        <>
-          <Text>Address Element</Text>
-          <Text>{addressString}</Text>
-          <Button title="Update" onPress={handleEditAddress} />
-          <Button title="Delete" onPress={() => handleDeleteAddress(id)} />
-        </>
+        address && (
+          <>
+            <Text>Address Element</Text>
+            <Text>
+              {address.propertyNumberOrName || 'N/A'}, {address.street || 'N/A'},
+              {address.city || 'N/A'}, {address.country || 'N/A'},
+              {address.postCode || 'N/A'}
+            </Text>
+            <Button title="Update" onPress={handleEditAddress} />
+            <Button title="Delete" onPress={() => handleDeleteAddress(id)} />
+          </>
+        )
       )}
     </View>
   );
+  
 };
 
 export default AddressElement;

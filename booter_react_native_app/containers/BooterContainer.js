@@ -6,6 +6,7 @@ import AddressList from '../components/Addresses/AddressList';
 import AddressForm from '../components/Addresses/AddressForm';
 import GameList from '../components/Games/GameList';
 import GameUpdateForm from '../components/Games/GameUpdateForm';
+import GameForm from '../components/Games/GameForm';
 
 const BooterContainer = () => {
   const [addresses, setAddresses] = useState(null);
@@ -41,6 +42,8 @@ const BooterContainer = () => {
       setAddressById(data);
     });
   };
+
+  // NEED TO IMPLEMENT FIND GAME-PLAYERS
 
   const handleDeleteGame = (id) => {
     GameServices.deleteGame(id).then(data => {
@@ -84,18 +87,19 @@ const BooterContainer = () => {
 
   return (
     <View>
-      <Text>BooterContainer</Text>
-      <GameUpdateForm />
-      <GameList games={games} handleDeleteGame={handleDeleteGame} />
-      <AddressForm onSubmit={handleAddAddress} onCancel={() => {}} />
-      <AddressList 
-        addresses={addresses} 
-        addressById={addressById}
-        fetchAddressById={fetchAddressById}
-        handleDeleteAddress={handleDeleteAddress}
-      />
+        <Text>BooterContainer</Text>
+        <GameForm addresses={addresses} onSubmit={handleAddGame} onCancel={() => {}} /> 
+        <GameList games={games} handleDeleteGame={handleDeleteGame} />
+        <AddressForm onSubmit={handleAddAddress} onCancel={() => {}} />
+        <AddressList 
+            addresses={addresses} 
+            addressById={addressById}
+            fetchAddressById={fetchAddressById}
+            handleDeleteAddress={handleDeleteAddress}
+        />
     </View>
-  );
+);
+
 };
 
 export default BooterContainer;
