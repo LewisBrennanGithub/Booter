@@ -8,7 +8,7 @@ export const getPlayersById = (id) => {
 }
 
 export const getPlayerGames = (playerId) => {
-  return fetch(`http://localhost8080/players/${playerId}/players`).then((res) => res.json())
+  return fetch(`http://localhost:8080/players/${playerId}/games`).then((res) => res.json())
 }
 
 export const postPlayer = (playerData) => {
@@ -29,7 +29,7 @@ export const postPlayer = (playerData) => {
 export const updatePlayer = (id, updatedData) => {
   return fetch(`http://localhost:8080/players/${id}`, {
     // CONSIDER PATCH?
-    method: "PUT",
+    method: "PATCH",
     body: JSON.stringify(updatedData),
     headers: { "Content-Type": "application/json"},
   })
@@ -39,12 +39,37 @@ export const updatePlayer = (id, updatedData) => {
 export const playerJoinGame = (playerId, gameId, updatedData) => {
   return fetch(`http://localhost:8080/players/${playerId}/games/${gameId}`, {
     // CONSIDER PATCH?
-    method: "PUT",
-    body: JSON.stringify(updatedData)
+    method: "PATCH",
+    body: JSON.stringify(updatedData),
     headers: { "Content-Type": "application/json"},
   })
   .then(res => res.json())
 }
+
+export const playerSetGameCompletedStatus = (playerId, gameId) => {
+  return fetch(`http://localhost:8080/players/${playerId}/games/${gameId}`, {
+    method: "PATCH",
+    headers: { "Content-Type": "application/json"},
+  })
+  .then(res => res.json())
+}
+
+export const rateOtherPlayerAbility = (ratingAbilityPlayerId, ratedAbilityPlayerId, abilityRating) => {
+  return fetch(`http://localhost:8080/players/${ratingAbilityPlayerId}/rateOtherPlayerAbility/${ratedAbilityPlayerId}?abilityRating=${abilityRating}`, {
+    method: "PATCH",
+    headers: { "Content-Type": "application/json" },
+  })
+  .then(res => res.json());
+}
+
+export const rateOtherPlayerSeriousness = (ratingSeriousnessPlayerId, ratedSeriousnessPlayerId, seriousnessRating) => {
+  return fetch(`http://localhost:8080/players/${ratingSeriousnessPlayerId}/rateOtherPlayerSeriousness/${ratedSeriousnessPlayerId}?seriousnessRating=${seriousnessRating}`, {
+    method: "PATCH",
+    headers: { "Content-Type": "application/json" },
+  })
+  .then(res => res.json());
+}
+
 
 export const deletePlayer = (id) => {
   return fetch(`http://localhost:8080/players/${id}`, {

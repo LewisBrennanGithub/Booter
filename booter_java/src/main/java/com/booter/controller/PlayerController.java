@@ -33,7 +33,7 @@ public class PlayerController {
         return new ResponseEntity<>(playerRepository.findById(id), HttpStatus.OK);
     }
 
-    @GetMapping("/players/{playerId}/games")
+    @GetMapping(value = "/players/{playerId}/games")
     public ResponseEntity<List<Game>> getPlayerGames(@PathVariable Long playerId) {
         Optional<Player> playerOptional = playerRepository.findById(playerId);
         if (!playerOptional.isPresent()) {
@@ -49,8 +49,24 @@ public class PlayerController {
         playerRepository.save(player);
         return new ResponseEntity<>(player, HttpStatus.CREATED);
     }
+
+    @PatchMapping(value = "/players/{playerId}")
+    public ResponseEntity<Player> updatePlayer(@PathVariable Long id, @RequestBody Player player) {
+        Optional<Player> playerOptional = playerRepository.findById(id);
+        Player existingPlayer = playerOptional.get();
+        existingPlayer.setFirstName(player.getFirstName());
+        existingPlayer.setLastName(player.getLastName());
+        existingPlayer.setUserName(player.getUserName());
+        existingPlayer.setPhoneNumber(player.getPhoneNumber());
+        existingPlayer.setAddress(player.getAddress());
+        existingPlayer.setAge(player.getAge());
+        existingPlayer.setSelfAssessedAbilityLevel(player.getSelfAssessedAbilityLevel());
+        existingPlayer.setSelfAssessedSeriousnessLevel(player.getSelfAssessedSeriousnessLevel());
+        playerRepository.save(existingPlayer);
+        return new ResponseEntity<>(existingPlayer, HttpStatus.OK);
+    }
 // CONSIDER PATCH?
-    @PutMapping("/players/{playerId}/joinGame/{gameId}")
+    @PatchMapping("/players/{playerId}/joinGame/{gameId}")
     public ResponseEntity<?> joinGame(@PathVariable Long playerId, @PathVariable Long gameId) {
         Optional<Player> playerOptional = playerRepository.findById(playerId);
         Optional<Game> gameOptional = gameRepository.findById(gameId);
@@ -74,7 +90,7 @@ public class PlayerController {
         return new ResponseEntity<>("Player has changed game completed status", HttpStatus.OK);
     }
 
-    @PutMapping("/players/{ratingAbilityPlayerId}/rateOtherPlayerAbility/{ratedAbilityPlayerId}")
+    @PatchMapping("/players/{ratingAbilityPlayerId}/rateOtherPlayerAbility/{ratedAbilityPlayerId}")
     public ResponseEntity<?> rateOtherPlayerAbility(
             @PathVariable Long ratingAbilityPlayerId,
             @PathVariable Long ratedAbilityPlayerId,
@@ -88,7 +104,7 @@ public class PlayerController {
         return new ResponseEntity<>("Player has rated other player's ability", HttpStatus.OK);
     }
 
-    @PutMapping("/players/{ratingSeriousnessPlayerId}/rateOtherPlayerSeriousness/{ratedSeriousnessPlayerId}")
+    @PatchMapping("/players/{ratingSeriousnessPlayerId}/rateOtherPlayerSeriousness/{ratedSeriousnessPlayerId}")
     public ResponseEntity<?> rateOtherPlayerSeriousness(
             @PathVariable Long ratingSeriousnessPlayerId,
             @PathVariable Long ratedSeriousnessPlayerId,
