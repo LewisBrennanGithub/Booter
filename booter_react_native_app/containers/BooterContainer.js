@@ -195,11 +195,8 @@ const handleRatePlayerSeriousness = (player, selectedSeriousnessRating) => {
       <Button onPress={() => { setGamesPage(false); setPlayersPage(true); setAddContentPage(false); }}>Players</Button>
       <Button onPress={() => { setGamesPage(false); setPlayersPage(false); setAddContentPage(true); }}>Add Content</Button>
     </View>
-
-    {/* Conditionally render based on page state */}
     {gamesPage && (
       <>
-        {/* Game-related components */}
         <GameList
           players={players}
           games={games}
@@ -209,24 +206,10 @@ const handleRatePlayerSeriousness = (player, selectedSeriousnessRating) => {
           loggedPlayer={loggedPlayer}
           handleSetGameCompletedStatus={handleSetGameCompletedStatus}
         />
-        {/* Additional game-related components */}
-        {/* <AddressForm
-          onSubmitAddressAdded={handleAddAddress}
-          onCancel={() => {}}
-        />
-        <AddressList
-          addresses={addresses}
-          addressById={addressById}
-          fetchAddressById={fetchAddressById}
-          handleDeleteAddress={handleDeleteAddress}
-          handleUpdateAddress={handleUpdateAddress}
-        /> */}
       </>
     )}
-
     {playersPage && (
       <>
-        {/* Player-related components */}
         <PlayerList
           players={players}
           loggedPlayer={loggedPlayer}
@@ -236,10 +219,8 @@ const handleRatePlayerSeriousness = (player, selectedSeriousnessRating) => {
         />
       </>
     )}
-
     {addContentPage && (
       <>
-        {/* Additional content-related components */}
         <PlayerForm
           addresses={addresses}
           onSubmitPlayerAdded={handleAddPlayer}
