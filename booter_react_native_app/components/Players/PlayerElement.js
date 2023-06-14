@@ -47,6 +47,12 @@ const PlayerElement = ({ player, loggedPlayer, setLoggedPlayer }) => {
       <TouchableOpacity onPress={() => setLoggedPlayer(player)}>
         <Text style={{ color: isSelected ? 'green' : 'black' }}>Username: {player.userName}</Text>
       </TouchableOpacity>
+      <View>
+        <Text>Participating Games:</Text>
+        {player.games && player.games.map((game) => (
+          <Text key={game.id}>- {game.name}</Text>
+        ))}
+      </View>
       <Text>Ability Rating: {player.displayedAbilityLevel}</Text>
       <Text>Seriousness Rating: {player.displayedSeriousnessLevel}</Text>
       {!isSelected && (

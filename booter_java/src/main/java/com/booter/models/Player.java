@@ -9,9 +9,6 @@ import java.util.List;
 
 @Entity
 @Table (name = "players")
-@JsonIdentityInfo(
-        generator = ObjectIdGenerators.PropertyGenerator.class,
-        property = "id")
 public class Player {
     @Id
     @GeneratedValue(strategy = GenerationType.IDENTITY)

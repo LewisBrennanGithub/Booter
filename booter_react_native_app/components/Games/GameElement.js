@@ -10,20 +10,20 @@ const GameElement = ({ players, game, handleDeleteGame, handleJoinGame, loggedPl
 
   // DELETE BELOW THIS LINE
   // TESTING PURPOSES ONLY - DELETE THIS
-  // const [gamePlayers, setGamePlayers] = useState([]);
+  const [gamePlayers, setGamePlayers] = useState([]);
   // TESTING PURPOSES ONLY - DELETE THIS
-  // useEffect(() => {
-  //   fetchGamePlayers();
-  // }, [game]);
+  useEffect(() => {
+    fetchGamePlayers();
+  }, [game]);
   // TESTING PURPOSES ONLY - DELETE THIS
-  // const fetchGamePlayers = async () => {
-  //   try {
-  //     const fetchedGamePlayers = await GameServices.getGamePlayers(game.id);
-  //     setGamePlayers(fetchedGamePlayers);
-  //   } catch (err) {
-  //     console.error('Error fetching game players:', err);
-  //   }
-  // };
+  const fetchGamePlayers = async () => {
+    try {
+      const fetchedGamePlayers = await GameServices.getGamePlayers(game.id);
+      setGamePlayers(fetchedGamePlayers);
+    } catch (err) {
+      console.error('Error fetching game players:', err);
+    }
+  };
   // DELETE ABOVE THIS LINE
   
   const isCreator = loggedPlayer?.id === game?.creator?.id;

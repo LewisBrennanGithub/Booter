@@ -3,7 +3,7 @@ import { View, Text, TextInput, Button } from 'react-native';
 import { Picker } from '@react-native-picker/picker';
 import * as PlayerServices from "../../services/PlayerServices";
 
-const PlayerForm = ({ addresses, onSubmit, onCancel }) => {
+const PlayerForm = ({ addresses, onSubmit, onCancel, onPlayerAdded }) => {
   const [firstName, setFirstName] = useState('');
   const [lastName, setLastName] = useState('');
   const [userName, setUserName] = useState('');
@@ -32,7 +32,9 @@ const PlayerForm = ({ addresses, onSubmit, onCancel }) => {
     };
 
     PlayerServices.postPlayer(newPlayer)
-      .then(() => {}).catch(error => {
+      .then(() => {
+        onPlayerAdded()
+      }).catch(error => {
         console.error('An error occurred:', error);
       });
   };

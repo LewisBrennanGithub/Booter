@@ -11,9 +11,6 @@ import java.time.ZonedDateTime;
 
 @Entity
 @Table (name = "games")
-@JsonIdentityInfo(
-        generator = ObjectIdGenerators.PropertyGenerator.class,
-        property = "id")
 public class Game {
 
     @Id
@@ -21,6 +18,7 @@ public class Game {
     private Long id;
     @ManyToOne
 //    @JsonIgnore
+    @JsonIgnoreProperties(value = {"games"})
     @JoinColumn(name="creator_id")
     private Player creator;
     @Column(name="name")

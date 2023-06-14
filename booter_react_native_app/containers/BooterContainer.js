@@ -17,23 +17,49 @@ const BooterContainer = () => {
   const [games, setGames] = useState(null);
   const [gamesById, setGamesById] = useState(null);
   const [players, setPlayers] = useState(null);
-  const [playersById, setByPlayers] =useState(null);
+  const [playersById, setPlayersById] = useState(null);
   const [loggedPlayer, setLoggedPlayer] = useState(null);
 
   useEffect(() => {
     fetchAllData();
   }, []);
 
-const fetchAllData = async () => {
-  try {
-    const [addressesData, gamesData, playersData] = await Promise.all([
-      AddressServices.getAddresses(),
-      GameServices.getGames(),
-      PlayerServices.getPlayers()
-    ]);
-    setAddresses(addressesData);
-    setGames(gamesData);
-    setPlayers(playersData);
+
+  const fetchAllData = async () => {
+    try {
+      const [addressesData, gamesData, playersData] = await Promise.all([
+        AddressServices.getAddresses(),
+        GameServices.getGames(),
+        PlayerServices.getPlayers()
+      ]);
+  
+      // const playersWithGames = await Promise.all(playersData.map(async (player) => {
+      //   const playerGames = await PlayerServices.getPlayerGames(player.id);
+      //   return {
+      //     ...player,
+      //     games: playerGames,
+      //   };
+      // }));
+  
+      setAddresses(addressesData);
+      setGames(gamesData);
+      setPlayers(playersData);
+
+    } catch (error) {
+      console.error('Error fetching data:', error);
+    }
+  };
+
+// const fetchAllData = async () => {
+//   try {
+//     const [addressesData, gamesData, playersData] = await Promise.all([
+//       AddressServices.getAddresses(),
+//       GameServices.getGames(),
+//       PlayerServices.getPlayers()
+//     ]);
+//     setAddresses(addressesData);
+//     setGames(gamesData);
+//     setPlayers(playersData);
     // 1
     // const fetchedIndividualGames = await Promise.all(gamesData.map(game => GameServices.getGamesById(game.id)))
     // setGames(fetchedIndividualGames);
@@ -41,10 +67,10 @@ const fetchAllData = async () => {
     // const fetchedIndividualGames = await Promise.all(gamesData.map(game => fetchGamesById(game.id)))
     // setGames(fetchedIndividualGames);
 
-  } catch (error) {
-    console.error('Error fetching data:', error);
-  }
-};
+//   } catch (error) {
+//     console.error('Error fetching data:', error);
+//   }
+// };
 
 // PLAYERS
 
@@ -53,11 +79,17 @@ const fetchAllPlayers = () => {
   });
 }
 
+const fetchPlayerGames = () => {
+  PlayerServices.getPlayerGames().then(data => { setPlayers(data)
+  });
+}
+
 const handleJoinGame = (gameId, player) => {
   PlayerServices.playerJoinGame(player.id, gameId, {})
     .then(data => {
         console.log(data);
         fetchAllGames();
+        fetchAllPlayers();
     })
     .catch(err => console.error("Error joining game:", err));
 };
@@ -125,6 +157,7 @@ const handleJoinGame = (gameId, player) => {
         <Text>BooterContainer</Text>
         <PlayerForm 
         addresses={addresses}
+        onPlayerAdded={fetchAllPlayers}
         />
         <PlayerList 
         players={players} 
