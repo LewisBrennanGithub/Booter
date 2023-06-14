@@ -17,7 +17,15 @@ export const postPlayer = (playerData) => {
     body: JSON.stringify(playerData),
     headers: { 'Content-Type': 'application/json' },
   })
-  .then((res) => res.json())
+  .then((res) => {
+    if (!res.ok) {
+      return res.json().then(err => {
+        console.error('Server responded with an error:', err);
+        throw new Error('Server error');
+      });
+    }
+    return res.json();
+  })
   .then((data) => {
     return {
       ...data,
@@ -25,6 +33,7 @@ export const postPlayer = (playerData) => {
     };
   });
 };
+
 
 export const updatePlayer = (id, updatedData) => {
   return fetch(`http://localhost:8080/players/${id}`, {

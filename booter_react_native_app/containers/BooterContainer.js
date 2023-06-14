@@ -63,6 +63,15 @@ const handleJoinGame = (gameId, player) => {
     .catch(err => console.error("Error joining game:", err));
 };
 
+const handleAddPlayer = (playerData) => {
+  PlayerServices.postPlayer(playerData)
+    .then(() => {
+      fetchAllPlayers();
+    }).catch(error => {
+      console.error('An error occurred:', error);
+    });
+};
+
 const handleSetGameCompletedStatus = (game) => {
   PlayerServices.playerSetGameCompletedStatus(loggedPlayer.id, game.id)
     .then(response => {
@@ -137,7 +146,7 @@ const handleRatePlayerSeriousness = (player, selectedSeriousnessRating) => {
 
   const handleUpdateGame = (id, updatedData) => {
     GameServices.updateGame(id, updatedData).then(() => {
-      fetchAllGames(); // Re-fetch all the games to refresh the component
+      fetchAllGames(); 
     });
   };
   
@@ -180,7 +189,7 @@ const handleRatePlayerSeriousness = (player, selectedSeriousnessRating) => {
         <Text>BooterContainer</Text>
         <PlayerForm 
         addresses={addresses}
-        onPlayerAdded={fetchAllPlayers}
+        onPlayerAdded={handleAddPlayer}
         />
         <PlayerList 
         players={players} 

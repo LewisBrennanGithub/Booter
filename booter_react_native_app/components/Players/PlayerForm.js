@@ -3,7 +3,7 @@ import { View, Text, TextInput, Button } from 'react-native';
 import { Picker } from '@react-native-picker/picker';
 import * as PlayerServices from "../../services/PlayerServices";
 
-const PlayerForm = ({ addresses, onSubmit, onCancel, onPlayerAdded }) => {
+const PlayerForm = ({ addresses, onPlayerAdded }) => {
   const [firstName, setFirstName] = useState('');
   const [lastName, setLastName] = useState('');
   const [userName, setUserName] = useState('');
@@ -15,29 +15,27 @@ const PlayerForm = ({ addresses, onSubmit, onCancel, onPlayerAdded }) => {
 
   const levels = Array.from({ length: 11 }, (_, i) => (i * 0.5).toFixed(1));
 
-  const handleAddPlayer = () => {
-    const selectedAddress = addresses.find((a) => a.id == address);
+const handleAddPlayer = () => {
+  const selectedAddress = addresses.find((a) => a.id == address);
+  if (!selectedAddress) {
+    console.error('No address selected');
+    return;
+  }
 
-    const newPlayer = {
-      firstName,
-      lastName,
-      userName,
-      phoneNumber,
-      address: {
-        id: selectedAddress.id
-      },
-      age,
-      selfAssessedAbilityLevel,
-      selfAssessedSeriousnessLevel
-    };
-
-    PlayerServices.postPlayer(newPlayer)
-      .then(() => {
-        onPlayerAdded()
-      }).catch(error => {
-        console.error('An error occurred:', error);
-      });
+  const newPlayer = {
+    firstName,
+    lastName,
+    userName,
+    phoneNumber,
+    address: {
+      id: selectedAddress.id
+    },
+    age: Number(age),
+    selfAssessedAbilityLevel: Number(selfAssessedAbilityLevel),
+    selfAssessedSeriousnessLevel: Number(selfAssessedSeriousnessLevel)
   };
+    onPlayerAdded(newPlayer);
+};
 
   return (
     <View>
