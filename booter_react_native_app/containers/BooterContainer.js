@@ -32,15 +32,6 @@ const BooterContainer = () => {
         GameServices.getGames(),
         PlayerServices.getPlayers()
       ]);
-  
-      // const playersWithGames = await Promise.all(playersData.map(async (player) => {
-      //   const playerGames = await PlayerServices.getPlayerGames(player.id);
-      //   return {
-      //     ...player,
-      //     games: playerGames,
-      //   };
-      // }));
-  
       setAddresses(addressesData);
       setGames(gamesData);
       setPlayers(playersData);
@@ -96,11 +87,22 @@ const handleJoinGame = (gameId, player) => {
 
 // GAMES
 
-  const fetchAllGames = () => {
-    GameServices.getGames().then(data => { setGames(data);
-    });
-  };
+  // const fetchAllGames = () => {
+  //   GameServices.getGames().then(data => { setGames(data);
+  //   });
+  // };
+  // const fetchAllGames = () => {
+  //   GameServices.getGames().then(data => {
+  //     setGames(data); // Assuming setGames is your state setter for games.
+  //   });
+  // };
 
+  const fetchAllGames = () => {
+    GameServices.getGames().then(data => {
+      setGames(data);
+    })
+    .catch(err => console.error('Error fetching games:', err));
+  };
   const fetchGamesById = (id) => {
     GameServices.getGamesById(id).then(data => {
       setGamesById(data);
@@ -112,10 +114,17 @@ const handleJoinGame = (gameId, player) => {
   //   GameServices.getGamePlayers(id).then(data => {set})
   // }
 
+  // const handleDeleteGame = (id) => {
+  //   GameServices.deleteGame(id).then(data => {
+  //     fetchAllGames();
+  //   });
+  // };
+
   const handleDeleteGame = (id) => {
-    GameServices.deleteGame(id).then(data => {
+    GameServices.deleteGame(id).then(() => {
       fetchAllGames();
-    });
+    })
+    .catch(err => console.error('Error deleting game:', err));
   };
 
   const handleAddGame = (gameData) => {

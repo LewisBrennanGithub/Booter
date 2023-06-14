@@ -35,10 +35,21 @@ export const updateGame = (id, updatedData) => {
   .then(res => res.json())
 }
 
+// export const deleteGame = (id) => {
+//   return fetch(`http://localhost:8080/games/${id}`, {
+//     method: "DELETE",
+//   })
+//   .then(res => res.json())
+// }
+
 export const deleteGame = (id) => {
   return fetch(`http://localhost:8080/games/${id}`, {
     method: "DELETE",
   })
-  .then(res => res.json())
+  .then(res => {
+    if (!res.ok) {
+      throw new Error('Network response was not ok');
+    }
+  });
 }
 
