@@ -9,6 +9,7 @@ import GameList from '../components/Games/GameList';
 import GameUpdateForm from '../components/Games/GameUpdateForm';
 import GameForm from '../components/Games/GameForm';
 import PlayerList from '../components/Players/PlayerList';
+import PlayerForm from '../components/Players/PlayerForm';
 
 const BooterContainer = () => {
   const [addresses, setAddresses] = useState(null);
@@ -122,6 +123,9 @@ const handleJoinGame = (gameId, player) => {
   return (
     <View>
         <Text>BooterContainer</Text>
+        <PlayerForm 
+        addresses={addresses}
+        />
         <PlayerList 
         players={players} 
         loggedPlayer={loggedPlayer} setLoggedPlayer={setLoggedPlayer}

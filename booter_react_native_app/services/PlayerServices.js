@@ -15,7 +15,7 @@ export const postPlayer = (playerData) => {
   return fetch('http://localhost:8080/players', {
     method: 'POST',
     body: JSON.stringify(playerData),
-    headers: { 'Content-Type': 'application.json' },
+    headers: { 'Content-Type': 'application/json' },
   })
   .then((res) => res.json())
   .then((data) => {
