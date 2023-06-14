@@ -6,7 +6,7 @@ import ReactDatePicker from 'react-datepicker';
 import "react-datepicker/dist/react-datepicker.css"; // Import the CSS
 import * as GameServices from "../../services/GameServices";
 
-const GameForm = ({ game = {}, addresses, onSubmit, onCancel, loggedPlayer }) => {
+const GameForm = ({ game = {}, addresses, onSubmitGameAdded, loggedPlayer }) => {
   const [name, setName] = useState(game.name || '');
   const [address, setAddress] = useState(game.address ? game.address : '');
   const [dateAndTime, setDateAndTime] = useState(new Date());
@@ -39,7 +39,7 @@ const GameForm = ({ game = {}, addresses, onSubmit, onCancel, loggedPlayer }) =>
       maxPlayers
     };
   
-    onSubmit(newGame);
+    onSubmitGameAdded(newGame);
   };
 
 const levels = Array.from({ length: 11 }, (_, i) => (i * 0.5).toFixed(1));

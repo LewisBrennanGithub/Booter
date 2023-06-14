@@ -2,7 +2,7 @@ import React, { useState } from 'react';
 import { View, Text, TextInput, Button } from 'react-native';
 import * as AddressServices from "../../services/AddressServices";
 
-const AddressForm = ({ address = {}, onSubmit, onCancel }) => {
+const AddressForm = ({ address = {}, onSubmitAddressAdded}) => {
   const [propertyNumberOrName, setPropertyNumberOrName] = useState(address.propertyNumberOrName || '');
   const [street, setStreet] = useState(address.street || '');
   const [city, setCity] = useState(address.city || '');
@@ -18,7 +18,7 @@ const handleAddAddress = () => {
     postCode
   };
 
-  onSubmit(addressData); 
+  onSubmitAddressAdded(addressData); 
 };
 
   return (

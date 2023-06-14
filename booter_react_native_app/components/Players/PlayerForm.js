@@ -3,7 +3,7 @@ import { View, Text, TextInput, Button } from 'react-native';
 import { Picker } from '@react-native-picker/picker';
 import * as PlayerServices from "../../services/PlayerServices";
 
-const PlayerForm = ({ addresses, onPlayerAdded }) => {
+const PlayerForm = ({ addresses, onSubmitPlayerAdded }) => {
   const [firstName, setFirstName] = useState('');
   const [lastName, setLastName] = useState('');
   const [userName, setUserName] = useState('');
@@ -34,7 +34,7 @@ const handleAddPlayer = () => {
     selfAssessedAbilityLevel: Number(selfAssessedAbilityLevel),
     selfAssessedSeriousnessLevel: Number(selfAssessedSeriousnessLevel)
   };
-    onPlayerAdded(newPlayer);
+    onSubmitPlayerAdded(newPlayer);
 };
 
   return (

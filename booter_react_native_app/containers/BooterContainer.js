@@ -1,5 +1,5 @@
 import React, { useState, useEffect } from 'react';
-import { View, Text } from 'react-native';
+import { View, Text, Button } from 'react-native';
 import * as GameServices from "../services/GameServices";
 import * as AddressServices from "../services/AddressServices";
 import * as PlayerServices from "../services/PlayerServices";
@@ -19,6 +19,9 @@ const BooterContainer = () => {
   const [players, setPlayers] = useState(null);
   const [playersById, setPlayersById] = useState(null);
   const [loggedPlayer, setLoggedPlayer] = useState(null);
+  const [gamesPage, setGamesPage] = useState(true);
+  const [playersPage, setPlayersPage] = useState(false);
+  const [addContentPage, setAddContentPage] = useState(false);
 
   useEffect(() => {
     fetchAllData();
@@ -186,45 +189,74 @@ const handleRatePlayerSeriousness = (player, selectedSeriousnessRating) => {
 
   return (
     <View>
-        <Text>BooterContainer</Text>
-        <PlayerForm 
-        addresses={addresses}
-        onPlayerAdded={handleAddPlayer}
-        />
-        <PlayerList 
-        players={players} 
-        loggedPlayer={loggedPlayer} 
-        setLoggedPlayer={setLoggedPlayer}
-        handleRatePlayerAbility={handleRatePlayerAbility}
-        handleRatePlayerSeriousness={handleRatePlayerSeriousness} 
-        />
-        <GameForm 
-        addresses={addresses} 
-        onSubmit={handleAddGame} 
-        onCancel={() => {}} 
-        loggedPlayer={loggedPlayer}  
-        /> 
-        <GameList 
-        players={players} 
-        games={games} 
-        handleDeleteGame={handleDeleteGame}
-        handleJoinGame={handleJoinGame}
-        handleUpdateGame={handleUpdateGame}
-        loggedPlayer={loggedPlayer}
-        handleSetGameCompletedStatus={handleSetGameCompletedStatus}
-        />
-        <AddressForm 
-        onSubmit={handleAddAddress} 
-        onCancel={() => {}} 
-        />
-        <AddressList 
-        addresses={addresses} 
-        addressById={addressById}
-        fetchAddressById={fetchAddressById}
-        handleDeleteAddress={handleDeleteAddress}
-        handleUpdateAddress={handleUpdateAddress}
-        />
+    <Text>BooterContainer</Text>
+    <View>
+      <Button onPress={() => { setGamesPage(true); setPlayersPage(false); setAddContentPage(false); }}>Games</Button>
+      <Button onPress={() => { setGamesPage(false); setPlayersPage(true); setAddContentPage(false); }}>Players</Button>
+      <Button onPress={() => { setGamesPage(false); setPlayersPage(false); setAddContentPage(true); }}>Add Content</Button>
     </View>
+
+    {/* Conditionally render based on page state */}
+    {gamesPage && (
+      <>
+        {/* Game-related components */}
+        <GameList
+          players={players}
+          games={games}
+          handleDeleteGame={handleDeleteGame}
+          handleJoinGame={handleJoinGame}
+          handleUpdateGame={handleUpdateGame}
+          loggedPlayer={loggedPlayer}
+          handleSetGameCompletedStatus={handleSetGameCompletedStatus}
+        />
+        {/* Additional game-related components */}
+        {/* <AddressForm
+          onSubmitAddressAdded={handleAddAddress}
+          onCancel={() => {}}
+        />
+        <AddressList
+          addresses={addresses}
+          addressById={addressById}
+          fetchAddressById={fetchAddressById}
+          handleDeleteAddress={handleDeleteAddress}
+          handleUpdateAddress={handleUpdateAddress}
+        /> */}
+      </>
+    )}
+
+    {playersPage && (
+      <>
+        {/* Player-related components */}
+        <PlayerList
+          players={players}
+          loggedPlayer={loggedPlayer}
+          setLoggedPlayer={setLoggedPlayer}
+          handleRatePlayerAbility={handleRatePlayerAbility}
+          handleRatePlayerSeriousness={handleRatePlayerSeriousness}
+        />
+      </>
+    )}
+
+    {addContentPage && (
+      <>
+        {/* Additional content-related components */}
+        <PlayerForm
+          addresses={addresses}
+          onSubmitPlayerAdded={handleAddPlayer}
+        />
+        <GameForm
+          addresses={addresses}
+          onSubmitGameAdded={handleAddGame}
+          onCancel={() => {}}
+          loggedPlayer={loggedPlayer}
+        />
+        <AddressForm
+          onSubmitAddressAdded={handleAddAddress}
+          onCancel={() => {}}
+        />
+      </>
+    )}
+  </View>
 );
 
 };
