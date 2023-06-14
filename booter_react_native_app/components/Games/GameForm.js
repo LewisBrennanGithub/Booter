@@ -22,31 +22,25 @@ const GameForm = ({ game = {}, addresses, onSubmit, onCancel, loggedPlayer }) =>
     setDateAndTime(currentDate); // make sure this uses the setDateAndTime from useState
   };
 
-const handleAddGame = () => {
-//   console.log("Selected Address:", address);
-  const selectedAddress = addresses.find((a) => a.id == address);
-//   console.log("Found Address:", selectedAddress);
-
-  const newGame = {
-    // REMEMBER THIS IS HARD CODED
-    creator: {id: loggedPlayer.id},
-    name,
-    address: {
-id: selectedAddress.id
-    },
-    dateAndTime,
-    duration,
-    recommendedAbilityLevel,
-    recommendedSeriousnessLevel,
-    playersList: [],
-    maxPlayers
+  const handleAddGame = () => {
+    const selectedAddress = addresses.find((a) => a.id == address);
+  
+    const newGame = {
+      creator: {id: loggedPlayer.id},
+      name,
+      address: {
+        id: selectedAddress.id
+      },
+      dateAndTime,
+      duration,
+      recommendedAbilityLevel,
+      recommendedSeriousnessLevel,
+      playersList: [],
+      maxPlayers
+    };
+  
+    onSubmit(newGame); // Call the onSubmit prop
   };
-
-  GameServices.postGame(newGame)
-  .then(() => {}).catch(error => {
-    console.error('An error occurred:', error);
-  });
-};
 
 const levels = Array.from({ length: 11 }, (_, i) => (i * 0.5).toFixed(1));
 const maxPlayersOptions = Array.from({ length: 19 }, (_, i) => i + 2);
