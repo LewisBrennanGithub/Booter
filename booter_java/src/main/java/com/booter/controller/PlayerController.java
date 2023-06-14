@@ -86,7 +86,7 @@ public class PlayerController {
         boolean currentStatus = game.getCompletedStatus();
         player.setCompletedStatus(game, !currentStatus);
         gameRepository.save(game);
-        return new ResponseEntity<>("Player has changed game completed status", HttpStatus.OK);
+        return new ResponseEntity<>(Collections.singletonMap("message", "Player has changed game completed status"), HttpStatus.OK);
     }
 
 //    @PatchMapping("/players/{ratingAbilityPlayerId}/rateOtherPlayerAbility/{ratedAbilityPlayerId}")

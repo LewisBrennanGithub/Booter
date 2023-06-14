@@ -32,11 +32,11 @@ const fetchAllData = async () => {
       PlayerServices.getPlayers()
     ]);
     setAddresses(addressesData);
-    // setGames(gamesData);
+    setGames(gamesData);
     setPlayers(playersData);
     // 1
-    const fetchedIndividualGames = await Promise.all(gamesData.map(game => GameServices.getGamesById(game.id)))
-    setGames(fetchedIndividualGames);
+    // const fetchedIndividualGames = await Promise.all(gamesData.map(game => GameServices.getGamesById(game.id)))
+    // setGames(fetchedIndividualGames);
     // 2
     // const fetchedIndividualGames = await Promise.all(gamesData.map(game => fetchGamesById(game.id)))
     // setGames(fetchedIndividualGames);
@@ -128,7 +128,8 @@ const handleJoinGame = (gameId, player) => {
         />
         <PlayerList 
         players={players} 
-        loggedPlayer={loggedPlayer} setLoggedPlayer={setLoggedPlayer}
+        loggedPlayer={loggedPlayer} 
+        setLoggedPlayer={setLoggedPlayer}
         />
         <GameForm 
         addresses={addresses} 
