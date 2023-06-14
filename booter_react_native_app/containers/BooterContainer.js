@@ -95,6 +95,39 @@ const handleSetGameCompletedStatus = (game) => {
     .catch(err => console.error('Error setting game completed status:', err));
 };
 
+const handleRatePlayerAbility = (player, selectedAbilityRating) => {
+  if (!loggedPlayer) {
+    console.error("No player is logged in.");
+    return;
+  }
+
+  const abilityRatingNumber = parseFloat(selectedAbilityRating);
+
+  PlayerServices.rateOtherPlayerAbility(loggedPlayer.id, player.id, abilityRatingNumber)
+    .then(response => {
+      console.log(response);
+      fetchAllPlayers();
+      // You might want to show some feedback to the user, e.g. "Rating submitted successfully"
+    })
+    .catch(error => console.error('Error rating player ability:', error));
+};
+
+const handleRatePlayerSeriousness = (player, selectedSeriousnessRating) => {
+  if (!loggedPlayer) {
+    console.error("No player is logged in.");
+    fetchAllPlayers();
+    return;
+  }
+
+  const seriousnessRatingNumber = parseFloat(selectedSeriousnessRating);
+
+  PlayerServices.rateOtherPlayerSeriousness(loggedPlayer.id, player.id, seriousnessRatingNumber)
+    .then(response => {
+      console.log(response);
+      fetchAllPlayers(); // fetch all players again after rating
+    })
+    .catch(error => console.error('Error rating player seriousness:', error));
+};
 
 
 // GAMES
@@ -204,6 +237,8 @@ const handleSetGameCompletedStatus = (game) => {
         players={players} 
         loggedPlayer={loggedPlayer} 
         setLoggedPlayer={setLoggedPlayer}
+        handleRatePlayerAbility={handleRatePlayerAbility}
+        handleRatePlayerSeriousness={handleRatePlayerSeriousness} 
         />
         <GameForm 
         addresses={addresses} 
@@ -218,7 +253,7 @@ const handleSetGameCompletedStatus = (game) => {
         handleJoinGame={handleJoinGame}
         handleUpdateGame={handleUpdateGame}
         loggedPlayer={loggedPlayer}
-        handleSetGameCompletedStatus={handleSetGameCompletedStatus} 
+        handleSetGameCompletedStatus={handleSetGameCompletedStatus}
         />
         <AddressForm 
         onSubmit={handleAddAddress} 

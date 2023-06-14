@@ -1,7 +1,7 @@
 import { View, Text } from "react-native-web";
 import PlayerElement from "./PlayerElement";
 
-const PlayerList = ({ players, loggedPlayer, setLoggedPlayer }) => {
+const PlayerList = ({ players, loggedPlayer, setLoggedPlayer, handleRatePlayerAbility, handleRatePlayerSeriousness }) => {
   return (
     <View>
       <Text>Player List</Text>
@@ -11,6 +11,8 @@ const PlayerList = ({ players, loggedPlayer, setLoggedPlayer }) => {
           player={player}
           loggedPlayer={loggedPlayer}
           setLoggedPlayer={setLoggedPlayer}
+          handleRatePlayerAbility={handleRatePlayerAbility}
+          handleRatePlayerSeriousness={handleRatePlayerSeriousness}
         />
       ))}
     </View>
