@@ -285,7 +285,7 @@ public class Player {
     }
 
     public void addCommunityAssessedAbilityRating(Player player, double newRating) {
-        if (newRating < 0.0 || newRating > 5.0 || newRating % 1.0 != 0) {
+        if (newRating < 0.0 || newRating > 5.0 || newRating % 0.5 != 0) {
             System.out.println("Invalid rating. Please enter a rating between 0.0 and 5.0 in increments of 1.0.");
             return;
         }
@@ -320,8 +320,8 @@ public class Player {
     }
 
     public void addCommunityAssessedSeriousnessRating(Player player, double newRating) {
-        if (newRating < 0.0 || newRating > 5.0 || newRating % 1.0 != 0) {
-            System.out.println("Invalid rating. Please enter a rating between 0.0 and 5.0 in increments of 1.0.");
+        if (newRating < 0.0 || newRating > 5.0 || newRating % 0.5 != 0) {
+            System.out.println("Invalid rating. Please enter a rating between 0.0 and 5.0 in increments of 0.5.");
             return;
         }
         player.communityAssessedSeriousnessLevelCount++;

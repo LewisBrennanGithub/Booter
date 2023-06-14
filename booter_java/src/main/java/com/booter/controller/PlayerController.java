@@ -11,8 +11,7 @@ import org.springframework.http.ResponseEntity;
 import org.springframework.web.bind.annotation.*;
 import org.springframework.web.server.ResponseStatusException;
 
-import java.util.List;
-import java.util.Optional;
+import java.util.*;
 
 @RestController
 public class PlayerController {
@@ -90,22 +89,41 @@ public class PlayerController {
         return new ResponseEntity<>("Player has changed game completed status", HttpStatus.OK);
     }
 
+//    @PatchMapping("/players/{ratingAbilityPlayerId}/rateOtherPlayerAbility/{ratedAbilityPlayerId}")
+//    public ResponseEntity<?> rateOtherPlayerAbility(
+//            @PathVariable Long ratingAbilityPlayerId,
+//            @PathVariable Long ratedAbilityPlayerId,
+//            @RequestParam double abilityRating) {
+//        Optional<Player> ratingAbilityPlayerOptional = playerRepository.findById(ratingAbilityPlayerId);
+//        Optional<Player> ratedAbilityPlayerOptional = playerRepository.findById(ratedAbilityPlayerId);
+//        Player ratingAbilityPlayer = ratingAbilityPlayerOptional.get();
+//        Player ratedAbilityPlayer = ratedAbilityPlayerOptional.get();
+//        ratingAbilityPlayer.addCommunityAssessedAbilityRating(ratedAbilityPlayer, abilityRating);
+//        playerRepository.save(ratedAbilityPlayer);
+//        return new ResponseEntity<>("Player has rated other player's ability", HttpStatus.OK);
+//    }
+
     @PatchMapping("/players/{ratingAbilityPlayerId}/rateOtherPlayerAbility/{ratedAbilityPlayerId}")
-    public ResponseEntity<?> rateOtherPlayerAbility(
+    public ResponseEntity<Map<String, String>> rateOtherPlayerAbility(
             @PathVariable Long ratingAbilityPlayerId,
             @PathVariable Long ratedAbilityPlayerId,
             @RequestParam double abilityRating) {
         Optional<Player> ratingAbilityPlayerOptional = playerRepository.findById(ratingAbilityPlayerId);
         Optional<Player> ratedAbilityPlayerOptional = playerRepository.findById(ratedAbilityPlayerId);
+        // You should also handle the case when the player is not found (e.g. return 404 Not Found)
+        if (!ratingAbilityPlayerOptional.isPresent() || !ratedAbilityPlayerOptional.isPresent()) {
+            return new ResponseEntity<>(Collections.singletonMap("message", "Player not found"), HttpStatus.NOT_FOUND);
+        }
         Player ratingAbilityPlayer = ratingAbilityPlayerOptional.get();
         Player ratedAbilityPlayer = ratedAbilityPlayerOptional.get();
         ratingAbilityPlayer.addCommunityAssessedAbilityRating(ratedAbilityPlayer, abilityRating);
         playerRepository.save(ratedAbilityPlayer);
-        return new ResponseEntity<>("Player has rated other player's ability", HttpStatus.OK);
+        return new ResponseEntity<>(Collections.singletonMap("message", "Player has rated other player's ability"), HttpStatus.OK);
     }
 
+
     @PatchMapping("/players/{ratingSeriousnessPlayerId}/rateOtherPlayerSeriousness/{ratedSeriousnessPlayerId}")
-    public ResponseEntity<?> rateOtherPlayerSeriousness(
+    public ResponseEntity<Map<String, String>> rateOtherPlayerSeriousness(
             @PathVariable Long ratingSeriousnessPlayerId,
             @PathVariable Long ratedSeriousnessPlayerId,
             @RequestParam double seriousnessRating) {
@@ -115,7 +133,10 @@ public class PlayerController {
         Player ratedSeriousnessPlayer = ratedSeriousnessPlayerOptional.get();
         ratingSeriousnessPlayer.addCommunityAssessedSeriousnessRating(ratedSeriousnessPlayer, seriousnessRating);
         playerRepository.save(ratedSeriousnessPlayer);
-        return new ResponseEntity<>("Player has rated other player's seriousness", HttpStatus.OK);
+
+        Map<String, String> response = new HashMap<>();
+        response.put("message", "Player has rated other player's seriousness");
+        return new ResponseEntity<>(response, HttpStatus.OK);
     }
 
     @DeleteMapping("/players/{playerId}")
