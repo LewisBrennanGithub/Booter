@@ -46,7 +46,7 @@ export const playerJoinGame = (playerId, gameId, updatedData) => {
 }
 
 export const playerSetGameCompletedStatus = (playerId, gameId) => {
-  return fetch(`http://localhost:8080/players/${playerId}/games/${gameId}`, {
+  return fetch(`http://localhost:8080/players/${playerId}/setCompletedStatus/${gameId}`, {
     method: "PATCH",
     headers: { "Content-Type": "application/json"},
   })
