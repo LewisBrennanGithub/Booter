@@ -85,7 +85,7 @@ const PlayerForm = ({ addresses, onSubmit, onCancel, onPlayerAdded }) => {
       </Picker>
 
       <Button title="Add Player" onPress={handleAddPlayer} />
-      <Button title="Cancel" onPress={onCancel} />
+      {/* <Button title="Cancel" onPress={onCancel} /> */}
     </View>
   );
 }

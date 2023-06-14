@@ -73,7 +73,7 @@ const GameUpdateForm = ({ game, handleUpdateGame, onCancel }) => {
       <Text>Max Players:</Text>
       <TextInput value={String(maxPlayers)} onChangeText={text => setMaxPlayers(Number(text))} />
       <Button title="Save" onPress={updateGame} />
-      <Button title="Cancel" onPress={onCancel} />
+      {/* <Button title="Cancel" onPress={onCancel} /> */}
     </View>
   );
 };

@@ -113,7 +113,7 @@ return (
           ))}
       </Picker>
       <Button title="Add Game" onPress={handleAddGame} />
-      <Button title="Cancel" onPress={onCancel} />
+      {/* <Button title="Cancel" onPress={onCancel} /> */}
   </View>
 );
 }

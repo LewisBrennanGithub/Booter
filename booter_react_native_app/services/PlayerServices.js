@@ -99,7 +99,6 @@ export const rateOtherPlayerAbility = (ratingAbilityPlayerId, ratedAbilityPlayer
   });
 }
 
-
 export const rateOtherPlayerSeriousness = (ratingSeriousnessPlayerId, ratedSeriousnessPlayerId, seriousnessRating) => {
   return fetch(`http://localhost:8080/players/${ratingSeriousnessPlayerId}/rateOtherPlayerSeriousness/${ratedSeriousnessPlayerId}?seriousnessRating=${seriousnessRating}`, {
     method: "PATCH",
