@@ -85,6 +85,18 @@ const handleJoinGame = (gameId, player) => {
     .catch(err => console.error("Error joining game:", err));
 };
 
+const handleSetGameCompletedStatus = (game) => {
+  PlayerServices.playerSetGameCompletedStatus(loggedPlayer.id, game.id)
+    .then(response => {
+      console.log(response);
+      fetchAllGames();
+      // You may also want to update the UI to reflect the change or refetch the game details.
+    })
+    .catch(err => console.error('Error setting game completed status:', err));
+};
+
+
+
 // GAMES
 
   // const fetchAllGames = () => {
@@ -140,7 +152,7 @@ const handleJoinGame = (gameId, player) => {
   //     fetchAllGames(); // Re-fetch all the addresses to refresh the component
   //   });
   // };
-  
+
   const handleUpdateGame = (id, updatedData) => {
     GameServices.updateGame(id, updatedData).then(() => {
       fetchAllGames(); // Re-fetch all the games to refresh the component
@@ -205,7 +217,8 @@ const handleJoinGame = (gameId, player) => {
         handleDeleteGame={handleDeleteGame}
         handleJoinGame={handleJoinGame}
         handleUpdateGame={handleUpdateGame}
-        loggedPlayer={loggedPlayer} 
+        loggedPlayer={loggedPlayer}
+        handleSetGameCompletedStatus={handleSetGameCompletedStatus} 
         />
         <AddressForm 
         onSubmit={handleAddAddress} 
