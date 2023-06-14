@@ -3,7 +3,7 @@ import { View, Text } from 'react-native';
 import { Picker } from '@react-native-picker/picker';
 import AddressElement from './AddressElement';
 
-const AddressList = ({ addresses, addressById, fetchAddressById, handleDeleteAddress }) => {
+const AddressList = ({ addresses, addressById, fetchAddressById, handleDeleteAddress, handleUpdateAddress }) => {
   return (
     <View>
       {addresses && addresses.map((address) => (
@@ -13,6 +13,7 @@ const AddressList = ({ addresses, addressById, fetchAddressById, handleDeleteAdd
           addressById={addressById}
           fetchAddressById={fetchAddressById}
           handleDeleteAddress={handleDeleteAddress}
+          handleUpdateAddress={handleUpdateAddress}
         />
       ))}
 

@@ -2,7 +2,7 @@ import React, { useState } from 'react';
 import { View, Text, Button } from 'react-native';
 import AddressUpdateForm from './AdressUpdateForm';
 
-const AddressElement = ({ address, addressById, fetchAddressById, handleDeleteAddress }) => {
+const AddressElement = ({ address, addressById, fetchAddressById, handleDeleteAddress, handleUpdateAddress }) => {
   const [isEditing, setIsEditing] = useState(false);
 
   const { id, propertyNumberOrName, street, city, country, postCode } = address;
@@ -12,14 +12,9 @@ const AddressElement = ({ address, addressById, fetchAddressById, handleDeleteAd
     setIsEditing(true);
   };
 
-  const handleCancelUpdate = () => {
-    setIsEditing(false);
-  };
-
-  const handleUpdateAddress = () => {
-    setIsEditing(false);
-    fetchAddressById(address.id); // Fetch the updated address data after updating
-  };
+  // const handleCancelUpdate = () => {
+  //   setIsEditing(false);
+  // };
 
   return (
     <View>
@@ -27,7 +22,8 @@ const AddressElement = ({ address, addressById, fetchAddressById, handleDeleteAd
         <AddressUpdateForm
           address={address}
           onUpdate={handleUpdateAddress}
-          onCancel={handleCancelUpdate}
+          // onCancel={handleCancelUpdate}
+          onSuccess={() => setIsEditing(false)}
         />
       ) : (
         address && (

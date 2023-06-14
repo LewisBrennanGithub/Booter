@@ -2,7 +2,7 @@ import React, { useState, useEffect } from 'react';
 import { View, Text, TextInput, Button } from 'react-native';
 import * as AddressServices from "../../services/AddressServices";
 
-const AddressUpdateForm = ({ address, onUpdate, onCancel }) => {
+const AddressUpdateForm = ({ address, onUpdate, onSuccess }) => {
   const [propertyNumberOrName, setPropertyNumberOrName] = useState('');
   const [street, setStreet] = useState('');
   const [city, setCity] = useState('');
@@ -27,15 +27,15 @@ const AddressUpdateForm = ({ address, onUpdate, onCancel }) => {
       country,
       postCode
     };
-
-    AddressServices.updateAddress(address.id, updatedData)
-      .then(() => {
-        onUpdate();
-      })
-      .catch((error) => {
-        // Handle error, e.g., show an error message
-      });
+      
+    console.log('Address ID:', address.id);
+    onUpdate(address.id, updatedData);
+    // Optional: Call onSuccess callback if provided
+    if (typeof onSuccess === 'function') {
+      onSuccess();
+    }
   };
+  
 
   return (
     <View>
@@ -66,7 +66,7 @@ const AddressUpdateForm = ({ address, onUpdate, onCancel }) => {
         onChangeText={text => setPostCode(text)}
       />
       <Button title="Update Address" onPress={handleUpdateAddress} />
-      <Button title="Cancel" onPress={onCancel} />
+      {/* <Button title="Cancel" onPress={onCancel} /> */}
     </View>
   );
 };

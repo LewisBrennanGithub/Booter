@@ -139,18 +139,25 @@ const handleJoinGame = (gameId, player) => {
     });
   };
 
-  const handleDeleteAddress = (id) => {
-    AddressServices.deleteAddress(id).then(() => {
-      fetchAllAddresses();
-    });
-  };
-
   const handleAddAddress = (addressData) => {
     AddressServices.postAddress(addressData)
       .then(() => {
         fetchAllAddresses();
       })
   };
+
+  const handleUpdateAddress = (id, updatedData) => {
+    AddressServices.updateAddress(id, updatedData).then(() => {
+      fetchAllAddresses(); // Re-fetch all the addresses to refresh the component
+    });
+  };
+
+  const handleDeleteAddress = (id) => {
+    AddressServices.deleteAddress(id).then(() => {
+      fetchAllAddresses();
+    });
+  };
+  
 
   return (
     <View>
@@ -185,6 +192,7 @@ const handleJoinGame = (gameId, player) => {
         addressById={addressById}
         fetchAddressById={fetchAddressById}
         handleDeleteAddress={handleDeleteAddress}
+        handleUpdateAddress={handleUpdateAddress}
         />
     </View>
 );
