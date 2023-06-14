@@ -224,9 +224,8 @@ public class Player {
         this.games = games;
     }
 
-//    SPECIFIC METHODS/GETTERS/SETTERS
-//    THIS WILL NEED HOOKED UP TO THE DATABASE
-//    EDIT - CONSIDER REMOVING AND HAVE HANDLED BY POST METHOD
+//    FOR UNIT TESTING ONLY
+
     public Game createGame(String name, Address address, ZonedDateTime dateAndTime, int duration, double recommendedAbilityLevel, double recommendedSeriousnessLevel, double actualAbilityLevel, double actualSeriousnessLevel, int maxPlayers ) {
         Game newGame = new Game(this, name, address, dateAndTime, duration, recommendedAbilityLevel, recommendedSeriousnessLevel, actualAbilityLevel, actualSeriousnessLevel, false, maxPlayers);
         this.games.add(newGame);
@@ -234,7 +233,7 @@ public class Player {
     }
     // ^^ FOR UNITTESTS >> address.getGames().add(newGame);
 
-//    WILL ALSO NEED TO BE REMOVED AT SOME STAGE
+//    FOR UNIT TESTING ONLY
 //    public Game getLastGameCreated() {
 //        return games.get(games.size() - 1);
 //    }

@@ -12,17 +12,12 @@ const AddressElement = ({ address, addressById, fetchAddressById, handleDeleteAd
     setIsEditing(true);
   };
 
-  // const handleCancelUpdate = () => {
-  //   setIsEditing(false);
-  // };
-
   return (
     <View>
       {isEditing ? (
         <AddressUpdateForm
           address={address}
           onUpdate={handleUpdateAddress}
-          // onCancel={handleCancelUpdate}
           onSuccess={() => setIsEditing(false)}
         />
       ) : (

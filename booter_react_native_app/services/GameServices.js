@@ -6,7 +6,6 @@ export const getGamesById = (id) => {
   return fetch(`http://localhost:8080/games/${id}`).then((res) => res.json());
 };
 
-// MAY NEED WORK - CONSIDER STATE
 export const getGamePlayers = (gameId) => {
   return fetch(`http://localhost:8080/games/${gameId}/players`).then((res) => res.json())
 }
@@ -34,13 +33,6 @@ export const updateGame = (id, updatedData) => {
   })
   .then(res => res.json())
 }
-
-// export const deleteGame = (id) => {
-//   return fetch(`http://localhost:8080/games/${id}`, {
-//     method: "DELETE",
-//   })
-//   .then(res => res.json())
-// }
 
 export const deleteGame = (id) => {
   return fetch(`http://localhost:8080/games/${id}`, {

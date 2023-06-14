@@ -17,7 +17,6 @@ public class Game {
     @GeneratedValue(strategy = GenerationType.IDENTITY)
     private Long id;
     @ManyToOne
-//    @JsonIgnore
     @JsonIgnoreProperties(value = {"games"})
     @JoinColumn(name="creator_id")
     private Player creator;

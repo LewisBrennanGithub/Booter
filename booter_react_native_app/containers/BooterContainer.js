@@ -41,28 +41,6 @@ const BooterContainer = () => {
     }
   };
 
-// const fetchAllData = async () => {
-//   try {
-//     const [addressesData, gamesData, playersData] = await Promise.all([
-//       AddressServices.getAddresses(),
-//       GameServices.getGames(),
-//       PlayerServices.getPlayers()
-//     ]);
-//     setAddresses(addressesData);
-//     setGames(gamesData);
-//     setPlayers(playersData);
-    // 1
-    // const fetchedIndividualGames = await Promise.all(gamesData.map(game => GameServices.getGamesById(game.id)))
-    // setGames(fetchedIndividualGames);
-    // 2
-    // const fetchedIndividualGames = await Promise.all(gamesData.map(game => fetchGamesById(game.id)))
-    // setGames(fetchedIndividualGames);
-
-//   } catch (error) {
-//     console.error('Error fetching data:', error);
-//   }
-// };
-
 // PLAYERS
 
 const fetchAllPlayers = () => {
@@ -90,7 +68,6 @@ const handleSetGameCompletedStatus = (game) => {
     .then(response => {
       console.log(response);
       fetchAllGames();
-      // You may also want to update the UI to reflect the change or refetch the game details.
     })
     .catch(err => console.error('Error setting game completed status:', err));
 };
@@ -107,7 +84,6 @@ const handleRatePlayerAbility = (player, selectedAbilityRating) => {
     .then(response => {
       console.log(response);
       fetchAllPlayers();
-      // You might want to show some feedback to the user, e.g. "Rating submitted successfully"
     })
     .catch(error => console.error('Error rating player ability:', error));
 };
@@ -124,23 +100,13 @@ const handleRatePlayerSeriousness = (player, selectedSeriousnessRating) => {
   PlayerServices.rateOtherPlayerSeriousness(loggedPlayer.id, player.id, seriousnessRatingNumber)
     .then(response => {
       console.log(response);
-      fetchAllPlayers(); // fetch all players again after rating
+      fetchAllPlayers(); 
     })
     .catch(error => console.error('Error rating player seriousness:', error));
 };
 
 
 // GAMES
-
-  // const fetchAllGames = () => {
-  //   GameServices.getGames().then(data => { setGames(data);
-  //   });
-  // };
-  // const fetchAllGames = () => {
-  //   GameServices.getGames().then(data => {
-  //     setGames(data); // Assuming setGames is your state setter for games.
-  //   });
-  // };
 
   const fetchAllGames = () => {
     GameServices.getGames().then(data => {
@@ -155,17 +121,6 @@ const handleRatePlayerSeriousness = (player, selectedSeriousnessRating) => {
     });
   };
 
-  // NEED TO IMPLEMENT FIND GAME-PLAYERS
-  // const fetchGamePlayers = (id) => {
-  //   GameServices.getGamePlayers(id).then(data => {set})
-  // }
-
-  // const handleDeleteGame = (id) => {
-  //   GameServices.deleteGame(id).then(data => {
-  //     fetchAllGames();
-  //   });
-  // };
-
   const handleDeleteGame = (id) => {
     GameServices.deleteGame(id).then(() => {
       fetchAllGames();
@@ -179,12 +134,6 @@ const handleRatePlayerSeriousness = (player, selectedSeriousnessRating) => {
       fetchAllGames();
     });
   };
-
-  // const handleUpdateGame = (id, updatedData) => {
-  //   GameServices.updateGame(id, updatedData).then(() => {
-  //     fetchAllGames(); // Re-fetch all the addresses to refresh the component
-  //   });
-  // };
 
   const handleUpdateGame = (id, updatedData) => {
     GameServices.updateGame(id, updatedData).then(() => {
@@ -215,7 +164,7 @@ const handleRatePlayerSeriousness = (player, selectedSeriousnessRating) => {
 
   const handleUpdateAddress = (id, updatedData) => {
     AddressServices.updateAddress(id, updatedData).then(() => {
-      fetchAllAddresses(); // Re-fetch all the addresses to refresh the component
+      fetchAllAddresses(); 
     });
   };
 

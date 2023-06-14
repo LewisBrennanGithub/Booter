@@ -19,7 +19,7 @@ const GameForm = ({ game = {}, addresses, onSubmit, onCancel, loggedPlayer }) =>
   const handleDateChange = (event, selectedDate) => {
     const currentDate = selectedDate || dateAndTime;
     setShowDatePicker(Platform.OS === 'ios');
-    setDateAndTime(currentDate); // make sure this uses the setDateAndTime from useState
+    setDateAndTime(currentDate); 
   };
 
   const handleAddGame = () => {
@@ -39,7 +39,7 @@ const GameForm = ({ game = {}, addresses, onSubmit, onCancel, loggedPlayer }) =>
       maxPlayers
     };
   
-    onSubmit(newGame); // Call the onSubmit prop
+    onSubmit(newGame);
   };
 
 const levels = Array.from({ length: 11 }, (_, i) => (i * 0.5).toFixed(1));
@@ -113,7 +113,6 @@ return (
           ))}
       </Picker>
       <Button title="Add Game" onPress={handleAddGame} />
-      {/* <Button title="Cancel" onPress={onCancel} /> */}
   </View>
 );
 }

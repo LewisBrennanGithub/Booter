@@ -7,15 +7,12 @@ import * as PlayerServices from "../../services/PlayerServices";
 
 const GameElement = ({ players, game, handleDeleteGame, handleJoinGame, loggedPlayer, handleUpdateGame, handleSetGameCompletedStatus }) => {
   const [isEditing, setIsEditing] = useState(false);
-
-  // DELETE BELOW THIS LINE
-  // TESTING PURPOSES ONLY - DELETE THIS
   const [gamePlayers, setGamePlayers] = useState([]);
-  // TESTING PURPOSES ONLY - DELETE THIS
+
+  // CONSIDER REVISING - POSSIBLY UN-NECESSARY
   useEffect(() => {
     fetchGamePlayers();
   }, [game]);
-  // TESTING PURPOSES ONLY - DELETE THIS
   const fetchGamePlayers = async () => {
     try {
       const fetchedGamePlayers = await GameServices.getGamePlayers(game.id);
@@ -24,18 +21,9 @@ const GameElement = ({ players, game, handleDeleteGame, handleJoinGame, loggedPl
       console.error('Error fetching game players:', err);
     }
   };
-  // DELETE ABOVE THIS LINE
-  
+
   const isCreator = loggedPlayer?.id === game?.creator?.id;
 
-  // const handleSetGameCompletedStatus = () => {
-  //   PlayerServices.playerSetGameCompletedStatus(loggedPlayer.id, game.id)
-  //     .then(response => {
-  //       console.log(response);
-  //       // You may also want to update the UI to reflect the change or refetch the game details.
-  //     })
-  //     .catch(err => console.error('Error setting game completed status:', err));
-  // };
   
   const playerIsInGame = game?.players?.some(player => player.id === loggedPlayer?.id);
   const gameIsFull = (game.players?.length ?? 0) >= game.maxPlayers;
@@ -50,7 +38,7 @@ const GameElement = ({ players, game, handleDeleteGame, handleJoinGame, loggedPl
 
   const handleEdit = (updatedData) => {
     setIsEditing(false);
-    handleUpdateGame(game.id, updatedData);  // Assuming handleUpdateGame is passed as a prop
+    handleUpdateGame(game.id, updatedData); 
   };
 
   const getPlayerUsername = (playerId) => {

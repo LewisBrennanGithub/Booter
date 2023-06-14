@@ -30,7 +30,6 @@ const AddressUpdateForm = ({ address, onUpdate, onSuccess }) => {
       
     console.log('Address ID:', address.id);
     onUpdate(address.id, updatedData);
-    // Optional: Call onSuccess callback if provided
     if (typeof onSuccess === 'function') {
       onSuccess();
     }
@@ -66,7 +65,6 @@ const AddressUpdateForm = ({ address, onUpdate, onSuccess }) => {
         onChangeText={text => setPostCode(text)}
       />
       <Button title="Update Address" onPress={handleUpdateAddress} />
-      {/* <Button title="Cancel" onPress={onCancel} /> */}
     </View>
   );
 };

@@ -64,12 +64,12 @@ public class AddressController {
             Address address = addressOptional.get();
             List<Player> players = playerRepository.findByAddressId(id);
             for (Player player : players) {
-                player.setAddress(null); // Set address to null or remove the reference altogether
+                player.setAddress(null);
                 playerRepository.save(player);
             }
-            List<Game> games = new ArrayList<>(address.getGames()); // Create a copy of the games list
+            List<Game> games = new ArrayList<>(address.getGames());
             for (Game game : games) {
-                game.removeAddressAssociation(); // Remove the association with the address
+                game.removeAddressAssociation();
                 gameRepository.save(game);
             }
             addressRepository.deleteById(id);

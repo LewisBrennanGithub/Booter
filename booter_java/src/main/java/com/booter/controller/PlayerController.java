@@ -64,7 +64,7 @@ public class PlayerController {
         playerRepository.save(existingPlayer);
         return new ResponseEntity<>(existingPlayer, HttpStatus.OK);
     }
-// CONSIDER PATCH?
+
     @PatchMapping("/players/{playerId}/joinGame/{gameId}")
     public ResponseEntity<?> joinGame(@PathVariable Long playerId, @PathVariable Long gameId) {
         Optional<Player> playerOptional = playerRepository.findById(playerId);
@@ -89,20 +89,6 @@ public class PlayerController {
         return new ResponseEntity<>(Collections.singletonMap("message", "Player has changed game completed status"), HttpStatus.OK);
     }
 
-//    @PatchMapping("/players/{ratingAbilityPlayerId}/rateOtherPlayerAbility/{ratedAbilityPlayerId}")
-//    public ResponseEntity<?> rateOtherPlayerAbility(
-//            @PathVariable Long ratingAbilityPlayerId,
-//            @PathVariable Long ratedAbilityPlayerId,
-//            @RequestParam double abilityRating) {
-//        Optional<Player> ratingAbilityPlayerOptional = playerRepository.findById(ratingAbilityPlayerId);
-//        Optional<Player> ratedAbilityPlayerOptional = playerRepository.findById(ratedAbilityPlayerId);
-//        Player ratingAbilityPlayer = ratingAbilityPlayerOptional.get();
-//        Player ratedAbilityPlayer = ratedAbilityPlayerOptional.get();
-//        ratingAbilityPlayer.addCommunityAssessedAbilityRating(ratedAbilityPlayer, abilityRating);
-//        playerRepository.save(ratedAbilityPlayer);
-//        return new ResponseEntity<>("Player has rated other player's ability", HttpStatus.OK);
-//    }
-
     @PatchMapping("/players/{ratingAbilityPlayerId}/rateOtherPlayerAbility/{ratedAbilityPlayerId}")
     public ResponseEntity<Map<String, String>> rateOtherPlayerAbility(
             @PathVariable Long ratingAbilityPlayerId,
@@ -110,7 +96,6 @@ public class PlayerController {
             @RequestParam double abilityRating) {
         Optional<Player> ratingAbilityPlayerOptional = playerRepository.findById(ratingAbilityPlayerId);
         Optional<Player> ratedAbilityPlayerOptional = playerRepository.findById(ratedAbilityPlayerId);
-        // You should also handle the case when the player is not found (e.g. return 404 Not Found)
         if (!ratingAbilityPlayerOptional.isPresent() || !ratedAbilityPlayerOptional.isPresent()) {
             return new ResponseEntity<>(Collections.singletonMap("message", "Player not found"), HttpStatus.NOT_FOUND);
         }

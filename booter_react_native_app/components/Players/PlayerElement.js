@@ -8,38 +8,6 @@ const PlayerElement = ({ player, loggedPlayer, setLoggedPlayer, handleRatePlayer
   const [selectedAbilityRating, setSelectedAbilityRating] = useState('');
   const [selectedSeriousnessRating, setSelectedSeriousnessRating] = useState('');
 
-  // const handleRatePlayerAbility = () => {
-  //   if (!loggedPlayer) {
-  //     console.error("No player is logged in.");
-  //     return;
-  //   }
-  
-  //   const abilityRatingNumber = parseFloat(selectedAbilityRating);
-  
-  //   PlayerServices.rateOtherPlayerAbility(loggedPlayer.id, player.id, abilityRatingNumber)
-  //     .then(response => {
-  //       console.log(response);
-  //       // You might want to show some feedback to the user, e.g. "Rating submitted successfully"
-  //     })
-  //     .catch(error => console.error('Error rating player ability:', error));
-  // };
-
-  // const handleRatePlayerSeriousness = () => {
-  //   if (!loggedPlayer) {
-  //     console.error("No player is logged in.");
-  //     return;
-  //   }
-
-  //   const seriousnessRatingNumber = parseFloat(selectedSeriousnessRating);
-
-  //   PlayerServices.rateOtherPlayerSeriousness(loggedPlayer.id, player.id, seriousnessRatingNumber)
-  //     .then(response => {
-  //       console.log(response);
-  //       // You might want to show some feedback to the user, e.g. "Rating submitted successfully"
-  //     })
-  //     .catch(error => console.error('Error rating player seriousness:', error));
-  // };
-
   const levels = Array.from({ length: 11 }, (_, i) => (i * 0.5).toFixed(1));
 
   return (
