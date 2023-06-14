@@ -9,24 +9,38 @@ const AddressForm = ({ address = {}, onSubmit, onCancel }) => {
   const [country, setCountry] = useState(address.country || '');
   const [postCode, setPostCode] = useState(address.postCode || '');
 
-  const handleAddAddress = () => {
-    const addressData = {
-      propertyNumberOrName,
-      street,
-      city,
-      country,
-      postCode
-    };
+  // const handleAddAddress = () => {
+  //   const addressData = {
+  //     propertyNumberOrName,
+  //     street,
+  //     city,
+  //     country,
+  //     postCode
+  //   };
 
-    AddressServices.postAddress(addressData)
-      .then(() => {
-        // Handle successful submission, e.g., show a success message or update the list of addresses
-        // You can also reset the form fields here
-      })
-      .catch(error => {
-        // Handle error, e.g., show an error message
-      });
+  //   AddressServices.postAddress(addressData)
+  //     .then(() => {
+  //       // Handle successful submission, e.g., show a success message or update the list of addresses
+  //       // You can also reset the form fields here
+  //     })
+  //     .catch(error => {
+  //       // Handle error, e.g., show an error message
+  //     });
+  // };
+
+// In AddressForm component
+const handleAddAddress = () => {
+  const addressData = {
+    propertyNumberOrName,
+    street,
+    city,
+    country,
+    postCode
   };
+
+  onSubmit(addressData); // Call the onSubmit prop
+};
+
 
   return (
     <View>

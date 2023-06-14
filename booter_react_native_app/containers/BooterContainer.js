@@ -186,7 +186,8 @@ const handleJoinGame = (gameId, player) => {
         />
         <AddressForm 
         onSubmit={handleAddAddress} 
-        onCancel={() => {}} />
+        onCancel={() => {}} 
+        />
         <AddressList 
         addresses={addresses} 
         addressById={addressById}
