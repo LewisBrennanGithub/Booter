@@ -1,5 +1,5 @@
 import React, { useState, useEffect } from 'react';
-import { View, Text, Button } from 'react-native';
+import { View, Text, Button, TouchableOpacity } from 'react-native';
 import * as GameServices from "../services/GameServices";
 import * as AddressServices from "../services/AddressServices";
 import * as PlayerServices from "../services/PlayerServices";
@@ -10,6 +10,8 @@ import GameUpdateForm from '../components/Games/GameUpdateForm';
 import GameForm from '../components/Games/GameForm';
 import PlayerList from '../components/Players/PlayerList';
 import PlayerForm from '../components/Players/PlayerForm';
+import { StyleSheet } from 'react-native';
+import { styles } from './AppStyles';
 
 const BooterContainer = () => {
   const [addresses, setAddresses] = useState(null);
@@ -189,9 +191,10 @@ const handleRatePlayerSeriousness = (player, selectedSeriousnessRating) => {
 
   return (
     <View>
+    <View style={styles.headerStyle}>
     <Text>BooterContainer</Text>
-    <View>
-      <Button onPress={() => { setGamesPage(true); setPlayersPage(false); setAddContentPage(false); }}>Games</Button>
+      {/* <Button onPress={() => { setGamesPage(true); setPlayersPage(false); setAddContentPage(false); }}>Games</Button> */}
+      <TouchableOpacity onPress={() => { setGamesPage(true); setPlayersPage(false); setAddContentPage(false); }}><Text>Games</Text></TouchableOpacity>
       <Button onPress={() => { setGamesPage(false); setPlayersPage(true); setAddContentPage(false); }}>Players</Button>
       <Button onPress={() => { setGamesPage(false); setPlayersPage(false); setAddContentPage(true); }}>Add Content</Button>
     </View>
