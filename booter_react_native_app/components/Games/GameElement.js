@@ -5,7 +5,7 @@ import GameUpdateForm from './GameUpdateForm';
 import * as GameServices from "../../services/GameServices";
 import * as PlayerServices from "../../services/PlayerServices";
 
-const GameElement = ({ players, game, handleDeleteGame, handleJoinGame, loggedPlayer }) => {
+const GameElement = ({ players, game, handleDeleteGame, handleJoinGame, loggedPlayer, handleUpdateGame }) => {
   const [isEditing, setIsEditing] = useState(false);
 
   // DELETE BELOW THIS LINE
@@ -48,9 +48,9 @@ const GameElement = ({ players, game, handleDeleteGame, handleJoinGame, loggedPl
     setIsEditing(false);
   };
 
-  const handleUpdateGame = () => {
+  const handleEdit = (updatedData) => {
     setIsEditing(false);
-    handleUpdateGameProp(game.id);
+    handleUpdateGame(game.id, updatedData);  // Assuming handleUpdateGame is passed as a prop
   };
 
   const getPlayerUsername = (playerId) => {
@@ -63,7 +63,7 @@ const GameElement = ({ players, game, handleDeleteGame, handleJoinGame, loggedPl
       {isEditing ? (
         <GameUpdateForm
           game={game}
-          onUpdate={handleUpdateGame}
+          handleUpdateGame={handleEdit}
           onCancel={handleCancelUpdate}
         />
       ) : (
@@ -80,15 +80,15 @@ const GameElement = ({ players, game, handleDeleteGame, handleJoinGame, loggedPl
           <Text>Actual Seriousness Level: {game.actualSeriousnessLevel}</Text>
           <Text>Completed: {game.completedStatus ? 'Yes' : 'No'}</Text>
           <Text>Max Players: {game.maxPlayers}</Text>
-          {/* {gamePlayers.map(player => (
-  <Text key={player.id}>Player: {player.userName}</Text>
-))} */}
+          {gamePlayers.map(player => (
+          <Text key={player.id}>Player: {player.userName}</Text>
+          ))}
           {!playerIsInGame && !gameIsFull && (
-            <Button title="Join" onPress={() => handleJoinGame(game.id, loggedPlayer)} />
+          <Button title="Join" onPress={() => handleJoinGame(game.id, loggedPlayer)} />
           )}
           {isCreator && (
-        <Button title="Toggle Completed Status" onPress={handleSetGameCompletedStatus} />
-      )}
+          <Button title="Toggle Completed Status" onPress={handleSetGameCompletedStatus} />
+          )}
           <Button title="Edit" onPress={handleEditGame} />
           <Button title="Delete" onPress={() => handleDeleteGame(game.id)} />
         </>

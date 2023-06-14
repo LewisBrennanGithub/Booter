@@ -103,6 +103,7 @@ const handleJoinGame = (gameId, player) => {
     })
     .catch(err => console.error('Error fetching games:', err));
   };
+
   const fetchGamesById = (id) => {
     GameServices.getGamesById(id).then(data => {
       setGamesById(data);
@@ -134,6 +135,18 @@ const handleJoinGame = (gameId, player) => {
     });
   };
 
+  // const handleUpdateGame = (id, updatedData) => {
+  //   GameServices.updateGame(id, updatedData).then(() => {
+  //     fetchAllGames(); // Re-fetch all the addresses to refresh the component
+  //   });
+  // };
+  
+  const handleUpdateGame = (id, updatedData) => {
+    GameServices.updateGame(id, updatedData).then(() => {
+      fetchAllGames(); // Re-fetch all the games to refresh the component
+    });
+  };
+  
 // ADDRESSES
 
   const fetchAllAddresses = () => {
@@ -191,6 +204,7 @@ const handleJoinGame = (gameId, player) => {
         games={games} 
         handleDeleteGame={handleDeleteGame}
         handleJoinGame={handleJoinGame}
+        handleUpdateGame={handleUpdateGame}
         loggedPlayer={loggedPlayer} 
         />
         <AddressForm 
