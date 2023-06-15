@@ -115,6 +115,7 @@ const PlayerForm = ({ addresses, onSubmitPlayerAdded }) => {
 const styles = StyleSheet.create({
   cardContainer: {
     backgroundColor: '#ffffff',
+    marginVertical: '10px',
     padding: 20,
     borderRadius: 8,
     shadowColor: '#000000',

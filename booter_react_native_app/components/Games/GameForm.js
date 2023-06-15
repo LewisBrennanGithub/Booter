@@ -140,6 +140,7 @@ const GameForm = ({ game = {}, addresses, onSubmitGameAdded, loggedPlayer }) => 
 const styles = StyleSheet.create({
   cardContainer: {
     backgroundColor: '#ffffff',
+    marginVertical: '10px',
     padding: 20,
     borderRadius: 8,
     shadowColor: '#000000',
