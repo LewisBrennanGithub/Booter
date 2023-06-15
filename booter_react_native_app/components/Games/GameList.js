@@ -5,7 +5,6 @@ import GameElement from './GameElement';
 const GameList = ({ players, games, handleDeleteGame, handleJoinGame, handleUpdateGame, loggedPlayer, handleSetGameCompletedStatus }) => {
   return (
     <View>
-      <Text>GameList</Text>
       {games && games.map((game) => (
           <GameElement
             key={game.id}

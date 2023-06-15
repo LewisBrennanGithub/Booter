@@ -5,7 +5,6 @@ import { styles } from '../../containers/AppStyles';
 const PlayerList = ({ players, loggedPlayer, setLoggedPlayer, handleRatePlayerAbility, handleRatePlayerSeriousness }) => {
   return (
     <View>
-      <Text>Player List</Text>
       {players && players.map((player) => (
         <PlayerElement
           key={player.id}

@@ -1,7 +1,6 @@
 import React, { useState } from 'react';
-import { View, Text, TouchableOpacity, Button, Picker } from 'react-native-web';
+import { View, Text, TouchableOpacity, Picker, StyleSheet } from 'react-native';
 import * as PlayerServices from '../../services/PlayerServices';
-import { styles } from '../../containers/AppStyles';
 
 const PlayerElement = ({ player, loggedPlayer, setLoggedPlayer, handleRatePlayerAbility, handleRatePlayerSeriousness }) => {
   const isSelected = loggedPlayer && loggedPlayer.id === player.id;
@@ -12,9 +11,9 @@ const PlayerElement = ({ player, loggedPlayer, setLoggedPlayer, handleRatePlayer
   const levels = Array.from({ length: 11 }, (_, i) => (i * 0.5).toFixed(1));
 
   return (
-    <View>
+    <View style={styles.cardContainer}>
       <TouchableOpacity onPress={() => setLoggedPlayer(player)}>
-        <Text style={{ color: isSelected ? 'green' : 'black' }}>Username: {player.userName}</Text>
+        <Text style={[styles.username, isSelected && styles.selectedUsername]}>Username: {player.userName}</Text>
       </TouchableOpacity>
       <View>
         <Text>Participating Games:</Text>
@@ -34,9 +33,9 @@ const PlayerElement = ({ player, loggedPlayer, setLoggedPlayer, handleRatePlayer
               <Picker.Item key={level} label={level} value={level} />
             ))}
           </Picker>
-          <TouchableOpacity style={styles.buttonStyle} onPress={() => handleRatePlayerAbility(player, selectedAbilityRating)}>
-  <Text style={styles.whiteText}>Rate Ability</Text>
-</TouchableOpacity>
+          <TouchableOpacity style={styles.cardButton} onPress={() => handleRatePlayerAbility(player, selectedAbilityRating)}>
+            <Text style={styles.buttonText}>Rate Ability</Text>
+          </TouchableOpacity>
           <Picker
             selectedValue={selectedSeriousnessRating}
             onValueChange={(itemValue) => setSelectedSeriousnessRating(itemValue)}
@@ -45,13 +44,45 @@ const PlayerElement = ({ player, loggedPlayer, setLoggedPlayer, handleRatePlayer
               <Picker.Item key={level} label={level} value={level} />
             ))}
           </Picker>
-          <TouchableOpacity style={styles.buttonStyle} onPress={() => handleRatePlayerSeriousness(player, selectedSeriousnessRating)}>
-  <Text style={styles.whiteText}>Rate Seriousness</Text>
-</TouchableOpacity>
+          <TouchableOpacity style={styles.cardButton} onPress={() => handleRatePlayerSeriousness(player, selectedSeriousnessRating)}>
+            <Text style={styles.buttonText}>Rate Seriousness</Text>
+          </TouchableOpacity>
         </>
       )}
     </View>
   );
 };
+
+const styles = StyleSheet.create({
+  cardContainer: {
+    marginBottom: 10,
+    backgroundColor: '#ffffff',
+    borderRadius: 8,
+    padding: 16,
+    shadowColor: '#000000',
+    shadowOffset: { width: 0, height: 2 },
+    shadowOpacity: 0.1,
+    shadowRadius: 4,
+    elevation: 2,
+  },
+  username: {
+    color: 'black',
+    marginBottom: 8,
+  },
+  selectedUsername: {
+    color: 'green',
+  },
+  cardButton: {
+    backgroundColor: '#783c08',
+    borderRadius: 4,
+    paddingVertical: 8,
+    paddingHorizontal: 12,
+    marginTop: 8,
+  },
+  buttonText: {
+    color: 'white',
+    textAlign: 'center',
+  },
+});
 
 export default PlayerElement;

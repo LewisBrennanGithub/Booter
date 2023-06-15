@@ -2,7 +2,7 @@ import { StyleSheet } from 'react-native';
 
 export const styles = StyleSheet.create({
   bodyStyle: {
-    width: '100%',
+    width: '50%',
     fontFamily: 'Arial',
   },
 
