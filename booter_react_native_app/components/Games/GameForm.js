@@ -1,5 +1,5 @@
 import React, { useState } from 'react';
-import { View, Text, TextInput, TouchableOpacity, StyleSheet } from 'react-native';
+import { View, Text, TextInput, TouchableOpacity, StyleSheet, Platform } from 'react-native';
 import { Picker } from '@react-native-picker/picker';
 import DateTimePicker from '@react-native-community/datetimepicker';
 import ReactDatePicker from 'react-datepicker';
@@ -8,6 +8,7 @@ import * as GameServices from "../../services/GameServices";
 
 const GameForm = ({ game = {}, addresses, onSubmitGameAdded, loggedPlayer }) => {
   const [name, setName] = useState(game.name || '');
+  // const [address, setAddress] = useState(game.address ? game.address : null);
   const [address, setAddress] = useState(game.address ? game.address : '');
   const [dateAndTime, setDateAndTime] = useState(new Date());
   const [showDatePicker, setShowDatePicker] = useState(false);

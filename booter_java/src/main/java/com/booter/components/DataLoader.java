@@ -92,7 +92,7 @@ public class DataLoader implements ApplicationRunner {
         Player elizabeth = new Player("Gregorio", "Fumigali", "Fumigator", "0891234567", queenStreet20, 31, 4.0, 4.0);
         playerRepository.save(elizabeth);
 
-        Player frank = new Player("Paul", "Dunno", "EyeBallPall", "0901234567", parkLane22, 25, 2.5, 3.5);
+        Player frank = new Player("Paul", "Dunno", "EyeBallPaul", "0901234567", parkLane22, 25, 2.5, 3.5);
         playerRepository.save(frank);
 
         Player george = new Player("Andrew", "Dyson", "4NaNJeremy", "0912345678", victoriaStreet24, 33, 3.0, 4.5);

@@ -13,7 +13,9 @@ const PlayerElement = ({ player, loggedPlayer, setLoggedPlayer, handleRatePlayer
   return (
     <View style={styles.cardContainer}>
       <TouchableOpacity onPress={() => setLoggedPlayer(player)}>
-        <Text style={[styles.username, isSelected && styles.selectedUsername]}>Username: {player.userName}</Text>
+        <Text style={[styles.username, isSelected && styles.selectedUsername]}>
+          <Text style={styles.usernameText}>{player.userName}</Text>
+        </Text>
       </TouchableOpacity>
       <View>
         <Text>Participating Games:</Text>
@@ -69,8 +71,16 @@ const styles = StyleSheet.create({
     color: 'black',
     marginBottom: 8,
   },
+  usernameText: {
+    fontWeight: 'bold',
+    fontSize: 16,
+  },
   selectedUsername: {
-    color: 'green',
+    backgroundColor: 'green',
+    color: 'white',
+    marginBottom: 8,
+    padding: 4,
+    borderRadius: 4,
   },
   cardButton: {
     backgroundColor: '#783c08',
@@ -84,5 +94,6 @@ const styles = StyleSheet.create({
     textAlign: 'center',
   },
 });
+
 
 export default PlayerElement;
