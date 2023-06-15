@@ -1,7 +1,8 @@
 import React from 'react';
-import { View, Text } from 'react-native';
+import { View, Text, TouchableOpacity } from 'react-native';
 import { Picker } from '@react-native-picker/picker';
 import AddressElement from './AddressElement';
+import { styles } from '../../containers/AppStyles';
 
 const AddressList = ({ addresses, addressById, fetchAddressById, handleDeleteAddress, handleUpdateAddress }) => {
   return (

@@ -190,13 +190,15 @@ const handleRatePlayerSeriousness = (player, selectedSeriousnessRating) => {
   
 
   return (
-    <View>
+    <View style={styles.bodyStyle}>
     <View style={styles.headerStyle}>
-    <Text>BooterContainer</Text>
+    <Text style={styles.iconWhiteText}>Booter Beta 0.1</Text>
       {/* <Button onPress={() => { setGamesPage(true); setPlayersPage(false); setAddContentPage(false); }}>Games</Button> */}
-      <TouchableOpacity onPress={() => { setGamesPage(true); setPlayersPage(false); setAddContentPage(false); }}><Text>Games</Text></TouchableOpacity>
-      <Button onPress={() => { setGamesPage(false); setPlayersPage(true); setAddContentPage(false); }}>Players</Button>
-      <Button onPress={() => { setGamesPage(false); setPlayersPage(false); setAddContentPage(true); }}>Add Content</Button>
+      <View style={styles.navBarStyle}>
+      <TouchableOpacity onPress={() => { setGamesPage(true); setPlayersPage(false); setAddContentPage(false); }}><Text style={styles.whiteText}>Games</Text></TouchableOpacity>
+      <TouchableOpacity onPress={() => { setGamesPage(false); setPlayersPage(true); setAddContentPage(false); }}><Text style={styles.whiteText}>Players</Text></TouchableOpacity>
+      <TouchableOpacity onPress={() => { setGamesPage(false); setPlayersPage(false); setAddContentPage(true); }}><Text style={styles.whiteText}>Add</Text></TouchableOpacity>
+      </View>
     </View>
     {gamesPage && (
       <>

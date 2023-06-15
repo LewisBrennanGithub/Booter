@@ -1,7 +1,8 @@
 import React, { useState } from 'react';
-import { View, Text, TextInput, Button } from 'react-native';
+import { View, Text, TextInput, Button, TouchableOpacity } from 'react-native';
 import { Picker } from '@react-native-picker/picker';
 import * as PlayerServices from "../../services/PlayerServices";
+import { styles } from '../../containers/AppStyles';
 
 const PlayerForm = ({ addresses, onSubmitPlayerAdded }) => {
   const [firstName, setFirstName] = useState('');
@@ -82,7 +83,10 @@ const handleAddPlayer = () => {
           ))}
       </Picker>
 
-      <Button title="Add Player" onPress={handleAddPlayer} />
+      <TouchableOpacity style={styles.buttonStyle} onPress={handleAddPlayer}>
+  <Text style={styles.whiteText}>Add Player</Text>
+</TouchableOpacity>
+
     </View>
   );
 }

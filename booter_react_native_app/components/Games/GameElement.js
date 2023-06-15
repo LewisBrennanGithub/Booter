@@ -1,9 +1,10 @@
 // REMOVE USEEFFECT
 import React, { useState, useEffect } from 'react';
-import { View, Text, Button } from 'react-native';
+import { View, Text, Button, TouchableOpacity } from 'react-native';
 import GameUpdateForm from './GameUpdateForm';
 import * as GameServices from "../../services/GameServices";
 import * as PlayerServices from "../../services/PlayerServices";
+import { styles } from '../../containers/AppStyles';
 
 const GameElement = ({ players, game, handleDeleteGame, handleJoinGame, loggedPlayer, handleUpdateGame, handleSetGameCompletedStatus }) => {
   const [isEditing, setIsEditing] = useState(false);
@@ -72,13 +73,21 @@ const GameElement = ({ players, game, handleDeleteGame, handleJoinGame, loggedPl
           <Text key={player.id}>Player: {player.userName}</Text>
           ))}
           {!playerIsInGame && !gameIsFull && (
-          <Button title="Join" onPress={() => handleJoinGame(game.id, loggedPlayer)} />
-          )}
-          {isCreator && (
-          <Button title="Toggle Completed Status" onPress={() => handleSetGameCompletedStatus(game)} />
-          )}
-          <Button title="Edit" onPress={handleEditGame} />
-          <Button title="Delete" onPress={() => handleDeleteGame(game.id)} />
+  <TouchableOpacity style={styles.buttonStyle} onPress={() => handleJoinGame(game.id, loggedPlayer)}>
+    <Text style={styles.whiteText}>Join</Text>
+  </TouchableOpacity>
+)}
+{isCreator && (
+  <TouchableOpacity style={styles.buttonStyle} onPress={() => handleSetGameCompletedStatus(game)}>
+    <Text style={styles.whiteText}>Toggle Completed Status</Text>
+  </TouchableOpacity>
+)}
+<TouchableOpacity style={styles.buttonStyle} onPress={handleEditGame}>
+  <Text style={styles.whiteText}>Edit</Text>
+</TouchableOpacity>
+<TouchableOpacity style={styles.buttonStyle} onPress={() => handleDeleteGame(game.id)}>
+  <Text style={styles.whiteText}>Delete</Text>
+</TouchableOpacity>
         </>
       )}
     </View>

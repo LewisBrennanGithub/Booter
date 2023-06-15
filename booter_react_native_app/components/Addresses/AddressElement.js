@@ -1,6 +1,7 @@
 import React, { useState } from 'react';
-import { View, Text, Button } from 'react-native';
+import { View, Text, Button, TouchableOpacity } from 'react-native';
 import AddressUpdateForm from './AdressUpdateForm';
+import { styles } from '../../containers/AppStyles';
 
 const AddressElement = ({ address, addressById, fetchAddressById, handleDeleteAddress, handleUpdateAddress }) => {
   const [isEditing, setIsEditing] = useState(false);
@@ -29,8 +30,12 @@ const AddressElement = ({ address, addressById, fetchAddressById, handleDeleteAd
               {address.city || 'N/A'}, {address.country || 'N/A'},
               {address.postCode || 'N/A'}
             </Text>
-            <Button title="Update" onPress={handleEditAddress} />
-            <Button title="Delete" onPress={() => handleDeleteAddress(id)} />
+            <TouchableOpacity style={styles.buttonStyle} onPress={handleEditAddress}>
+  <Text style={styles.whiteText}>Update</Text>
+</TouchableOpacity>
+<TouchableOpacity style={styles.buttonStyle} onPress={() => handleDeleteAddress(id)}>
+  <Text style={styles.whiteText}>Delete</Text>
+</TouchableOpacity>
           </>
         )
       )}

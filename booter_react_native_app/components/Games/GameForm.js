@@ -1,10 +1,12 @@
 import React, { useState } from 'react';
-import { View, Text, TextInput, Button, Alert, Platform } from 'react-native';
+import { View, Text, TextInput, Button, Alert, Platform, TouchableOpacity } from 'react-native';
 import { Picker } from '@react-native-picker/picker';
 import DateTimePicker from '@react-native-community/datetimepicker';
 import ReactDatePicker from 'react-datepicker';
 import "react-datepicker/dist/react-datepicker.css"; // Import the CSS
 import * as GameServices from "../../services/GameServices";
+import { styles } from '../../containers/AppStyles';
+
 
 const GameForm = ({ game = {}, addresses, onSubmitGameAdded, loggedPlayer }) => {
   const [name, setName] = useState(game.name || '');
@@ -73,6 +75,7 @@ return (
             onChange={date => setDateAndTime(date)}
             showTimeSelect
             dateFormat="Pp"
+            className={styles.datePickerStyle}
         />
     ) : (
         <DateTimePicker
@@ -80,6 +83,7 @@ return (
             mode="datetime"
             display="default"
             onChange={handleDateChange}
+            customStyles={dateTimePickerStyles}
         />
     )
 )}
@@ -112,7 +116,9 @@ return (
               <Picker.Item key={players} label={players.toString()} value={players} />
           ))}
       </Picker>
-      <Button title="Add Game" onPress={handleAddGame} />
+      <TouchableOpacity style={styles.buttonStyle} onPress={handleAddGame}>
+  <Text style={styles.whiteText}>Add Game</Text>
+</TouchableOpacity>
   </View>
 );
 }

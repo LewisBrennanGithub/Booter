@@ -1,6 +1,7 @@
 import React, { useState } from 'react';
 import { View, Text, TouchableOpacity, Button, Picker } from 'react-native-web';
 import * as PlayerServices from '../../services/PlayerServices';
+import { styles } from '../../containers/AppStyles';
 
 const PlayerElement = ({ player, loggedPlayer, setLoggedPlayer, handleRatePlayerAbility, handleRatePlayerSeriousness }) => {
   const isSelected = loggedPlayer && loggedPlayer.id === player.id;
@@ -33,7 +34,9 @@ const PlayerElement = ({ player, loggedPlayer, setLoggedPlayer, handleRatePlayer
               <Picker.Item key={level} label={level} value={level} />
             ))}
           </Picker>
-          <Button title="Rate Ability" onPress={() => handleRatePlayerAbility(player, selectedAbilityRating)} />
+          <TouchableOpacity style={styles.buttonStyle} onPress={() => handleRatePlayerAbility(player, selectedAbilityRating)}>
+  <Text style={styles.whiteText}>Rate Ability</Text>
+</TouchableOpacity>
           <Picker
             selectedValue={selectedSeriousnessRating}
             onValueChange={(itemValue) => setSelectedSeriousnessRating(itemValue)}
@@ -42,7 +45,9 @@ const PlayerElement = ({ player, loggedPlayer, setLoggedPlayer, handleRatePlayer
               <Picker.Item key={level} label={level} value={level} />
             ))}
           </Picker>
-          <Button title="Rate Seriousness" onPress={() => handleRatePlayerSeriousness(player, selectedSeriousnessRating)} />
+          <TouchableOpacity style={styles.buttonStyle} onPress={() => handleRatePlayerSeriousness(player, selectedSeriousnessRating)}>
+  <Text style={styles.whiteText}>Rate Seriousness</Text>
+</TouchableOpacity>
         </>
       )}
     </View>

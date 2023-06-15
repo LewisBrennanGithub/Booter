@@ -1,6 +1,7 @@
 import React, { useState, useEffect } from 'react';
-import { View, Text, TextInput, Button } from 'react-native';
+import { View, Text, TextInput, Button, TouchableOpacity } from 'react-native';
 import * as AddressServices from "../../services/AddressServices";
+import { styles } from '../../containers/AppStyles';
 
 const AddressUpdateForm = ({ address, onUpdate, onSuccess }) => {
   const [propertyNumberOrName, setPropertyNumberOrName] = useState('');
@@ -64,7 +65,10 @@ const AddressUpdateForm = ({ address, onUpdate, onSuccess }) => {
         value={postCode}
         onChangeText={text => setPostCode(text)}
       />
-      <Button title="Update Address" onPress={handleUpdateAddress} />
+<TouchableOpacity style={styles.buttonStyle} onPress={handleUpdateAddress}>
+  <Text style={styles.whiteText}>Update Address</Text>
+</TouchableOpacity>
+
     </View>
   );
 };
