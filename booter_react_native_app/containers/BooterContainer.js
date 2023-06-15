@@ -192,10 +192,16 @@ const handleRatePlayerSeriousness = (player, selectedSeriousnessRating) => {
   return (
     <View style={styles.bodyStyle}>
     <View style={styles.headerStyle}>
+    <View style={styles.topLineStyle}>
+  <View style={styles.leftContent}>
     <Text style={styles.iconWhiteText}>Booter Beta 0.1</Text>
-    <Text style={styles.whiteText}>
-    {loggedPlayer ? <Text style={styles.whiteText}>{loggedPlayer.userName}</Text> : 'No logged user'}
-  </Text>
+  </View>
+  <View style={styles.rightContent}>
+    <Text style={styles.iconWhiteText}>
+      {loggedPlayer ? <Text style={styles.whiteText}>{loggedPlayer.userName}</Text> : 'No logged user'}
+    </Text>
+  </View>
+</View>
       {/* <Button onPress={() => { setGamesPage(true); setPlayersPage(false); setAddContentPage(false); }}>Games</Button> */}
       <View style={styles.navBarStyle}>
       <TouchableOpacity onPress={() => { setGamesPage(true); setPlayersPage(false); setAddContentPage(false); }}><Text style={styles.whiteText}>Games</Text></TouchableOpacity>

@@ -13,6 +13,17 @@ export const styles = StyleSheet.create({
     textAlign: 'center'
   },
 
+  topLineStyle: {
+    flexDirection: 'row',
+    justifyContent: 'space-evenly',
+  },
+  leftContent: {
+    flex: 1,
+  },
+  rightContent: {
+    flex: 1,
+  },
+
   navBarStyle: {
     display: 'flex',
     flexDirection: 'row',
