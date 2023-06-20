@@ -15,7 +15,6 @@ public class Address {
     @Id
     @GeneratedValue(strategy = GenerationType.IDENTITY)
     private Long id;
-//    REMEMBER ON THE FRONT END THAT THESE WILL BE *REQUIRED* FIELDS!
     @Column(name = "property_number_or_name")
     private String propertyNumberOrName;
     @Column(name = "street")

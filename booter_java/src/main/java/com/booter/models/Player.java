@@ -9,9 +9,6 @@ import java.util.List;
 
 @Entity
 @Table (name = "players")
-@JsonIdentityInfo(
-        generator = ObjectIdGenerators.PropertyGenerator.class,
-        property = "id")
 public class Player {
     @Id
     @GeneratedValue(strategy = GenerationType.IDENTITY)
@@ -51,6 +48,9 @@ public class Player {
     private int communityAssessedSeriousnessLevelCount;
     @ManyToMany(mappedBy = "players")
     private List<Game> games = new ArrayList<>();
+
+    @OneToMany(mappedBy = "creator")
+    private List<Game> createdGames;
 
 //    KEEP FOR UNIT TESTING
 //    @JsonManagedReference("player_last_game_created")
@@ -224,17 +224,16 @@ public class Player {
         this.games = games;
     }
 
-//    SPECIFIC METHODS/GETTERS/SETTERS
-//    THIS WILL NEED HOOKED UP TO THE DATABASE
-//    EDIT - CONSIDER REMOVING AND HAVE HANDLED BY POST METHOD
+//    FOR UNIT TESTING ONLY
+
     public Game createGame(String name, Address address, ZonedDateTime dateAndTime, int duration, double recommendedAbilityLevel, double recommendedSeriousnessLevel, double actualAbilityLevel, double actualSeriousnessLevel, int maxPlayers ) {
         Game newGame = new Game(this, name, address, dateAndTime, duration, recommendedAbilityLevel, recommendedSeriousnessLevel, actualAbilityLevel, actualSeriousnessLevel, false, maxPlayers);
         this.games.add(newGame);
-//        address.getGames().add(newGame);
         return newGame;
     }
+    // ^^ FOR UNITTESTS >> address.getGames().add(newGame);
 
-//    WILL ALSO NEED TO BE REMOVED AT SOME STAGE
+//    FOR UNIT TESTING ONLY
 //    public Game getLastGameCreated() {
 //        return games.get(games.size() - 1);
 //    }
@@ -273,8 +272,8 @@ public class Player {
         }
 
     public void updateSelfAssessedAbilityLevel(double newAbilityLevel) {
-        if (newAbilityLevel < 0.0 || newAbilityLevel > 5.0 || newAbilityLevel % 1.0 != 0) {
-            System.out.println("Invalid rating. Please enter a rating between 0.0 and 5.0 in increments of 1.0.");
+        if (newAbilityLevel < 0.0 || newAbilityLevel > 5.0 || newAbilityLevel % 0.5 != 0) {
+            System.out.println("Invalid rating. Please enter a rating between 0.0 and 5.0 in increments of 0.5.");
             return;
         }
         selfAssessedAbilityLevel = newAbilityLevel;
@@ -282,8 +281,8 @@ public class Player {
     }
 
     public void addCommunityAssessedAbilityRating(Player player, double newRating) {
-        if (newRating < 0.0 || newRating > 5.0 || newRating % 1.0 != 0) {
-            System.out.println("Invalid rating. Please enter a rating between 0.0 and 5.0 in increments of 1.0.");
+        if (newRating < 0.0 || newRating > 5.0 || newRating % 0.5 != 0) {
+            System.out.println("Invalid rating. Please enter a rating between 0.0 and 5.0 in increments of 0.5.");
             return;
         }
         player.communityAssessedAbilityLevelCount++;
@@ -308,8 +307,8 @@ public class Player {
         }
 
     public void updateSelfAssessedSeriousnessLevel(double newSeriousnessLevel) {
-        if (newSeriousnessLevel < 0.0 || newSeriousnessLevel > 5.0 || newSeriousnessLevel % 1.0 != 0) {
-            System.out.println("Invalid rating. Please enter a rating between 0.0 and 5.0 in increments of 1.0.");
+        if (newSeriousnessLevel < 0.0 || newSeriousnessLevel > 5.0 || newSeriousnessLevel % 0.5 != 0) {
+            System.out.println("Invalid rating. Please enter a rating between 0.0 and 5.0 in increments of 0.5.");
             return;
         }
         selfAssessedSeriousnessLevel = newSeriousnessLevel;
@@ -317,8 +316,8 @@ public class Player {
     }
 
     public void addCommunityAssessedSeriousnessRating(Player player, double newRating) {
-        if (newRating < 0.0 || newRating > 5.0 || newRating % 1.0 != 0) {
-            System.out.println("Invalid rating. Please enter a rating between 0.0 and 5.0 in increments of 1.0.");
+        if (newRating < 0.0 || newRating > 5.0 || newRating % 0.5 != 0) {
+            System.out.println("Invalid rating. Please enter a rating between 0.0 and 5.0 in increments of 0.5.");
             return;
         }
         player.communityAssessedSeriousnessLevelCount++;
@@ -328,7 +327,5 @@ public class Player {
             player.displayedSeriousnessLevelVariableMethod();
         }
     }
-
-//    Git Test
 
 }

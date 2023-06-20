@@ -1,6 +1,8 @@
 package com.booter.models;
 
 import com.fasterxml.jackson.annotation.*;
+import org.hibernate.annotations.OnDelete;
+import org.hibernate.annotations.OnDeleteAction;
 
 import javax.persistence.*;
 import java.util.ArrayList;
@@ -9,22 +11,20 @@ import java.time.ZonedDateTime;
 
 @Entity
 @Table (name = "games")
-@JsonIdentityInfo(
-        generator = ObjectIdGenerators.PropertyGenerator.class,
-        property = "id")
 public class Game {
 
     @Id
     @GeneratedValue(strategy = GenerationType.IDENTITY)
     private Long id;
-
     @ManyToOne
+    @JsonIgnoreProperties(value = {"games"})
     @JoinColumn(name="creator_id")
     private Player creator;
     @Column(name="name")
     private String name;
     @ManyToOne
-    @JoinColumn(name="address_id")
+    @JoinColumn(name="address_id", nullable = true)
+    @OnDelete(action = OnDeleteAction.NO_ACTION)
     private Address address;
     @Column(name="date_and_time")
     private ZonedDateTime dateAndTime;
@@ -174,4 +174,16 @@ public class Game {
     public void setMaxPlayers(int maxPlayers) {
         this.maxPlayers = maxPlayers;
     }
+
+    public void removePlayer(Player player) {
+        players.remove(player);
+    }
+
+    public void removeAddressAssociation() {
+        if (this.address != null) {
+            this.address.getGames().remove(this);
+            this.address = null;
+        }
+    }
+
 }
