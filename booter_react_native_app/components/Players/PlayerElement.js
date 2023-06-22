@@ -3,12 +3,11 @@ import { View, Text, TouchableOpacity, Picker, StyleSheet } from 'react-native';
 import * as PlayerServices from '../../services/PlayerServices';
 
 const PlayerElement = ({ player, loggedPlayer, setLoggedPlayer, handleRatePlayerAbility, handleRatePlayerSeriousness }) => {
+  const levels = Array.from({ length: 11 }, (_, i) => (i * 0.5).toFixed(1));
   const isSelected = loggedPlayer && loggedPlayer.id === player.id;
 
-  const [selectedAbilityRating, setSelectedAbilityRating] = useState('');
-  const [selectedSeriousnessRating, setSelectedSeriousnessRating] = useState('');
-
-  const levels = Array.from({ length: 11 }, (_, i) => (i * 0.5).toFixed(1));
+  const [selectedAbilityRating, setSelectedAbilityRating] = useState(levels[0]);
+  const [selectedSeriousnessRating, setSelectedSeriousnessRating] = useState(levels[0]);
 
   return (
     <View style={styles.cardContainer}>
