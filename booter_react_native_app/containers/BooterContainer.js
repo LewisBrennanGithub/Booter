@@ -1,5 +1,6 @@
 import React, { useState, useEffect } from 'react';
 import { View, Text, Button, TouchableOpacity } from 'react-native';
+import { createStackNavigator } from '@react-navigation/stack';
 import * as GameServices from "../services/GameServices";
 import * as AddressServices from "../services/AddressServices";
 import * as PlayerServices from "../services/PlayerServices";
@@ -10,8 +11,13 @@ import GameUpdateForm from '../components/Games/GameUpdateForm';
 import GameForm from '../components/Games/GameForm';
 import PlayerList from '../components/Players/PlayerList';
 import PlayerForm from '../components/Players/PlayerForm';
+import GamesScreen from '../screens/GamesScreen';
+import PlayersScreen from '../screens/PlayersScreen';
+import AddContentScreen from '../screens/AddContentScreen';
 import { StyleSheet } from 'react-native';
 import { styles } from './AppStyles';
+
+const Stack = createStackNavigator();
 
 const BooterContainer = () => {
   const [addresses, setAddresses] = useState(null);
