@@ -53,7 +53,7 @@ public class Game {
     @Column(name="max_players")
     private int maxPlayers;
 
-    public Game(Player creator, String name, Address address, ZonedDateTime dateAndTime, int duration, double recommendedAbilityLevel, double recommendedSeriousnessLevel, double actualAbilityLevel, double actualSeriousnessLevel, boolean completed, int maxPlayers) {
+    public Game(Player creator, String name, Address address, ZonedDateTime dateAndTime, int duration, double recommendedAbilityLevel, double recommendedSeriousnessLevel, boolean completed, int maxPlayers) {
         this.creator = creator;
         this.name = name;
         this.address = address;
@@ -61,11 +61,11 @@ public class Game {
         this.duration = duration;
         this.recommendedAbilityLevel = recommendedAbilityLevel;
         this.recommendedSeriousnessLevel = recommendedSeriousnessLevel;
-        this.actualAbilityLevel = actualAbilityLevel;
-        this.actualSeriousnessLevel = actualSeriousnessLevel;
         this.completedStatus = completed;
         this.players = new ArrayList<>();
         this.maxPlayers = maxPlayers;
+        calculateActualAbilityLevel();
+        calculateActualSeriousnessLevel();
     }
 
     public Game() {
@@ -186,4 +186,31 @@ public class Game {
         }
     }
 
+    public void calculateActualAbilityLevel() {
+        int numPlayers = this.players.size();
+
+        if (numPlayers == 0) {
+            actualAbilityLevel = 0.0;
+        } else {
+            double sum = 0.0;
+            for (Player player : this.players) {
+                sum += player.getDisplayedAbilityLevel();
+            }
+            actualAbilityLevel = sum / numPlayers;
+        }
+    }
+
+    public void calculateActualSeriousnessLevel() {
+        int numPlayers = this.players.size();
+
+        if (numPlayers == 0) {
+            actualSeriousnessLevel = 0.0;
+        } else {
+            double sum = 0.0;
+            for (Player player : this.players) {
+                sum += player.getDisplayedSeriousnessLevel();
+            }
+            actualSeriousnessLevel = sum / numPlayers;
+        }
+    }
 }

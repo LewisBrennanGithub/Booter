@@ -106,24 +106,32 @@ public class DataLoader implements ApplicationRunner {
 
         ZonedDateTime game1DateTime = ZonedDateTime.now().plusDays(3);
         List<Player> game1Players = new ArrayList<>(Arrays.asList(clive, john, jane, alice, bob));
-        Game game1 = new Game(clive, "Football Game", dumbiedykesLane6, game1DateTime, 90, 3.5, 4.0, 3.5, 4.0, false, 10);
+        Game game1 = new Game(clive, "Football Game", dumbiedykesLane6, game1DateTime, 90, 3.5, 4.0, false, 10);
         game1.setPlayers(game1Players);
+        game1.calculateActualAbilityLevel();
+        game1.calculateActualSeriousnessLevel();
         gameRepository.save(game1);
 
         ZonedDateTime game2DateTime = ZonedDateTime.now().plusDays(7);
         List<Player> game2Players = new ArrayList<>(Arrays.asList(charlie, diana));
-        Game game2 = new Game(charlie, "Game of Football", georgeStreet8, game2DateTime, 60, 4.0, 3.5, 4.0, 3.5, false, 10);
+        Game game2 = new Game(charlie, "Game of Football", georgeStreet8, game2DateTime, 60, 4.0, 3.5, false, 10);
         game2.setPlayers(game2Players);
+        game2.calculateActualAbilityLevel();
+        game2.calculateActualSeriousnessLevel();
         gameRepository.save(game2);
 
         ZonedDateTime game3DateTime = ZonedDateTime.now().plusDays(10);
         List<Player> game3Players = new ArrayList<>(Arrays.asList(elizabeth, frank, george));
-        Game game3 = new Game(elizabeth, "Tuesday Night Football", piccadillySquare10, game3DateTime, 45, 3.0, 4.5, 3.0, 4.5, false, 6);
+        Game game3 = new Game(elizabeth, "Tuesday Night Football", piccadillySquare10, game3DateTime, 45, 3.0, 4.5, false, 6);
         game3.setPlayers(game3Players);
+        game3.calculateActualAbilityLevel();
+        game3.calculateActualSeriousnessLevel();
         gameRepository.save(game3);
 
         ZonedDateTime game4DateTime = ZonedDateTime.now().plusDays(14);
-        Game game4 = new Game(hannah, "Amateur Hour", bakerStreet12, game4DateTime, 60, 4.5, 4.0, 4.5, 4.0, false, 6);
+        Game game4 = new Game(hannah, "Amateur Hour", bakerStreet12, game4DateTime, 60, 4.5, 4.0, false, 6);
+        game4.calculateActualAbilityLevel();
+        game4.calculateActualSeriousnessLevel();
         gameRepository.save(game4);
 
     }

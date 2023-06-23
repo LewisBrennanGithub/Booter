@@ -226,8 +226,8 @@ public class Player {
 
 //    FOR UNIT TESTING ONLY
 
-    public Game createGame(String name, Address address, ZonedDateTime dateAndTime, int duration, double recommendedAbilityLevel, double recommendedSeriousnessLevel, double actualAbilityLevel, double actualSeriousnessLevel, int maxPlayers ) {
-        Game newGame = new Game(this, name, address, dateAndTime, duration, recommendedAbilityLevel, recommendedSeriousnessLevel, actualAbilityLevel, actualSeriousnessLevel, false, maxPlayers);
+    public Game createGame(String name, Address address, ZonedDateTime dateAndTime, int duration, double recommendedAbilityLevel, double recommendedSeriousnessLevel, int maxPlayers ) {
+        Game newGame = new Game(this, name, address, dateAndTime, duration, recommendedAbilityLevel, recommendedSeriousnessLevel, false, maxPlayers);
         this.games.add(newGame);
         return newGame;
     }
@@ -247,6 +247,8 @@ public class Player {
         if (game.getPlayers().size() < game.getMaxPlayers()) {
             this.games.add(game);
             game.getPlayers().add(this);
+            game.calculateActualAbilityLevel();
+            game.calculateActualSeriousnessLevel();
         }
     }
 
