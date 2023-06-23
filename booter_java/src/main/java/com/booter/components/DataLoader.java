@@ -16,7 +16,7 @@ import java.util.ArrayList;
 import java.util.Arrays;
 import java.util.List;
 
-//@Component
+@Component
 public class DataLoader implements ApplicationRunner {
     @Autowired
     PlayerRepository playerRepository;
@@ -83,16 +83,16 @@ public class DataLoader implements ApplicationRunner {
         Player bob = new Player("Bob", "Newbie", "BobNewbie", "0567891234", highStreet14, 32, 3.5, 4.0);
         playerRepository.save(bob);
 
-        Player charlie = new Player("Craig", "Charles", "CCFunk", "0678912345", castleStreet16, 27, 2.5, 3.0);
+        Player charlie = new Player("Craig", "Charles", "CraigyC", "0678912345", castleStreet16, 27, 2.5, 3.0);
         playerRepository.save(charlie);
 
         Player diana = new Player("Dale", "Warburton", "WarbyD", "0789123456", marketStreet18, 29, 3.5, 4.5);
         playerRepository.save(diana);
 
-        Player elizabeth = new Player("Gregorio", "Fumigali", "Fumigator", "0891234567", queenStreet20, 31, 4.0, 4.0);
+        Player elizabeth = new Player("Gregorio", "Fumigali", "Fumi", "0891234567", queenStreet20, 31, 4.0, 4.0);
         playerRepository.save(elizabeth);
 
-        Player frank = new Player("Paul", "Dunno", "EyeBallPaul", "0901234567", parkLane22, 25, 2.5, 3.5);
+        Player frank = new Player("Paul", "Dunst", "PaulyD", "0901234567", parkLane22, 25, 2.5, 3.5);
         playerRepository.save(frank);
 
         Player george = new Player("Andrew", "Dyson", "4NaNJeremy", "0912345678", victoriaStreet24, 33, 3.0, 4.5);
@@ -106,24 +106,32 @@ public class DataLoader implements ApplicationRunner {
 
         ZonedDateTime game1DateTime = ZonedDateTime.now().plusDays(3);
         List<Player> game1Players = new ArrayList<>(Arrays.asList(clive, john, jane, alice, bob));
-        Game game1 = new Game(clive, "Football Game", dumbiedykesLane6, game1DateTime, 90, 3.5, 4.0, 3.5, 4.0, false, 10);
+        Game game1 = new Game(clive, "Football Game", dumbiedykesLane6, game1DateTime, 90, 3.5, 4.0, false, 10);
         game1.setPlayers(game1Players);
+        game1.calculateActualAbilityLevel();
+        game1.calculateActualSeriousnessLevel();
         gameRepository.save(game1);
 
         ZonedDateTime game2DateTime = ZonedDateTime.now().plusDays(7);
         List<Player> game2Players = new ArrayList<>(Arrays.asList(charlie, diana));
-        Game game2 = new Game(charlie, "Game of Football", georgeStreet8, game2DateTime, 60, 4.0, 3.5, 4.0, 3.5, false, 10);
+        Game game2 = new Game(charlie, "Game of Football", georgeStreet8, game2DateTime, 60, 4.0, 3.5, false, 10);
         game2.setPlayers(game2Players);
+        game2.calculateActualAbilityLevel();
+        game2.calculateActualSeriousnessLevel();
         gameRepository.save(game2);
 
         ZonedDateTime game3DateTime = ZonedDateTime.now().plusDays(10);
         List<Player> game3Players = new ArrayList<>(Arrays.asList(elizabeth, frank, george));
-        Game game3 = new Game(elizabeth, "Tuesday Night Football", piccadillySquare10, game3DateTime, 45, 3.0, 4.5, 3.0, 4.5, false, 6);
+        Game game3 = new Game(elizabeth, "Tuesday Night Football", piccadillySquare10, game3DateTime, 45, 3.0, 4.5, false, 6);
         game3.setPlayers(game3Players);
+        game3.calculateActualAbilityLevel();
+        game3.calculateActualSeriousnessLevel();
         gameRepository.save(game3);
 
         ZonedDateTime game4DateTime = ZonedDateTime.now().plusDays(14);
-        Game game4 = new Game(hannah, "Amateur Hour", bakerStreet12, game4DateTime, 60, 4.5, 4.0, 4.5, 4.0, false, 6);
+        Game game4 = new Game(hannah, "Amateur Hour", bakerStreet12, game4DateTime, 60, 4.5, 4.0, false, 6);
+        game4.calculateActualAbilityLevel();
+        game4.calculateActualSeriousnessLevel();
         gameRepository.save(game4);
 
     }
