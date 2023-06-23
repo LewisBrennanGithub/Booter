@@ -23,13 +23,10 @@ const BooterContainer = () => {
   const [addresses, setAddresses] = useState(null);
   const [addressById, setAddressById] = useState(null);
   const [games, setGames] = useState(null);
-  const [gamesById, setGamesById] = useState(null);
   const [players, setPlayers] = useState(null);
   const [playersById, setPlayersById] = useState(null);
   const [loggedPlayer, setLoggedPlayer] = useState(null);
-  const [gamesPage, setGamesPage] = useState(true);
-  const [playersPage, setPlayersPage] = useState(false);
-  const [addContentPage, setAddContentPage] = useState(false);
+  
 
   useEffect(() => {
     fetchAllData();
@@ -128,25 +125,13 @@ const handleRatePlayerSeriousness = (player, selectedSeriousnessRating) => {
 
 // GAMES
 
-  const fetchAllGames = () => {
-    GameServices.getGames().then(data => {
+const fetchAllGames = () => {
+  GameServices.getGames()
+    .then(data => {
       setGames(data);
     })
     .catch(err => console.error('Error fetching games:', err));
-  };
-
-  const fetchGamesById = (id) => {
-    GameServices.getGamesById(id).then(data => {
-      setGamesById(data);
-    });
-  };
-
-  const handleDeleteGame = (id) => {
-    GameServices.deleteGame(id).then(() => {
-      fetchAllGames();
-    })
-    .catch(err => console.error('Error deleting game:', err));
-  };
+};
 
   const handleAddGame = (gameData) => {
     GameServices.postGame(gameData)
@@ -155,12 +140,21 @@ const handleRatePlayerSeriousness = (player, selectedSeriousnessRating) => {
     });
   };
 
-  const handleUpdateGame = (id, updatedData) => {
-    GameServices.updateGame(id, updatedData).then(() => {
-      fetchAllGames(); 
-    });
+  const handleDeleteGame = (id) => {
+    GameServices.deleteGame(id)
+      .then(() => {
+        fetchAllGames();
+      })
+      .catch(err => console.error('Error deleting game:', err));
   };
-  
+
+  const handleUpdateGame = (id, updatedData) => {
+    GameServices.updateGame(id, updatedData)
+      .then(() => {
+        fetchAllGames();
+      });
+  };
+
 // ADDRESSES
 
   const fetchAllAddresses = () => {
@@ -197,26 +191,32 @@ const handleRatePlayerSeriousness = (player, selectedSeriousnessRating) => {
 
   return (
     <View style={styles.bodyStyle}>
-    <View style={styles.headerStyle}>
-    <View style={styles.topLineStyle}>
-  <View style={styles.leftContent}>
-    <Text style={styles.iconWhiteText}>Booter Beta 0.1</Text>
-  </View>
-  <View style={styles.rightContent}>
-    <Text style={styles.iconWhiteText}>
-      {loggedPlayer ? <Text style={styles.whiteText}>{loggedPlayer.userName}</Text> : 'No logged user'}
-    </Text>
-  </View>
-</View>
-      {/* <Button onPress={() => { setGamesPage(true); setPlayersPage(false); setAddContentPage(false); }}>Games</Button> */}
-      <View style={styles.navBarStyle}>
-      <TouchableOpacity onPress={() => { setGamesPage(true); setPlayersPage(false); setAddContentPage(false); }}><Text style={styles.whiteText}>Games</Text></TouchableOpacity>
-      <TouchableOpacity onPress={() => { setGamesPage(false); setPlayersPage(true); setAddContentPage(false); }}><Text style={styles.whiteText}>Players</Text></TouchableOpacity>
-      <TouchableOpacity onPress={() => { setGamesPage(false); setPlayersPage(false); setAddContentPage(true); }}><Text style={styles.whiteText}>Add</Text></TouchableOpacity>
+      <View style={styles.headerStyle}>
+        <View style={styles.topLineStyle}>
+          <View style={styles.leftContent}>
+            <Text style={styles.iconWhiteText}>Booter Beta 0.1</Text>
+          </View>
+          <View style={styles.rightContent}>
+            <Text style={styles.iconWhiteText}>
+              {loggedPlayer ? <Text style={styles.whiteText}>{loggedPlayer.userName}</Text> : 'No logged user'}
+            </Text>
+          </View>
+        </View>
+
+        <View style={styles.navBarStyle}>
+          <TouchableOpacity onPress={() => { setGamesPage(true); setPlayersPage(false); setAddContentPage(false); }}>
+            <Text style={styles.whiteText}>Games</Text>
+          </TouchableOpacity>
+          <TouchableOpacity onPress={() => { setGamesPage(false); setPlayersPage(true); setAddContentPage(false); }}>
+            <Text style={styles.whiteText}>Players</Text>
+          </TouchableOpacity>
+          <TouchableOpacity onPress={() => { setGamesPage(false); setPlayersPage(false); setAddContentPage(true); }}>
+            <Text style={styles.whiteText}>Add</Text>
+          </TouchableOpacity>
+        </View>
       </View>
-    </View>
-    {gamesPage && (
-      <>
+
+      {gamesPage && (
         <GameList
           players={players}
           games={games}
@@ -225,39 +225,43 @@ const handleRatePlayerSeriousness = (player, selectedSeriousnessRating) => {
           handleUpdateGame={handleUpdateGame}
           loggedPlayer={loggedPlayer}
           handleSetGameCompletedStatus={handleSetGameCompletedStatus}
+          fetchAllGames={fetchAllGames}
         />
-      </>
-    )}
-    {playersPage && (
-      <>
+      )}
+
+      {playersPage && (
         <PlayerList
           players={players}
           loggedPlayer={loggedPlayer}
           setLoggedPlayer={setLoggedPlayer}
           handleRatePlayerAbility={handleRatePlayerAbility}
           handleRatePlayerSeriousness={handleRatePlayerSeriousness}
+          fetchAllPlayers={fetchAllPlayers}
         />
-      </>
-    )}
-    {addContentPage && (
-      <>
-        <PlayerForm
-          addresses={addresses}
-          onSubmitPlayerAdded={handleAddPlayer}
-        />
-        <GameForm
-          addresses={addresses}
-          onSubmitGameAdded={handleAddGame}
-          onCancel={() => {}}
-          loggedPlayer={loggedPlayer}
-        />
-        <AddressForm
-          onSubmitAddressAdded={handleAddAddress}
-          onCancel={() => {}}
-        />
-      </>
-    )}
-  </View>
+      )}
+
+      {addContentPage && (
+        <>
+          <PlayerForm
+            addresses={addresses}
+            onSubmitPlayerAdded={handleAddPlayer}
+            fetchAllPlayers={fetchAllPlayers}
+          />
+          <GameForm
+            addresses={addresses}
+            onSubmitGameAdded={handleAddGame}
+            onCancel={() => {}}
+            loggedPlayer={loggedPlayer}
+            fetchAllGames={fetchAllGames}
+          />
+          <AddressForm
+            onSubmitAddressAdded={handleAddAddress}
+            onCancel={() => {}}
+            fetchAllAddresses={fetchAllAddresses}
+          />
+        </>
+      )}
+    </View>
 );
 
 };
