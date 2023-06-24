@@ -1,6 +1,9 @@
 import React, { useState, useEffect } from 'react';
 import { View, Text, Button, TouchableOpacity } from 'react-native';
 import { createStackNavigator } from '@react-navigation/stack';
+import { Platform } from 'react-native';
+import { createBottomTabNavigator } from '@react-navigation/bottom-tabs';
+import { createMaterialTopTabNavigator } from '@react-navigation/material-top-tabs';
 import * as GameServices from "../services/GameServices";
 import * as AddressServices from "../services/AddressServices";
 import * as PlayerServices from "../services/PlayerServices";
@@ -12,6 +15,8 @@ import { styles } from './AppStyles';
 import TestScreen from '../screens/TestScreen';
 
 const Stack = createStackNavigator();
+const BottomTab = createBottomTabNavigator();
+const TopTab = createMaterialTopTabNavigator();
 
 const BooterContainer = () => {
   const [addresses, setAddresses] = useState(null);
@@ -169,54 +174,57 @@ const fetchAllGames = () => {
     });
   };
   
+  const TopTabNavigator = () => (
+    <TopTab.Navigator>
+      <TopTab.Screen
+        name="GamesScreen"
+        options={{ title: 'Games' }}
+        children={(props) => (
+          <GamesScreen
+            {...props}
+            players={players}
+            games={games}
+            handleDeleteGame={handleDeleteGame}
+            handleJoinGame={handleJoinGame}
+            handleUpdateGame={handleUpdateGame}
+            loggedPlayer={loggedPlayer}
+            handleSetGameCompletedStatus={handleSetGameCompletedStatus}
+          />
+        )}
+      />
+      <TopTab.Screen
+        name="PlayersScreen"
+        options={{ title: 'Players' }}
+        children={(props) => (
+          <PlayersScreen
+            {...props}
+            players={players}
+            loggedPlayer={loggedPlayer}
+            setLoggedPlayer={setLoggedPlayer}
+            handleRatePlayerAbility={handleRatePlayerAbility}
+            handleRatePlayerSeriousness={handleRatePlayerSeriousness}
+          />
+        )}
+      />
+      <TopTab.Screen
+        name="AddContentScreen"
+        options={{ title: 'Add Content' }}
+        children={(props) => (
+          <AddContentScreen
+            {...props}
+            addresses={addresses}
+            handleAddPlayer={handleAddPlayer}
+            handleAddGame={handleAddGame}
+            handleAddAddress={handleAddAddress}
+            loggedPlayer={loggedPlayer}
+          />
+        )}
+      />
+    </TopTab.Navigator>
+  );
 
   return (
-    <Stack.Navigator>
-    <Stack.Screen
-      name="GamesScreen"
-      options={{ title: 'Games' }}
-      children={(props) => (
-        <GamesScreen
-          {...props}
-          players={players}
-          games={games}
-          handleDeleteGame={handleDeleteGame}
-          handleJoinGame={handleJoinGame}
-          handleUpdateGame={handleUpdateGame}
-          loggedPlayer={loggedPlayer}
-          handleSetGameCompletedStatus={handleSetGameCompletedStatus}
-        />
-      )}
-    />
-    <Stack.Screen
-      name="PlayersScreen"
-      options={{ title: 'Players' }}
-      children={(props) => (
-        <PlayersScreen
-          {...props}
-          players={players}
-          loggedPlayer={loggedPlayer}
-          setLoggedPlayer={setLoggedPlayer}
-          handleRatePlayerAbility={handleRatePlayerAbility}
-          handleRatePlayerSeriousness={handleRatePlayerSeriousness}
-        />
-      )}
-    />
-    <Stack.Screen
-      name="AddContentScreen"
-      options={{ title: 'Add Content' }}
-      children={(props) => (
-        <AddContentScreen
-          {...props}
-          addresses={addresses}
-          handleAddPlayer={handleAddPlayer}
-          handleAddGame={handleAddGame}
-          handleAddAddress={handleAddAddress}
-          loggedPlayer={loggedPlayer}
-        />
-      )}
-    />
-  </Stack.Navigator>
+<TopTabNavigator />
 );
 
 };
