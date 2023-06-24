@@ -3,6 +3,9 @@ import { View, Text } from 'react-native';
 import GameElement from './GameElement';
 
 const GameList = ({ players, games, handleDeleteGame, handleJoinGame, handleUpdateGame, loggedPlayer, handleSetGameCompletedStatus }) => {
+
+  console.log('Games in GameList:', games); 
+
   return (
     <View>
       {games && games.map((game) => (

@@ -1,7 +1,5 @@
-import React, { useState, useEffect } from 'react';
 import { View } from 'react-native';
 import GameList from '../components/Games/GameList';
-import * as GameServices from '../services/GameServices';
 
 const GamesScreen = ({ 
   games,
@@ -13,9 +11,10 @@ const GamesScreen = ({
   players,
 }) => {
   
+  console.log('Games in GamesScreen:', games);
+
   return (
     <View>
-      {games && (
         <GameList
           players={players}
           games={games}
@@ -25,7 +24,6 @@ const GamesScreen = ({
           loggedPlayer={loggedPlayer}
           handleSetGameCompletedStatus={handleSetGameCompletedStatus}
         />
-      )}
     </View>
   );
 };

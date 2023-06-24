@@ -11,7 +11,6 @@ const PlayersScreen = ({
 }) => {
   return (
     <View>
-      {players && (
         <PlayerList
           players={players}
           loggedPlayer={loggedPlayer}
@@ -19,7 +18,6 @@ const PlayersScreen = ({
           handleRatePlayerAbility={handleRatePlayerAbility}
           handleRatePlayerSeriousness={handleRatePlayerSeriousness}
         />
-      )}
     </View>
   );
 };

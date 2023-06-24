@@ -4,27 +4,19 @@ import { createStackNavigator } from '@react-navigation/stack';
 import * as GameServices from "../services/GameServices";
 import * as AddressServices from "../services/AddressServices";
 import * as PlayerServices from "../services/PlayerServices";
-import AddressList from '../components/Addresses/AddressList';
-import AddressForm from '../components/Addresses/AddressForm';
-import GameList from '../components/Games/GameList';
-import GameUpdateForm from '../components/Games/GameUpdateForm';
-import GameForm from '../components/Games/GameForm';
-import PlayerList from '../components/Players/PlayerList';
-import PlayerForm from '../components/Players/PlayerForm';
 import GamesScreen from '../screens/GamesScreen';
 import PlayersScreen from '../screens/PlayersScreen';
 import AddContentScreen from '../screens/AddContentScreen';
 import { StyleSheet } from 'react-native';
 import { styles } from './AppStyles';
+import TestScreen from '../screens/TestScreen';
 
 const Stack = createStackNavigator();
 
 const BooterContainer = () => {
   const [addresses, setAddresses] = useState(null);
-  const [addressById, setAddressById] = useState(null);
   const [games, setGames] = useState(null);
   const [players, setPlayers] = useState(null);
-  const [playersById, setPlayersById] = useState(null);
   const [loggedPlayer, setLoggedPlayer] = useState(null);
   
 
@@ -53,11 +45,6 @@ const BooterContainer = () => {
 
 const fetchAllPlayers = () => {
   PlayerServices.getPlayers().then(data => { setPlayers(data)
-  });
-}
-
-const fetchPlayerGames = () => {
-  PlayerServices.getPlayerGames().then(data => { setPlayers(data)
   });
 }
 
@@ -163,12 +150,6 @@ const fetchAllGames = () => {
     });
   };
 
-  const fetchAddressById = (id) => {
-    AddressServices.getAddressesById(id).then(data => {
-      setAddressById(data);
-    });
-  };
-
   const handleAddAddress = (addressData) => {
     AddressServices.postAddress(addressData)
       .then(() => {
@@ -190,34 +171,13 @@ const fetchAllGames = () => {
   
 
   return (
-    <View style={styles.bodyStyle}>
-      <View style={styles.headerStyle}>
-        <View style={styles.topLineStyle}>
-          <View style={styles.leftContent}>
-            <Text style={styles.iconWhiteText}>Booter Beta 0.1</Text>
-          </View>
-          <View style={styles.rightContent}>
-            <Text style={styles.iconWhiteText}>
-              {loggedPlayer ? <Text style={styles.whiteText}>{loggedPlayer.userName}</Text> : 'No logged user'}
-            </Text>
-          </View>
-        </View>
-
-        <View style={styles.navBarStyle}>
-          <TouchableOpacity onPress={() => { setGamesPage(true); setPlayersPage(false); setAddContentPage(false); }}>
-            <Text style={styles.whiteText}>Games</Text>
-          </TouchableOpacity>
-          <TouchableOpacity onPress={() => { setGamesPage(false); setPlayersPage(true); setAddContentPage(false); }}>
-            <Text style={styles.whiteText}>Players</Text>
-          </TouchableOpacity>
-          <TouchableOpacity onPress={() => { setGamesPage(false); setPlayersPage(false); setAddContentPage(true); }}>
-            <Text style={styles.whiteText}>Add</Text>
-          </TouchableOpacity>
-        </View>
-      </View>
-
-      {gamesPage && (
-        <GameList
+    <Stack.Navigator>
+    <Stack.Screen
+      name="GamesScreen"
+      options={{ title: 'Games' }}
+      children={(props) => (
+        <GamesScreen
+          {...props}
           players={players}
           games={games}
           handleDeleteGame={handleDeleteGame}
@@ -225,43 +185,38 @@ const fetchAllGames = () => {
           handleUpdateGame={handleUpdateGame}
           loggedPlayer={loggedPlayer}
           handleSetGameCompletedStatus={handleSetGameCompletedStatus}
-          fetchAllGames={fetchAllGames}
         />
       )}
-
-      {playersPage && (
-        <PlayerList
+    />
+    <Stack.Screen
+      name="PlayersScreen"
+      options={{ title: 'Players' }}
+      children={(props) => (
+        <PlayersScreen
+          {...props}
           players={players}
           loggedPlayer={loggedPlayer}
           setLoggedPlayer={setLoggedPlayer}
           handleRatePlayerAbility={handleRatePlayerAbility}
           handleRatePlayerSeriousness={handleRatePlayerSeriousness}
-          fetchAllPlayers={fetchAllPlayers}
         />
       )}
-
-      {addContentPage && (
-        <>
-          <PlayerForm
-            addresses={addresses}
-            onSubmitPlayerAdded={handleAddPlayer}
-            fetchAllPlayers={fetchAllPlayers}
-          />
-          <GameForm
-            addresses={addresses}
-            onSubmitGameAdded={handleAddGame}
-            onCancel={() => {}}
-            loggedPlayer={loggedPlayer}
-            fetchAllGames={fetchAllGames}
-          />
-          <AddressForm
-            onSubmitAddressAdded={handleAddAddress}
-            onCancel={() => {}}
-            fetchAllAddresses={fetchAllAddresses}
-          />
-        </>
+    />
+    <Stack.Screen
+      name="AddContentScreen"
+      options={{ title: 'Add Content' }}
+      children={(props) => (
+        <AddContentScreen
+          {...props}
+          addresses={addresses}
+          handleAddPlayer={handleAddPlayer}
+          handleAddGame={handleAddGame}
+          handleAddAddress={handleAddAddress}
+          loggedPlayer={loggedPlayer}
+        />
       )}
-    </View>
+    />
+  </Stack.Navigator>
 );
 
 };

@@ -43,6 +43,8 @@ const GameElement = ({ players, game, handleDeleteGame, handleJoinGame, loggedPl
     return player ? player.userName : 'N/A';
   };
 
+  console.log('Game in GameElement:', game);
+
   return (
     <View style={styles.cardContainer}>
       {isEditing ? (
