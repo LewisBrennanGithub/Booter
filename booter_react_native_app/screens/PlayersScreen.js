@@ -1,5 +1,5 @@
 import React from 'react';
-import { View } from 'react-native';
+import { View, ScrollView } from 'react-native';
 import PlayerList from '../components/Players/PlayerList';
 
 const PlayersScreen = ({
@@ -10,7 +10,7 @@ const PlayersScreen = ({
   handleRatePlayerSeriousness
 }) => {
   return (
-    <View>
+    <ScrollView>
         <PlayerList
           players={players}
           loggedPlayer={loggedPlayer}
@@ -18,7 +18,7 @@ const PlayersScreen = ({
           handleRatePlayerAbility={handleRatePlayerAbility}
           handleRatePlayerSeriousness={handleRatePlayerSeriousness}
         />
-    </View>
+    </ScrollView>
   );
 };
 

@@ -1,7 +1,7 @@
 // AddContentPage.js
 
 import React from 'react';
-import { View } from 'react-native';
+import { View, ScrollView } from 'react-native';
 import PlayerForm from '../components/Players/PlayerForm';
 import GameForm from '../components/Games/GameForm';
 import AddressForm from '../components/Addresses/AddressForm';
@@ -14,7 +14,7 @@ const AddContentPage = ({
   handleAddAddress
 }) => {
   return (
-    <View>
+    <ScrollView>
       <PlayerForm
         addresses={addresses}
         onSubmitPlayerAdded={handleAddPlayer}
@@ -29,7 +29,7 @@ const AddContentPage = ({
         onSubmitAddressAdded={handleAddAddress}
         onCancel={() => {}}
       />
-    </View>
+    </ScrollView>
   );
 };
 

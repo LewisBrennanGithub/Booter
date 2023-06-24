@@ -224,12 +224,12 @@ const fetchAllGames = () => {
   );
 
   return (
-    <View>
+    <View style={{ flex: 1 }}>
     <Text>
-    {`Booter - Logged in as: ${loggedPlayer ? loggedPlayer.userName : 'Guest'}`}
+      {`Booter - Logged in as: ${loggedPlayer ? loggedPlayer.userName : 'Guest'}`}
     </Text>
-<TopTabNavigator />
-</View>
+    <TopTabNavigator />
+  </View>
 );
 
 };

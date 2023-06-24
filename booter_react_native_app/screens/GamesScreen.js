@@ -1,4 +1,4 @@
-import { View } from 'react-native';
+import { View, ScrollView, StyleSheet } from 'react-native';
 import GameList from '../components/Games/GameList';
 
 const GamesScreen = ({ 
@@ -14,7 +14,7 @@ const GamesScreen = ({
   console.log('Games in GamesScreen:', games);
 
   return (
-    <View>
+    <ScrollView style={styles.container}>
         <GameList
           players={players}
           games={games}
@@ -24,8 +24,14 @@ const GamesScreen = ({
           loggedPlayer={loggedPlayer}
           handleSetGameCompletedStatus={handleSetGameCompletedStatus}
         />
-    </View>
+    </ScrollView>
   );
 };
+
+const styles = StyleSheet.create({
+  container: {
+    maxHeight: '100%'
+  },
+});
 
 export default GamesScreen;
