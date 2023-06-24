@@ -224,7 +224,12 @@ const fetchAllGames = () => {
   );
 
   return (
+    <View>
+    <Text>
+    {`Booter - Logged in as: ${loggedPlayer ? loggedPlayer.userName : 'Guest'}`}
+    </Text>
 <TopTabNavigator />
+</View>
 );
 
 };

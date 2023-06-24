@@ -77,13 +77,13 @@ const PlayerForm = ({ addresses, onSubmitPlayerAdded }) => {
         selectedValue={address}
         onValueChange={(itemValue) => setAddress(itemValue)}
       >
-        {addresses.map((address) => (
-          <Picker.Item
-            key={address.id}
-            label={`${address.propertyNumberOrName}, ${address.street}, ${address.city}, ${address.country}, ${address.postCode}`}
-            value={address.id}
-          />
-        ))}
+{addresses && addresses.map((address) => (
+  <Picker.Item
+    key={address.id}
+    label={`${address.propertyNumberOrName}, ${address.street}, ${address.city}, ${address.country}, ${address.postCode}`}
+    value={address.id}
+  />
+))}
       </Picker>
       <Text style={styles.label}>Self Assessed Ability Level</Text>
       <Picker
