@@ -1,29 +1,25 @@
 import React, { useState, useEffect } from 'react';
-import { View, Text, Button, TouchableOpacity } from 'react-native';
+import { View, Text, StyleSheet } from 'react-native';
+import { createStackNavigator } from '@react-navigation/stack';
+import { createBottomTabNavigator } from '@react-navigation/bottom-tabs';
+import { createMaterialTopTabNavigator } from '@react-navigation/material-top-tabs';
 import * as GameServices from "../services/GameServices";
 import * as AddressServices from "../services/AddressServices";
 import * as PlayerServices from "../services/PlayerServices";
-import AddressList from '../components/Addresses/AddressList';
-import AddressForm from '../components/Addresses/AddressForm';
-import GameList from '../components/Games/GameList';
-import GameUpdateForm from '../components/Games/GameUpdateForm';
-import GameForm from '../components/Games/GameForm';
-import PlayerList from '../components/Players/PlayerList';
-import PlayerForm from '../components/Players/PlayerForm';
-import { StyleSheet } from 'react-native';
-import { styles } from './AppStyles';
+import GamesScreen from '../screens/GamesScreen';
+import PlayersScreen from '../screens/PlayersScreen';
+import AddContentScreen from '../screens/AddContentScreen';
+
+// const Stack = createStackNavigator();
+const BottomTab = createBottomTabNavigator();
+const TopTab = createMaterialTopTabNavigator();
 
 const BooterContainer = () => {
   const [addresses, setAddresses] = useState(null);
-  const [addressById, setAddressById] = useState(null);
   const [games, setGames] = useState(null);
-  const [gamesById, setGamesById] = useState(null);
   const [players, setPlayers] = useState(null);
-  const [playersById, setPlayersById] = useState(null);
   const [loggedPlayer, setLoggedPlayer] = useState(null);
-  const [gamesPage, setGamesPage] = useState(true);
-  const [playersPage, setPlayersPage] = useState(false);
-  const [addContentPage, setAddContentPage] = useState(false);
+  
 
   useEffect(() => {
     fetchAllData();
@@ -50,11 +46,6 @@ const BooterContainer = () => {
 
 const fetchAllPlayers = () => {
   PlayerServices.getPlayers().then(data => { setPlayers(data)
-  });
-}
-
-const fetchPlayerGames = () => {
-  PlayerServices.getPlayerGames().then(data => { setPlayers(data)
   });
 }
 
@@ -122,25 +113,13 @@ const handleRatePlayerSeriousness = (player, selectedSeriousnessRating) => {
 
 // GAMES
 
-  const fetchAllGames = () => {
-    GameServices.getGames().then(data => {
+const fetchAllGames = () => {
+  GameServices.getGames()
+    .then(data => {
       setGames(data);
     })
     .catch(err => console.error('Error fetching games:', err));
-  };
-
-  const fetchGamesById = (id) => {
-    GameServices.getGamesById(id).then(data => {
-      setGamesById(data);
-    });
-  };
-
-  const handleDeleteGame = (id) => {
-    GameServices.deleteGame(id).then(() => {
-      fetchAllGames();
-    })
-    .catch(err => console.error('Error deleting game:', err));
-  };
+};
 
   const handleAddGame = (gameData) => {
     GameServices.postGame(gameData)
@@ -149,23 +128,26 @@ const handleRatePlayerSeriousness = (player, selectedSeriousnessRating) => {
     });
   };
 
-  const handleUpdateGame = (id, updatedData) => {
-    GameServices.updateGame(id, updatedData).then(() => {
-      fetchAllGames(); 
-    });
+  const handleDeleteGame = (id) => {
+    GameServices.deleteGame(id)
+      .then(() => {
+        fetchAllGames();
+      })
+      .catch(err => console.error('Error deleting game:', err));
   };
-  
+
+  const handleUpdateGame = (id, updatedData) => {
+    GameServices.updateGame(id, updatedData)
+      .then(() => {
+        fetchAllGames();
+      });
+  };
+
 // ADDRESSES
 
   const fetchAllAddresses = () => {
     AddressServices.getAddresses().then(data => {
       setAddresses(data);
-    });
-  };
-
-  const fetchAddressById = (id) => {
-    AddressServices.getAddressesById(id).then(data => {
-      setAddressById(data);
     });
   };
 
@@ -188,72 +170,145 @@ const handleRatePlayerSeriousness = (player, selectedSeriousnessRating) => {
     });
   };
   
+  const TopTabNavigator = () => (
+    <TopTab.Navigator>
+      <TopTab.Screen
+        name="GamesScreen"
+        options={{ title: 'Games' }}
+        children={(props) => (
+          <GamesScreen
+            {...props}
+            players={players}
+            games={games}
+            handleDeleteGame={handleDeleteGame}
+            handleJoinGame={handleJoinGame}
+            handleUpdateGame={handleUpdateGame}
+            loggedPlayer={loggedPlayer}
+            handleSetGameCompletedStatus={handleSetGameCompletedStatus}
+          />
+        )}
+      />
+      <TopTab.Screen
+        name="PlayersScreen"
+        options={{ title: 'Players' }}
+        children={(props) => (
+          <PlayersScreen
+            {...props}
+            players={players}
+            loggedPlayer={loggedPlayer}
+            setLoggedPlayer={setLoggedPlayer}
+            handleRatePlayerAbility={handleRatePlayerAbility}
+            handleRatePlayerSeriousness={handleRatePlayerSeriousness}
+          />
+        )}
+      />
+      <TopTab.Screen
+        name="AddContentScreen"
+        options={{ title: 'Add Content' }}
+        children={(props) => (
+          <AddContentScreen
+            {...props}
+            addresses={addresses}
+            handleAddPlayer={handleAddPlayer}
+            handleAddGame={handleAddGame}
+            handleAddAddress={handleAddAddress}
+            loggedPlayer={loggedPlayer}
+          />
+        )}
+      />
+    </TopTab.Navigator>
+  );
+
+  const BottomTabNavigator = () => (
+    <View style={styles.container}>
+    <View style={styles.header}>
+      <Text>
+        {`Booter - Logged in as: ${loggedPlayer ? loggedPlayer.userName : 'Guest'}`}
+      </Text>
+    </View>
+    <View style={styles.content}>
+    <BottomTab.Navigator>
+      <BottomTab.Screen
+        name="GamesScreen"
+        options={{ title: 'Games' }}
+        children={(props) => (
+          <GamesScreen
+            {...props}
+            players={players}
+            games={games}
+            handleDeleteGame={handleDeleteGame}
+            handleJoinGame={handleJoinGame}
+            handleUpdateGame={handleUpdateGame}
+            loggedPlayer={loggedPlayer}
+            handleSetGameCompletedStatus={handleSetGameCompletedStatus}
+          />
+        )}
+      />
+      <BottomTab.Screen
+        name="PlayersScreen"
+        options={{ title: 'Players' }}
+        children={(props) => (
+          <PlayersScreen
+            {...props}
+            players={players}
+            loggedPlayer={loggedPlayer}
+            setLoggedPlayer={setLoggedPlayer}
+            handleRatePlayerAbility={handleRatePlayerAbility}
+            handleRatePlayerSeriousness={handleRatePlayerSeriousness}
+          />
+        )}
+      />
+      <BottomTab.Screen
+        name="AddContentScreen"
+        options={{ title: 'Add Content' }}
+        children={(props) => (
+          <AddContentScreen
+            {...props}
+            addresses={addresses}
+            handleAddPlayer={handleAddPlayer}
+            handleAddGame={handleAddGame}
+            handleAddAddress={handleAddAddress}
+            loggedPlayer={loggedPlayer}
+          />
+        )}
+      />
+    </BottomTab.Navigator>
+    </View>
+    </View>
+  );
 
   return (
-    <View style={styles.bodyStyle}>
-    <View style={styles.headerStyle}>
-    <View style={styles.topLineStyle}>
-  <View style={styles.leftContent}>
-    <Text style={styles.iconWhiteText}>Booter Beta 0.1</Text>
-  </View>
-  <View style={styles.rightContent}>
-    <Text style={styles.iconWhiteText}>
-      {loggedPlayer ? <Text style={styles.whiteText}>{loggedPlayer.userName}</Text> : 'No logged user'}
-    </Text>
-  </View>
-</View>
-      {/* <Button onPress={() => { setGamesPage(true); setPlayersPage(false); setAddContentPage(false); }}>Games</Button> */}
-      <View style={styles.navBarStyle}>
-      <TouchableOpacity onPress={() => { setGamesPage(true); setPlayersPage(false); setAddContentPage(false); }}><Text style={styles.whiteText}>Games</Text></TouchableOpacity>
-      <TouchableOpacity onPress={() => { setGamesPage(false); setPlayersPage(true); setAddContentPage(false); }}><Text style={styles.whiteText}>Players</Text></TouchableOpacity>
-      <TouchableOpacity onPress={() => { setGamesPage(false); setPlayersPage(false); setAddContentPage(true); }}><Text style={styles.whiteText}>Add</Text></TouchableOpacity>
-      </View>
-    </View>
-    {gamesPage && (
-      <>
-        <GameList
-          players={players}
-          games={games}
-          handleDeleteGame={handleDeleteGame}
-          handleJoinGame={handleJoinGame}
-          handleUpdateGame={handleUpdateGame}
-          loggedPlayer={loggedPlayer}
-          handleSetGameCompletedStatus={handleSetGameCompletedStatus}
-        />
-      </>
-    )}
-    {playersPage && (
-      <>
-        <PlayerList
-          players={players}
-          loggedPlayer={loggedPlayer}
-          setLoggedPlayer={setLoggedPlayer}
-          handleRatePlayerAbility={handleRatePlayerAbility}
-          handleRatePlayerSeriousness={handleRatePlayerSeriousness}
-        />
-      </>
-    )}
-    {addContentPage && (
-      <>
-        <PlayerForm
-          addresses={addresses}
-          onSubmitPlayerAdded={handleAddPlayer}
-        />
-        <GameForm
-          addresses={addresses}
-          onSubmitGameAdded={handleAddGame}
-          onCancel={() => {}}
-          loggedPlayer={loggedPlayer}
-        />
-        <AddressForm
-          onSubmitAddressAdded={handleAddAddress}
-          onCancel={() => {}}
-        />
-      </>
-    )}
-  </View>
+    <>
+    <BottomTabNavigator />
+    </>
 );
 
+// return (
+//   <View>
+//   <Text>
+//     {`Booter - Logged in as: ${loggedPlayer ? loggedPlayer.userName : 'Guest'}`}
+//   </Text>
+//   {/* <TopTabNavigator /> */}
+//   <BottomTabNavigator />
+// </View>
+// );
+
+
 };
+
+const styles = StyleSheet.create({
+  container: {
+    flex: 1,
+  },
+  header: {
+    height: 50, // or whatever height you want for the header
+    backgroundColor: 'lightgrey', // or any other styling you want for the header
+    alignItems: 'center',
+    justifyContent: 'center',
+  },
+  content: {
+    flex: 1, // this ensures that the content takes up all remaining space
+  }
+});
 
 export default BooterContainer;
