@@ -1,7 +1,6 @@
 import React, { useState, useEffect } from 'react';
-import { View, Text, Button, TouchableOpacity } from 'react-native';
+import { View, Text} from 'react-native';
 import { createStackNavigator } from '@react-navigation/stack';
-import { Platform } from 'react-native';
 import { createBottomTabNavigator } from '@react-navigation/bottom-tabs';
 import { createMaterialTopTabNavigator } from '@react-navigation/material-top-tabs';
 import * as GameServices from "../services/GameServices";
@@ -10,12 +9,9 @@ import * as PlayerServices from "../services/PlayerServices";
 import GamesScreen from '../screens/GamesScreen';
 import PlayersScreen from '../screens/PlayersScreen';
 import AddContentScreen from '../screens/AddContentScreen';
-import { StyleSheet } from 'react-native';
-import { styles } from './AppStyles';
-import TestScreen from '../screens/TestScreen';
 
-const Stack = createStackNavigator();
-const BottomTab = createBottomTabNavigator();
+// const Stack = createStackNavigator();
+// const BottomTab = createBottomTabNavigator();
 const TopTab = createMaterialTopTabNavigator();
 
 const BooterContainer = () => {
@@ -224,7 +220,7 @@ const fetchAllGames = () => {
   );
 
   return (
-    <View style={{ flex: 1 }}>
+    <View>
     <Text>
       {`Booter - Logged in as: ${loggedPlayer ? loggedPlayer.userName : 'Guest'}`}
     </Text>

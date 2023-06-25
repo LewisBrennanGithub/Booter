@@ -14,23 +14,27 @@ const GamesScreen = ({
   console.log('Games in GamesScreen:', games);
 
   return (
-    <ScrollView style={styles.container}>
-        <GameList
-          players={players}
-          games={games}
-          handleDeleteGame={handleDeleteGame}
-          handleJoinGame={handleJoinGame}
-          handleUpdateGame={handleUpdateGame}
-          loggedPlayer={loggedPlayer}
-          handleSetGameCompletedStatus={handleSetGameCompletedStatus}
-        />
-    </ScrollView>
+      <ScrollView>
+          <GameList
+            players={players}
+            games={games}
+            handleDeleteGame={handleDeleteGame}
+            handleJoinGame={handleJoinGame}
+            handleUpdateGame={handleUpdateGame}
+            loggedPlayer={loggedPlayer}
+            handleSetGameCompletedStatus={handleSetGameCompletedStatus}
+          />
+      </ScrollView>
   );
 };
 
 const styles = StyleSheet.create({
-  container: {
-    maxHeight: '100%'
+  outerContainer: {
+    flexGrow: 0,
+  },
+  innerContainer: {
+    flex: 1,
+    backgroundColor: '#f0f', // Optional: set a background color to visualize
   },
 });
 
