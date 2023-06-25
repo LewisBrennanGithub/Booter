@@ -1,5 +1,5 @@
 import React, { useState, useEffect } from 'react';
-import { View, Text} from 'react-native';
+import { View, Text, StyleSheet } from 'react-native';
 import { createStackNavigator } from '@react-navigation/stack';
 import { createBottomTabNavigator } from '@react-navigation/bottom-tabs';
 import { createMaterialTopTabNavigator } from '@react-navigation/material-top-tabs';
@@ -11,7 +11,7 @@ import PlayersScreen from '../screens/PlayersScreen';
 import AddContentScreen from '../screens/AddContentScreen';
 
 // const Stack = createStackNavigator();
-// const BottomTab = createBottomTabNavigator();
+const BottomTab = createBottomTabNavigator();
 const TopTab = createMaterialTopTabNavigator();
 
 const BooterContainer = () => {
@@ -219,15 +219,96 @@ const fetchAllGames = () => {
     </TopTab.Navigator>
   );
 
+  const BottomTabNavigator = () => (
+    <View style={styles.container}>
+    <View style={styles.header}>
+      <Text>
+        {`Booter - Logged in as: ${loggedPlayer ? loggedPlayer.userName : 'Guest'}`}
+      </Text>
+    </View>
+    <View style={styles.content}>
+    <BottomTab.Navigator>
+      <BottomTab.Screen
+        name="GamesScreen"
+        options={{ title: 'Games' }}
+        children={(props) => (
+          <GamesScreen
+            {...props}
+            players={players}
+            games={games}
+            handleDeleteGame={handleDeleteGame}
+            handleJoinGame={handleJoinGame}
+            handleUpdateGame={handleUpdateGame}
+            loggedPlayer={loggedPlayer}
+            handleSetGameCompletedStatus={handleSetGameCompletedStatus}
+          />
+        )}
+      />
+      <BottomTab.Screen
+        name="PlayersScreen"
+        options={{ title: 'Players' }}
+        children={(props) => (
+          <PlayersScreen
+            {...props}
+            players={players}
+            loggedPlayer={loggedPlayer}
+            setLoggedPlayer={setLoggedPlayer}
+            handleRatePlayerAbility={handleRatePlayerAbility}
+            handleRatePlayerSeriousness={handleRatePlayerSeriousness}
+          />
+        )}
+      />
+      <BottomTab.Screen
+        name="AddContentScreen"
+        options={{ title: 'Add Content' }}
+        children={(props) => (
+          <AddContentScreen
+            {...props}
+            addresses={addresses}
+            handleAddPlayer={handleAddPlayer}
+            handleAddGame={handleAddGame}
+            handleAddAddress={handleAddAddress}
+            loggedPlayer={loggedPlayer}
+          />
+        )}
+      />
+    </BottomTab.Navigator>
+    </View>
+    </View>
+  );
+
   return (
-    <View>
-    <Text>
-      {`Booter - Logged in as: ${loggedPlayer ? loggedPlayer.userName : 'Guest'}`}
-    </Text>
-    <TopTabNavigator />
-  </View>
+    <>
+    <BottomTabNavigator />
+    </>
 );
 
+// return (
+//   <View>
+//   <Text>
+//     {`Booter - Logged in as: ${loggedPlayer ? loggedPlayer.userName : 'Guest'}`}
+//   </Text>
+//   {/* <TopTabNavigator /> */}
+//   <BottomTabNavigator />
+// </View>
+// );
+
+
 };
+
+const styles = StyleSheet.create({
+  container: {
+    flex: 1,
+  },
+  header: {
+    height: 50, // or whatever height you want for the header
+    backgroundColor: 'lightgrey', // or any other styling you want for the header
+    alignItems: 'center',
+    justifyContent: 'center',
+  },
+  content: {
+    flex: 1, // this ensures that the content takes up all remaining space
+  }
+});
 
 export default BooterContainer;
