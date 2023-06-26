@@ -1,4 +1,4 @@
-import React, { useState } from 'react';
+import React, { useState, useEffect } from 'react';
 import { View, Text, TextInput, TouchableOpacity, StyleSheet, Platform } from 'react-native';
 import { Picker } from '@react-native-picker/picker';
 import DateTimePicker from '@react-native-community/datetimepicker';
@@ -17,17 +17,54 @@ const GameForm = ({ game = {}, addresses, onSubmitGameAdded, loggedPlayer }) => 
   const [recommendedSeriousnessLevel, setRecommendedSeriousnessLevel] = useState(game.recommendedSeriousnessLevel || '');
   const [maxPlayers, setMaxPlayers] = useState(game.maxPlayers || 2);
 
+  useEffect(() => {
+    if (addresses && addresses.length > 0) {
+      setAddress(addresses[0].id);
+    }
+  }, [addresses]);
+
   const handleDateChange = (event, selectedDate) => {
     const currentDate = selectedDate || dateAndTime;
     setShowDatePicker(Platform.OS === 'ios');
     setDateAndTime(currentDate); 
   };
 
-  const handleAddGame = () => {
-    const selectedAddress = addresses.find((a) => a.id == address);
+  // const handleAddGame = () => {
+  //   const selectedAddress = addresses.find((a) => a.id == address);
   
+  //   const newGame = {
+  //     creator: {id: loggedPlayer.id},
+  //     name,
+  //     address: {
+  //       id: selectedAddress.id
+  //     },
+  //     dateAndTime,
+  //     duration,
+  //     recommendedAbilityLevel,
+  //     recommendedSeriousnessLevel,
+  //     playersList: [],
+  //     maxPlayers
+  //   };
+  
+  //   onSubmitGameAdded(newGame);
+  // };
+
+  const handleAddGame = () => {
+    console.log("address:", address);
+    console.log("addresses:", addresses);
+    
+    const selectedAddress = addresses.find((a) => a.id == address);
+    
+    console.log("selectedAddress:", selectedAddress);
+    console.log("loggedPlayer:", loggedPlayer);
+    
+    if (!selectedAddress || !loggedPlayer) {
+      console.error("selectedAddress or loggedPlayer is undefined");
+      return;
+    }
+
     const newGame = {
-      creator: {id: loggedPlayer.id},
+      creator: { id: loggedPlayer.id },
       name,
       address: {
         id: selectedAddress.id
@@ -41,7 +78,7 @@ const GameForm = ({ game = {}, addresses, onSubmitGameAdded, loggedPlayer }) => 
     };
   
     onSubmitGameAdded(newGame);
-  };
+};
 
   const levels = Array.from({ length: 11 }, (_, i) => (i * 0.5).toFixed(1));
   const maxPlayersOptions = Array.from({ length: 19 }, (_, i) => i + 2);
@@ -56,20 +93,20 @@ const GameForm = ({ game = {}, addresses, onSubmitGameAdded, loggedPlayer }) => 
         onChangeText={setName}
       />
       <Text style={styles.label}>Select an address:</Text>
-      {addresses && (
-        <Picker
-          style={styles.picker}
-          selectedValue={address}
-          onValueChange={(itemValue) => setAddress(itemValue)}
-        >
-          {addresses.map((address) => (
-            <Picker.Item
-              key={address.id}
-              label={`${address.propertyNumberOrName}, ${address.street}, ${address.city}, ${address.country}, ${address.postCode}`}
-              value={address.id}
-            />
-          ))}
-        </Picker>
+      {addresses && addresses.length > 0 && (
+    <Picker
+      style={styles.picker}
+      selectedValue={address}
+      onValueChange={(itemValue) => setAddress(itemValue)}
+    >
+      {addresses.map((address) => (
+        <Picker.Item
+          key={address.id}
+          label={`${address.propertyNumberOrName}, ${address.street}, ${address.city}, ${address.country}, ${address.postCode}`}
+          value={address.id}
+        />
+      ))}
+    </Picker>
       )}
       <Text style={styles.label}>Date and Time</Text>
       {showDatePicker && (
