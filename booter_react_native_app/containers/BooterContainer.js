@@ -9,6 +9,8 @@ import * as PlayerServices from "../services/PlayerServices";
 import GamesScreen from '../screens/GamesScreen';
 import PlayersScreen from '../screens/PlayersScreen';
 import AddContentScreen from '../screens/AddContentScreen';
+import Auth from '../components/Authorisation/Auth';
+
 
 // const Stack = createStackNavigator();
 const BottomTab = createBottomTabNavigator();
