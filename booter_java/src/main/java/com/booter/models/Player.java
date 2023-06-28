@@ -13,6 +13,8 @@ public class Player {
     @Id
     @GeneratedValue(strategy = GenerationType.IDENTITY)
     private Long id;
+    @Column(name = "auth0_id")
+    private String auth0Id;
     @Column(name="first_name")
     private String firstName;
     @Column(name="last_name")
@@ -48,7 +50,6 @@ public class Player {
     private int communityAssessedSeriousnessLevelCount;
     @ManyToMany(mappedBy = "players")
     private List<Game> games = new ArrayList<>();
-
     @OneToMany(mappedBy = "creator")
     private List<Game> createdGames;
 
@@ -82,6 +83,10 @@ public class Player {
 
     public Long getId() {
         return id;
+    }
+
+    public String getAuth0Id() {
+        return auth0Id;
     }
 
     public String getFirstName() {
@@ -154,6 +159,10 @@ public class Player {
 
     public void setId(Long id) {
         this.id = id;
+    }
+
+    public void setAuth0Id(String auth0Id) {
+        this.auth0Id = auth0Id;
     }
 
     public void setFirstName(String firstName) {
