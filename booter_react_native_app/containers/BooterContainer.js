@@ -1,32 +1,28 @@
 import React, { useState, useEffect } from 'react';
 import { View, Text, StyleSheet } from 'react-native';
-import { createStackNavigator } from '@react-navigation/stack';
 import { createBottomTabNavigator } from '@react-navigation/bottom-tabs';
-import { createMaterialTopTabNavigator } from '@react-navigation/material-top-tabs';
 import * as GameServices from "../services/GameServices";
 import * as AddressServices from "../services/AddressServices";
 import * as PlayerServices from "../services/PlayerServices";
 import GamesScreen from '../screens/GamesScreen';
 import PlayersScreen from '../screens/PlayersScreen';
 import AddContentScreen from '../screens/AddContentScreen';
+import LoginScreen from '../screens/LoginScreen';
 import Auth from '../components/Authorisation/Auth';
 
-
-// const Stack = createStackNavigator();
 const BottomTab = createBottomTabNavigator();
-const TopTab = createMaterialTopTabNavigator();
 
 const BooterContainer = () => {
   const [addresses, setAddresses] = useState(null);
   const [games, setGames] = useState(null);
   const [players, setPlayers] = useState(null);
   const [loggedPlayer, setLoggedPlayer] = useState(null);
-  
+  const [auth0Id, setAuth0Id] = useState(null); // <-- Added state for auth0Id
+  const [isAuthenticated, setIsAuthenticated] = useState(false); // <-- Added state for isAuthenticated
 
   useEffect(() => {
     fetchAllData();
   }, []);
-
 
   const fetchAllData = async () => {
     try {
@@ -112,7 +108,6 @@ const handleRatePlayerSeriousness = (player, selectedSeriousnessRating) => {
     .catch(error => console.error('Error rating player seriousness:', error));
 };
 
-
 // GAMES
 
 const fetchAllGames = () => {
@@ -172,55 +167,6 @@ const fetchAllGames = () => {
     });
   };
   
-  const TopTabNavigator = () => (
-    <TopTab.Navigator>
-      <TopTab.Screen
-        name="GamesScreen"
-        options={{ title: 'Games' }}
-        children={(props) => (
-          <GamesScreen
-            {...props}
-            players={players}
-            games={games}
-            handleDeleteGame={handleDeleteGame}
-            handleJoinGame={handleJoinGame}
-            handleUpdateGame={handleUpdateGame}
-            loggedPlayer={loggedPlayer}
-            handleSetGameCompletedStatus={handleSetGameCompletedStatus}
-          />
-        )}
-      />
-      <TopTab.Screen
-        name="PlayersScreen"
-        options={{ title: 'Players' }}
-        children={(props) => (
-          <PlayersScreen
-            {...props}
-            players={players}
-            loggedPlayer={loggedPlayer}
-            setLoggedPlayer={setLoggedPlayer}
-            handleRatePlayerAbility={handleRatePlayerAbility}
-            handleRatePlayerSeriousness={handleRatePlayerSeriousness}
-          />
-        )}
-      />
-      <TopTab.Screen
-        name="AddContentScreen"
-        options={{ title: 'Add Content' }}
-        children={(props) => (
-          <AddContentScreen
-            {...props}
-            addresses={addresses}
-            handleAddPlayer={handleAddPlayer}
-            handleAddGame={handleAddGame}
-            handleAddAddress={handleAddAddress}
-            loggedPlayer={loggedPlayer}
-          />
-        )}
-      />
-    </TopTab.Navigator>
-  );
-
   const BottomTabNavigator = () => (
     <View style={styles.container}>
     <View style={styles.header}>
@@ -274,6 +220,11 @@ const fetchAllGames = () => {
           />
         )}
       />
+      <BottomTab.Screen
+          name="LoginScreen"
+          options={{ title: 'Login' }}
+          component={LoginScreen}
+        />
     </BottomTab.Navigator>
     </View>
     </View>
@@ -284,17 +235,6 @@ const fetchAllGames = () => {
     <BottomTabNavigator />
     </>
 );
-
-// return (
-//   <View>
-//   <Text>
-//     {`Booter - Logged in as: ${loggedPlayer ? loggedPlayer.userName : 'Guest'}`}
-//   </Text>
-//   {/* <TopTabNavigator /> */}
-//   <BottomTabNavigator />
-// </View>
-// );
-
 
 };
 

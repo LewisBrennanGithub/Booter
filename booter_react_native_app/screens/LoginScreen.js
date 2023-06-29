@@ -2,7 +2,7 @@ import React from 'react';
 import { View, StyleSheet } from 'react-native';
 import Auth from '../components/Authorisation/Auth';
 
-const LoginPage = () => {
+const LoginScreen= () => {
   return (
     <View style={styles.container}>
       <Auth />
@@ -18,4 +18,4 @@ const styles = StyleSheet.create({
   },
 });
 
-export default LoginPage;
+export default LoginScreen;
