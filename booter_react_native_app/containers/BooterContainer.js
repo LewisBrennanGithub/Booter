@@ -8,7 +8,7 @@ import GamesScreen from '../screens/GamesScreen';
 import PlayersScreen from '../screens/PlayersScreen';
 import AddContentScreen from '../screens/AddContentScreen';
 import LoginScreen from '../screens/LoginScreen';
-import Auth from '../components/Authorisation/Auth';
+import Auth from '../components/Authorisation - Deprecated/Auth';
 
 const BottomTab = createBottomTabNavigator();
 

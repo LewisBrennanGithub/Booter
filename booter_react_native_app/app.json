@@ -7,6 +7,15 @@
     "icon": "./assets/icon.png",
     "scheme": "booterapp",
     "userInterfaceStyle": "light",
+    "plugins": [
+      [
+        "react-native-auth0",
+        {
+          "domain": "dev-jbsvjbwih2gygs04.uk.auth0.com",
+          "customScheme": "booterapp"
+        }
+      ]
+    ],
     "splash": {
       "image": "./assets/splash.png",
       "resizeMode": "contain",

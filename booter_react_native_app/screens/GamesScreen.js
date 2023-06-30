@@ -11,7 +11,7 @@ const GamesScreen = ({
   players,
 }) => {
   
-  console.log('Games in GamesScreen:', games);
+  // console.log('Games in GamesScreen:', games);
 
   return (
       <ScrollView>

@@ -25,7 +25,14 @@
       <dict>
         <key>CFBundleURLSchemes</key>
         <array>
-          <string>Booter</string>
+          <string>booterapp</string>
+          <string>com.lblimited.booterapp</string>
+        </array>
+      </dict>
+      <dict>
+        <key>CFBundleURLSchemes</key>
+        <array>
+          <string>exp+booterreactnativeapp</string>
         </array>
       </dict>
     </array>

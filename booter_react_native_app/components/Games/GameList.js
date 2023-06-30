@@ -4,7 +4,7 @@ import GameElement from './GameElement';
 
 const GameList = ({ players, games, handleDeleteGame, handleJoinGame, handleUpdateGame, loggedPlayer, handleSetGameCompletedStatus }) => {
 
-  console.log('Games in GameList:', games); 
+  // console.log('Games in GameList:', games); 
 
   return (
     <View>

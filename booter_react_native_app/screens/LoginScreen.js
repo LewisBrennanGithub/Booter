@@ -1,11 +1,16 @@
 import React from 'react';
 import { View, StyleSheet } from 'react-native';
-import Auth from '../components/Authorisation/Auth';
+import Auth from '../components/Authorisation - Deprecated/Auth';
+import LogInButton from '../components/Authorisation/LogInButton';
+import LogOutButton from '../components/Authorisation/LogOutButton';
+import LogProfileInformation from '../components/Authorisation/LogProfileInformation';
 
 const LoginScreen= () => {
   return (
     <View style={styles.container}>
-      <Auth />
+      <LogInButton/>
+      <LogOutButton/>
+      {/* <LogProfileInformation/> */}
     </View>
   );
 };
