@@ -3,7 +3,7 @@ import { View, Text, TextInput, TouchableOpacity, StyleSheet, Platform } from 'r
 import { Picker } from '@react-native-picker/picker';
 import DateTimePicker from '@react-native-community/datetimepicker';
 import ReactDatePicker from 'react-datepicker';
-import "react-datepicker/dist/react-datepicker.css"; // Import the CSS
+// import "react-datepicker/dist/react-datepicker.css"; // Import the CSS
 import * as GameServices from "../../services/GameServices";
 
 const GameForm = ({ game = {}, addresses, onSubmitGameAdded, loggedPlayer }) => {

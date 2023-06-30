@@ -1,9 +1,6 @@
-import React from 'react';
-import { Button, Platform } from 'react-native';
-import * as WebBrowser from 'expo-web-browser';
+import React, { useEffect, useState } from 'react';
+import { Button, Platform, View, Text } from 'react-native';
 import * as AuthSession from 'expo-auth-session';
-
-WebBrowser.maybeCompleteAuthSession();
 
 const Auth = () => {
   const auth0ClientId = '2mBqbkMQU2KUcCeahRAbRKEFvIFQVULq';
@@ -25,7 +22,55 @@ const Auth = () => {
     discovery
   );
 
-  return <Button title="Login with Auth0" disabled={!request} onPress={() => promptAsync({ useProxy: false })} />;
+  const [isLoggedIn, setIsLoggedIn] = useState(false);
+
+  useEffect(() => {
+    if (response?.type === 'success') {
+      const { code } = response.params;
+
+      // Exchange code for tokens
+      fetch(`https://${auth0Domain}/oauth/token`, {
+        method: 'POST',
+        headers: {
+          'Content-Type': 'application/json',
+        },
+        body: JSON.stringify({
+          grant_type: 'authorization_code',
+          client_id: auth0ClientId,
+          code,
+          redirect_uri: redirectUri,
+        }),
+      })
+        .then(response => response.json())
+        .then(tokenResponse => {
+          console.log('Token response:', tokenResponse);
+          setIsLoggedIn(true);
+        })
+        .catch(error => console.log(error));
+    }
+  }, [response]);
+
+  const logout = () => {
+    WebBrowser.openBrowserAsync(`https://${auth0Domain}/v2/logout?client_id=${auth0ClientId}&returnTo=${encodeURIComponent(redirectUri)}`);
+    setIsLoggedIn(false);
+  };
+
+  return (
+    <View>
+      {!isLoggedIn ? (
+        <Button
+          title="Login with Auth0"
+          disabled={!request}
+          onPress={() => promptAsync({ prompt: 'login' })} // Added prompt: 'login'
+        />
+      ) : (
+        <View>
+          <Text>You are logged in!</Text>
+          <Button title="Logout" onPress={logout} />
+        </View>
+      )}
+    </View>
+  );
 };
 
 export default Auth;

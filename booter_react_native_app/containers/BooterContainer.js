@@ -40,6 +40,11 @@ const BooterContainer = () => {
     }
   };
 
+  const handleUserLogin = (auth0Id) => {
+    setAuth0Id(auth0Id); // set the user's Auth0 ID in state
+    setIsAuthenticated(true); // set isAuthenticated to true
+  };
+
 // PLAYERS
 
 const fetchAllPlayers = () => {
