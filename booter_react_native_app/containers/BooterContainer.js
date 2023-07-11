@@ -8,7 +8,6 @@ import GamesScreen from '../screens/GamesScreen';
 import PlayersScreen from '../screens/PlayersScreen';
 import AddContentScreen from '../screens/AddContentScreen';
 import LoginScreen from '../screens/LoginScreen';
-import Auth from '../components/Authorisation - Deprecated/Auth';
 
 const BottomTab = createBottomTabNavigator();
 
@@ -17,8 +16,6 @@ const BooterContainer = () => {
   const [games, setGames] = useState(null);
   const [players, setPlayers] = useState(null);
   const [loggedPlayer, setLoggedPlayer] = useState(null);
-  const [auth0Id, setAuth0Id] = useState(null); // <-- Added state for auth0Id
-  const [isAuthenticated, setIsAuthenticated] = useState(false); // <-- Added state for isAuthenticated
 
   useEffect(() => {
     fetchAllData();
@@ -38,11 +35,6 @@ const BooterContainer = () => {
     } catch (error) {
       console.error('Error fetching data:', error);
     }
-  };
-
-  const handleUserLogin = (auth0Id) => {
-    setAuth0Id(auth0Id); // set the user's Auth0 ID in state
-    setIsAuthenticated(true); // set isAuthenticated to true
   };
 
 // PLAYERS

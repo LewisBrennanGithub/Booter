@@ -3,7 +3,6 @@ import { View, Text, TextInput, TouchableOpacity, StyleSheet, Platform } from 'r
 import { Picker } from '@react-native-picker/picker';
 import DateTimePicker from '@react-native-community/datetimepicker';
 import ReactDatePicker from 'react-datepicker';
-// import "react-datepicker/dist/react-datepicker.css"; // Import the CSS
 import * as GameServices from "../../services/GameServices";
 
 const GameForm = ({ game = {}, addresses, onSubmitGameAdded, loggedPlayer }) => {
@@ -177,7 +176,7 @@ const GameForm = ({ game = {}, addresses, onSubmitGameAdded, loggedPlayer }) => 
 const styles = StyleSheet.create({
   cardContainer: {
     backgroundColor: '#ffffff',
-    marginVertical: '10px',
+    marginVertical: 10,
     padding: 20,
     borderRadius: 8,
     shadowColor: '#000000',

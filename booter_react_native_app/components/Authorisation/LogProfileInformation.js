@@ -1,5 +1,5 @@
 import {useAuth0, Auth0Provider} from 'react-native-auth0';
-import { Text } from 'react-native-web';
+import { Text } from 'react-native';
 
 const LogProfileInformation = () => {
     const {user, error} = useAuth0();

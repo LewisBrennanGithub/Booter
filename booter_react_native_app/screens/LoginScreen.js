@@ -10,7 +10,7 @@ const LoginScreen= () => {
     <View style={styles.container}>
       <LogInButton/>
       <LogOutButton/>
-      {/* <LogProfileInformation/> */}
+      <LogProfileInformation/>
     </View>
   );
 };
