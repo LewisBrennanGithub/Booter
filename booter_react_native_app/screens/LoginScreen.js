@@ -5,11 +5,12 @@ import LogInButton from '../components/Authorisation/LogInButton';
 import LogOutButton from '../components/Authorisation/LogOutButton';
 import LogProfileInformation from '../components/Authorisation/LogProfileInformation';
 
-const LoginScreen= () => {
+const LoginScreen= ({ onLogin, onLogout }) => {
+
   return (
     <View style={styles.container}>
-      <LogInButton/>
-      <LogOutButton/>
+      <LogInButton onLogin={onLogin}/>
+      <LogOutButton onLogout={onLogout}/>
       <LogProfileInformation/>
     </View>
   );

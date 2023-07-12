@@ -16,6 +16,7 @@ const BooterContainer = () => {
   const [games, setGames] = useState(null);
   const [players, setPlayers] = useState(null);
   const [loggedPlayer, setLoggedPlayer] = useState(null);
+  const [auth0Id, setAuth0Id] = useState(null);
 
   useEffect(() => {
     fetchAllData();
@@ -36,6 +37,16 @@ const BooterContainer = () => {
       console.error('Error fetching data:', error);
     }
   };
+
+// AUTH0
+
+const handleLogin = (id) => {
+  setAuth0Id(id);
+};
+
+const handleLogout = () => {
+  setAuth0Id(null);
+};
 
 // PLAYERS
 
@@ -220,7 +231,13 @@ const fetchAllGames = () => {
       <BottomTab.Screen
           name="LoginScreen"
           options={{ title: 'Login' }}
-          component={LoginScreen}
+          children={(props) => (
+            <LoginScreen
+              {...props}
+              onLogin={handleLogin}
+              onLogout={handleLogout}
+            />
+          )}
         />
     </BottomTab.Navigator>
     </View>

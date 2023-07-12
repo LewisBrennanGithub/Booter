@@ -1,12 +1,17 @@
 import {useAuth0, Auth0Provider} from 'react-native-auth0';
 import { Button } from 'react-native';
 
-const LogOutButton = () => {
+const LogOutButton = ({onLogout}) => {
     const {clearSession} = useAuth0();
 
+    const handleClearSession = async () => {
+        await clearSession({customScheme: 'booterapp'});
+        onLogout();
+      };
+    
     const onPress = async () => {
         try {
-            await clearSession({customScheme: 'booterapp'});
+            handleClearSession();
         } catch (e) {
             console.log(e);
         }

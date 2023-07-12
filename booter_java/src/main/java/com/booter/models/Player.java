@@ -59,6 +59,7 @@ public class Player {
 //    private Game lastGameCreated;
 
     public Player(String auth0Id, String firstName, String lastName, String userName, String phoneNumber, Address address, int age, double selfAssessedAbilityLevel, double selfAssessedSeriousnessLevel) {
+        this.auth0Id = auth0Id;
         this.firstName = firstName;
         this.lastName = lastName;
         this.userName = userName;
