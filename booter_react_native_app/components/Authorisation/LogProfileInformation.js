@@ -6,7 +6,7 @@ const LogProfileInformation = () => {
 
     return (
         <>
-            {user && <Text>Logged in as {user.name}</Text>}
+            {user && <Text>Logged in as {user.sub}</Text>}
             {!user && <Text>Not logged in</Text>}
             {error && <Text>{error.message}</Text>}
         </>

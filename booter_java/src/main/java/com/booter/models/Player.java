@@ -58,7 +58,7 @@ public class Player {
 //    @OneToOne(mappedBy = "creator")
 //    private Game lastGameCreated;
 
-    public Player(String firstName, String lastName, String userName, String phoneNumber, Address address, int age, double selfAssessedAbilityLevel, double selfAssessedSeriousnessLevel) {
+    public Player(String auth0Id, String firstName, String lastName, String userName, String phoneNumber, Address address, int age, double selfAssessedAbilityLevel, double selfAssessedSeriousnessLevel) {
         this.firstName = firstName;
         this.lastName = lastName;
         this.userName = userName;
