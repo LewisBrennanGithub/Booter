@@ -1,4 +1,4 @@
-package com.booter_front_end;
+package com.booterfrontend;
 
 import com.facebook.react.ReactActivity;
 import com.facebook.react.ReactActivityDelegate;

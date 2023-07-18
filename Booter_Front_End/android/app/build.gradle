@@ -75,12 +75,12 @@ android {
 
     namespace "com.booter_front_end"
     defaultConfig {
-        applicationId "com.booter_front_end"
+        applicationId "com.booterfrontend"
         minSdkVersion rootProject.ext.minSdkVersion
         targetSdkVersion rootProject.ext.targetSdkVersion
         versionCode 1
         versionName "1.0"
-        manifestPlaceholders = [auth0Domain: "dev-jbsvjbwih2gygs04.uk.auth0.com", auth0Scheme: "com.booter_front_end"]
+        manifestPlaceholders = [auth0Domain: "dev-jbsvjbwih2gygs04.uk.auth0.com", auth0Scheme: "com.booterfrontend"]
 
     }
     signingConfigs {
