@@ -41,10 +41,12 @@ const BooterContainer = () => {
 // AUTH0
 
 const handleLogin = (id) => {
+  console.log('handleLogin called with id:', id);  // Debug line
   setAuth0Id(id);
 };
 
 const handleLogout = () => {
+  console.log('handleLogout called');  // Debug line
   setAuth0Id(null);
 };
 
@@ -178,9 +180,8 @@ const fetchAllGames = () => {
   const BottomTabNavigator = () => (
     <View style={styles.container}>
     <View style={styles.header}>
-      <Text>
-        {`Booter - Logged in as: ${loggedPlayer ? loggedPlayer.userName : 'Guest'}`}
-      </Text>
+    <Text>Booter</Text>
+      <Text>{`Logged Player: ${loggedPlayer ? loggedPlayer.userName : 'Guest'}`} {`Auth0 State: ${auth0Id ? auth0Id : 'Not logged in'}`}</Text>
     </View>
     <View style={styles.content}>
     <BottomTab.Navigator>
@@ -236,6 +237,8 @@ const fetchAllGames = () => {
               {...props}
               onLogin={handleLogin}
               onLogout={handleLogout}
+              auth0Id={auth0Id}
+              setAuth0Id={setAuth0Id}
             />
           )}
         />

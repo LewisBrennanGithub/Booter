@@ -1,18 +1,30 @@
-import {useAuth0, Auth0Provider} from 'react-native-auth0';
-import { Button } from 'react-native';
+<script src="http://localhost:8097"></script>
+import React, { useEffect } from 'react';
+import { useAuth0 } from 'react-native-auth0';
+import { Button, Text } from 'react-native';
 
-const LogInButton = () => {
-    const {authorize} = useAuth0();
+const LogInButton = ({ auth0Id, setAuth0Id }) => {
+  const { authorize, user } = useAuth0();
 
-    const onPress = async () => {
-        try {
-            await authorize();
-        } catch (e) {
-            console.log(e);
-        }
-    };
+  useEffect(() => {
+    setAuth0Id(user?.sub || null);
+  }, [user]);
 
-    return <Button onPress={onPress} title="Log in" />
+  const handleAuthorize = async () => {
+    try {
+      const { sub: userId } = await authorize({scope: 'openid profile email'});
+      console.log(userId);
+    } catch (e) {
+      console.log(e);
+    }
+  };
+
+  return (
+    <>
+      <Text>{`Auth0 State: ${auth0Id ? auth0Id : 'Not logged in'}`}</Text>
+      <Button onPress={handleAuthorize} title="Log in" />
+    </>
+  );
 }
 
 export default LogInButton;
