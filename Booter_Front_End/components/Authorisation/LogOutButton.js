@@ -1,12 +1,18 @@
 import {useAuth0, Auth0Provider} from 'react-native-auth0';
 import { Button } from 'react-native';
 
-const LogOutButton = () => {
+const LogOutButton = ({setAuth0Id, setLoggedPlayer}) => {
     const {clearSession} = useAuth0();
+
+    const clearState = () => {
+        setAuth0Id(null),
+        setLoggedPlayer(null)
+    }
 
     const onPress = async () => {
         try {
             await clearSession();
+            clearState();
         } catch (e) {
             console.log(e);
         }

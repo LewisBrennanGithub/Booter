@@ -3,8 +3,13 @@ export const getPlayers = () => {
   .then((res) => res.json())
 }
 
+// SHOULD REALLY BE PLAYER RATHER THAN PLAYERS! SHOULD ALSO BE CALLED PROPERLY, LIKE THE OTHERS
 export const getPlayersById = (id) => {
-  return fetch(`http://localhost:8080/players/${id}`).then((res => res.json));
+  return fetch(`http://localhost:8080/players/${id}`).then((res => res.json()));
+}
+
+export const getPlayerByAuth0Id = (auth0Id) => {
+  return fetch(`http://localhost:8080/players/${auth0Id}`).then((res => res.json()));
 }
 
 export const getPlayerGames = (playerId) => {
@@ -82,7 +87,6 @@ export const rateOtherPlayerSeriousness = (ratingSeriousnessPlayerId, ratedSerio
   })
   .then(res => res.json());
 }
-
 
 export const deletePlayer = (id) => {
   return fetch(`http://localhost:8080/players/${id}`, {

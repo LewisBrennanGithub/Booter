@@ -4,16 +4,18 @@ import LogInButton from '../components/Authorisation/LogInButton';
 import LogOutButton from '../components/Authorisation/LogOutButton';
 import LogProfileInformation from '../components/Authorisation/LogProfileInformation';
 
-const LoginScreen= ({ onLogin, onLogout, auth0Id, setAuth0Id }) => {
+const LoginScreen= ({setAuth0Id, setLoggedPlayer }) => {
 
   return (
     <View style={styles.container}>
       <LogInButton 
-        onLogin={onLogin} 
-        auth0Id={auth0Id}
         setAuth0Id={setAuth0Id}
+        setLoggedPlayer={setLoggedPlayer}
         />
-      <LogOutButton onLogout={onLogout}/>
+      <LogOutButton 
+        setAuth0Id={setAuth0Id}
+        setLoggedPlayer={setLoggedPlayer}
+      />
       <LogProfileInformation/>
     </View>
   );

@@ -40,15 +40,15 @@ const BooterContainer = () => {
 
 // AUTH0
 
-const handleLogin = (id) => {
-  console.log('handleLogin called with id:', id);  // Debug line
-  setAuth0Id(id);
-};
+// const handleLogin = (id) => {
+//   console.log('handleLogin called with id:', id);  // Debug line
+//   setAuth0Id(id);
+// };
 
-const handleLogout = () => {
-  console.log('handleLogout called');  // Debug line
-  setAuth0Id(null);
-};
+// const handleLogout = () => {
+//   console.log('handleLogout called');  // Debug line
+//   setAuth0Id(null);
+// };
 
 // PLAYERS
 
@@ -226,6 +226,7 @@ const fetchAllGames = () => {
             handleAddGame={handleAddGame}
             handleAddAddress={handleAddAddress}
             loggedPlayer={loggedPlayer}
+            auth0Id={auth0Id}
           />
         )}
       />
@@ -235,10 +236,9 @@ const fetchAllGames = () => {
           children={(props) => (
             <LoginScreen
               {...props}
-              onLogin={handleLogin}
-              onLogout={handleLogout}
               auth0Id={auth0Id}
               setAuth0Id={setAuth0Id}
+              setLoggedPlayer={setLoggedPlayer}
             />
           )}
         />

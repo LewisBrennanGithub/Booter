@@ -27,9 +27,18 @@ public class PlayerController {
         return new ResponseEntity<>(playerRepository.findAll(), HttpStatus.OK);
     }
 
-    @GetMapping(value = "/players/{id}")
+    @GetMapping(value = "/players/id/{id}")
     public ResponseEntity getPlayer(@PathVariable Long id){
         return new ResponseEntity<>(playerRepository.findById(id), HttpStatus.OK);
+    }
+
+    @GetMapping(value = "/players/{auth0Id}")
+    public ResponseEntity<Player> getPlayerByAuth0Id(@PathVariable String auth0Id){
+        Player player = playerRepository.findByAuth0Id(auth0Id);
+        if(player == null) {
+            return new ResponseEntity<>(HttpStatus.NOT_FOUND);
+        }
+        return new ResponseEntity<>(player, HttpStatus.OK);
     }
 
     @GetMapping(value = "/players/{playerId}/games")

@@ -6,18 +6,21 @@ import PlayerForm from '../components/Players/PlayerForm';
 import GameForm from '../components/Games/GameForm';
 import AddressForm from '../components/Addresses/AddressForm';
 
+// MUST RENAME TO SCREEN WHEN TIME PERMITS
 const AddContentPage = ({
   addresses,
   handleAddPlayer,
   handleAddGame,
   loggedPlayer,
-  handleAddAddress
+  handleAddAddress,
+  auth0Id
 }) => {
   return (
     <ScrollView>
       <PlayerForm
         addresses={addresses}
         onSubmitPlayerAdded={handleAddPlayer}
+        auth0Id={auth0Id}
       />
       <GameForm
         addresses={addresses}

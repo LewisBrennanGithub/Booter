@@ -1,3 +1,4 @@
+<script src="http://localhost:8097"></script>
 import { NavigationContainer } from '@react-navigation/native';
 import { StyleSheet} from 'react-native';
 import BooterContainer from './containers/BooterContainer';

@@ -2,7 +2,11 @@ import React, { useState } from 'react';
 import { View, Text, TextInput, TouchableOpacity, StyleSheet } from 'react-native';
 import { Picker } from '@react-native-picker/picker';
 
-const PlayerForm = ({ addresses, onSubmitPlayerAdded }) => {
+const PlayerForm = ({ 
+  addresses, 
+  onSubmitPlayerAdded,
+  auth0Id
+}) => {
   const [firstName, setFirstName] = useState('');
   const [lastName, setLastName] = useState('');
   const [userName, setUserName] = useState('');
@@ -22,6 +26,7 @@ const PlayerForm = ({ addresses, onSubmitPlayerAdded }) => {
     }
 
     const newPlayer = {
+      auth0Id,
       firstName,
       lastName,
       userName,
@@ -39,6 +44,7 @@ const PlayerForm = ({ addresses, onSubmitPlayerAdded }) => {
 
   return (
     <View style={styles.cardContainer}>
+      <Text>{auth0Id}</Text>
       <Text style={styles.heading}>Add Player</Text>
       <TextInput
         style={styles.input}
@@ -114,53 +120,53 @@ const PlayerForm = ({ addresses, onSubmitPlayerAdded }) => {
 
 const styles = StyleSheet.create({
   cardContainer: {
-    backgroundColor: '#ffffff',
-    marginVertical: 10,
-    padding: 20,
-    borderRadius: 8,
-    shadowColor: '#000000',
-    shadowOpacity: 0.1,
-    shadowRadius: 4,
-    shadowOffset: {
-      width: 0,
-      height: 2,
-    },
-    elevation: 4,
+    // backgroundColor: '#ffffff',
+    // marginVertical: 10,
+    // padding: 20,
+    // borderRadius: 8,
+    // shadowColor: '#000000',
+    // shadowOpacity: 0.1,
+    // shadowRadius: 4,
+    // shadowOffset: {
+    //   width: 0,
+    //   height: 2,
+    // },
+    // elevation: 4,
   },
   heading: {
-    fontSize: 18,
-    fontWeight: 'bold',
-    marginBottom: 10,
+    // fontSize: 18,
+    // fontWeight: 'bold',
+    // marginBottom: 10,
   },
   label: {
-    fontSize: 16,
-    marginBottom: 5,
+    // fontSize: 16,
+    // marginBottom: 5,
   },
   input: {
-    height: 40,
-    borderColor: 'gray',
-    borderWidth: 1,
-    borderRadius: 4,
-    marginBottom: 10,
-    paddingHorizontal: 10,
+    // height: 40,
+    // borderColor: 'gray',
+    // borderWidth: 1,
+    // borderRadius: 4,
+    // marginBottom: 10,
+    // paddingHorizontal: 10,
   },
   picker: {
-    height: 40,
-    borderColor: 'gray',
-    borderWidth: 1,
-    borderRadius: 4,
-    marginBottom: 10,
+    // height: 40,
+    // borderColor: 'gray',
+    // borderWidth: 1,
+    // borderRadius: 4,
+    // marginBottom: 10,
   },
   button: {
-    backgroundColor: '#783c08',
-    paddingVertical: 10,
-    paddingHorizontal: 20,
-    borderRadius: 4,
+    // backgroundColor: '#783c08',
+    // paddingVertical: 10,
+    // paddingHorizontal: 20,
+    // borderRadius: 4,
   },
   buttonText: {
-    color: '#ffffff',
-    textAlign: 'center',
-    fontWeight: 'bold',
+    // color: '#ffffff',
+    // textAlign: 'center',
+    // fontWeight: 'bold',
   },
 });
 
