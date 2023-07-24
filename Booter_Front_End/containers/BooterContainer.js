@@ -227,6 +227,7 @@ const fetchAllGames = () => {
             handleAddAddress={handleAddAddress}
             loggedPlayer={loggedPlayer}
             auth0Id={auth0Id}
+            setLoggedPlayer={setLoggedPlayer}
           />
         )}
       />

@@ -13,7 +13,8 @@ const AddContentPage = ({
   handleAddGame,
   loggedPlayer,
   handleAddAddress,
-  auth0Id
+  auth0Id,
+  setLoggedPlayer
 }) => {
   return (
     <ScrollView>
@@ -21,6 +22,7 @@ const AddContentPage = ({
         addresses={addresses}
         onSubmitPlayerAdded={handleAddPlayer}
         auth0Id={auth0Id}
+        setLoggedPlayer={setLoggedPlayer}
       />
       <GameForm
         addresses={addresses}

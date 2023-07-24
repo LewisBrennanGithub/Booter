@@ -1,12 +1,15 @@
-import React, { useState } from 'react';
+import React, { useState, useEffect } from 'react';
 import { View, Text, TextInput, TouchableOpacity, StyleSheet } from 'react-native';
 import { Picker } from '@react-native-picker/picker';
 
 const PlayerForm = ({ 
   addresses, 
   onSubmitPlayerAdded,
-  auth0Id
+  auth0Id,
+  setLoggedPlayer
 }) => {
+  const [playerCreatedBoolean, setPlayerCreatedBoolean] = useState(false);
+  const [newPlayerState, setNewPlayerState] = useState(null);
   const [firstName, setFirstName] = useState('');
   const [lastName, setLastName] = useState('');
   const [userName, setUserName] = useState('');
@@ -15,6 +18,13 @@ const PlayerForm = ({
   const [age, setAge] = useState('');
   const [selfAssessedAbilityLevel, setSelfAssessedAbilityLevel] = useState('');
   const [selfAssessedSeriousnessLevel, setSelfAssessedSeriousnessLevel] = useState('');
+
+  useEffect(() => {
+    if (playerCreatedBoolean) {
+      setLoggedPlayer(newPlayerState)
+      setPlayerCreatedBoolean(false);
+    }
+  }, [playerCreatedBoolean]);
 
   const levels = Array.from({ length: 11 }, (_, i) => (i * 0.5).toFixed(1));
 
@@ -40,6 +50,8 @@ const PlayerForm = ({
     };
 
     onSubmitPlayerAdded(newPlayer);
+    setPlayerCreatedBoolean(true);
+    setNewPlayerState(newPlayer)
   };
 
   return (

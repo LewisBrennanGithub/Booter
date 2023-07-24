@@ -52,8 +52,18 @@ public class PlayerController {
         return new ResponseEntity<>(games, HttpStatus.OK);
     }
 
+//    @PostMapping(value = "/players")
+//    public ResponseEntity<Player> postPlayer(@RequestBody Player player){
+//        playerRepository.save(player);
+//        return new ResponseEntity<>(player, HttpStatus.CREATED);
+//    }
+
     @PostMapping(value = "/players")
     public ResponseEntity<Player> postPlayer(@RequestBody Player player){
+        Player existingPlayer = playerRepository.findByAuth0Id(player.getAuth0Id());
+        if (existingPlayer != null) {
+            return new ResponseEntity<>(HttpStatus.CONFLICT);
+        }
         playerRepository.save(player);
         return new ResponseEntity<>(player, HttpStatus.CREATED);
     }
