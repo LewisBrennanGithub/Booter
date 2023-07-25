@@ -1,6 +1,7 @@
 import React, { useState, useEffect } from 'react';
 import { View, Text, StyleSheet } from 'react-native';
 import { createBottomTabNavigator } from '@react-navigation/bottom-tabs';
+import {useAuth0, Auth0Provider} from 'react-native-auth0';
 import * as GameServices from "../services/GameServices";
 import * as AddressServices from "../services/AddressServices";
 import * as PlayerServices from "../services/PlayerServices";
@@ -17,28 +18,56 @@ const BooterContainer = () => {
   const [players, setPlayers] = useState(null);
   const [loggedPlayer, setLoggedPlayer] = useState(null);
   const [auth0Id, setAuth0Id] = useState(null);
+  const {user} = useAuth0();
 
   useEffect(() => {
     fetchAllData();
-  }, []);
+    if (user && user.sub) {
+      setAuth0Id(user.sub);
+      if (auth0Id) {
+        fetchPlayerByAuth0Id(auth0Id);
+      }  
+    }  
+  }, [user, auth0Id]);
 
   const fetchAllData = async () => {
     try {
       const [addressesData, gamesData, playersData] = await Promise.all([
         AddressServices.getAddresses(),
         GameServices.getGames(),
-        PlayerServices.getPlayers()
+        PlayerServices.getPlayers(),
       ]);
       setAddresses(addressesData);
       setGames(gamesData);
       setPlayers(playersData);
-
     } catch (error) {
       console.error('Error fetching data:', error);
     }
   };
 
+  const fetchPlayerByAuth0Id = async (id) => {
+    if(id){
+      try{
+        const data = await PlayerServices.getPlayerByAuth0Id(id);
+        setLoggedPlayer(data);
+      }catch(error){
+        console.log("Error fetching player: ", error);
+      }
+    }
+  }
+
 // AUTH0
+
+// const checkAuthSession = async () => {
+//   try {
+//     const authResult = await checkSession();
+//     const { sub: auth0Id } = authResult.idTokenPayload;  // extract the auth0 id from the token payload
+//     setAuth0Id(auth0Id);
+//     fetchPlayerByAuth0Id(auth0Id);
+//   } catch (error) {
+//     console.log("No active session:", error);
+//   }
+// };
 
 // const handleLogin = (id) => {
 //   console.log('handleLogin called with id:', id);  // Debug line
@@ -120,16 +149,9 @@ const handleJoinGame = (gameId, player) => {
 const handleAddPlayer = async (playerData, addressData) => {
   try {
     const response = await AddressServices.postAddress(addressData);
-    console.log('Response:', response); // Log the response data
-
-    // The following line should be adjusted based on the actual response structure
     const savedAddressId = response.id; 
-
-    // Add the address ID to the player data
     const newPlayerData = {...playerData, address: {id: savedAddressId}};
-
     await PlayerServices.postPlayer(newPlayerData);
-
     fetchAllPlayers();
     fetchAllAddresses();
   } catch (error) {
@@ -252,7 +274,7 @@ const handleAddGame = async (gameData, addressData) => {
   const BottomTabNavigator = () => (
     <View style={styles.container}>
     <View style={styles.header}>
-    <Text>Booter</Text>
+    <Text>Booter {user ? user.sub : 'Nothing'} </Text>
       <Text>{`Logged Player: ${loggedPlayer ? loggedPlayer.userName : 'Guest'}`} {`Auth0 State: ${auth0Id ? auth0Id : 'Not logged in'}`}</Text>
     </View>
     <View style={styles.content}>

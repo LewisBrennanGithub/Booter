@@ -12,7 +12,26 @@ export default function App() {
     </NavigationContainer>
     </Auth0Provider>
   );
-}
+} 
+
+{/* <script src="http://localhost:8097"></script>
+import { NavigationContainer } from '@react-navigation/native';
+import BooterContainer from './containers/BooterContainer';
+import {Auth0Provider} from 'react-native-auth0';
+import { AuthProvider } from './contexts/AuthProvider';
+
+export default function App() {
+  return (
+    <Auth0Provider domain={"dev-jbsvjbwih2gygs04.uk.auth0.com"} clientId={"rPScIrLIXAkRbZtUgbdvDsarHIetMx2g"}>
+      <AuthProvider>
+        <NavigationContainer>
+            <BooterContainer />
+        </NavigationContainer>
+      </AuthProvider>
+    </Auth0Provider>
+  );
+} */}
+
 
 // const styles = StyleSheet.create({
 //   container: {

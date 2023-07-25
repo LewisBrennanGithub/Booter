@@ -27,11 +27,11 @@ const GameForm = ({
   const [country, setCountry] = useState('');
   const [postCode, setPostCode] = useState('');
 
-  useEffect(() => {
-    if (addresses && addresses.length > 0) {
-      setAddress(addresses[0].id);
-    }
-  }, [addresses]);
+  // useEffect(() => {
+  //   if (addresses && addresses.length > 0) {
+  //     setAddress(addresses[0].id);
+  //   }
+  // }, [addresses]);
 
   const handleDateChange = (event, selectedDate) => {
     const currentDate = selectedDate || dateAndTime;
@@ -99,7 +99,7 @@ const GameForm = ({
 };
 
   const levels = Array.from({ length: 11 }, (_, i) => (i * 0.5).toFixed(1));
-  const maxPlayersOptions = Array.from({ length: 19 }, (_, i) => i + 2);
+  const maxPlayersOptions = Array.from({ length: 21 }, (_, i) => i + 2);
 
   return (
     <View style={styles.cardContainer}>
