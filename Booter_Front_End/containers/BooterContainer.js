@@ -67,13 +67,74 @@ const handleJoinGame = (gameId, player) => {
     .catch(err => console.error("Error joining game:", err));
 };
 
-const handleAddPlayer = (playerData) => {
-  PlayerServices.postPlayer(playerData)
-    .then(() => {
-      fetchAllPlayers();
-    }).catch(error => {
-      console.error('An error occurred:', error);
-    });
+// const handleAddPlayer = (playerData) => {
+//   PlayerServices.postPlayer(playerData)
+//     .then(() => {
+//       fetchAllPlayers();
+//     }).catch(error => {
+//       console.error('An error occurred:', error);
+//     });
+// };
+
+// const handleAddPlayer = (playerData, addressData) => {
+//   Promise.all([AddressServices.postAddress(addressData), PlayerServices.postPlayer(playerData)])
+//     .then(() => {
+//       fetchAllPlayers();
+//       fetchAllAddresses();
+//     })
+//     .catch((error) => {
+//       console.error('An error occurred:', error);
+//     });
+// };
+
+// const handleAddPlayer = async (playerData, addressData) => {
+//   try {
+//     await AddressServices.postAddress(addressData);
+//     await PlayerServices.postPlayer(playerData);
+
+//     fetchAllPlayers();
+//     fetchAllAddresses();
+//   } catch (error) {
+//     console.error('An error occurred:', error);
+//   }
+// };
+
+// const handleAddPlayer = async (playerData, addressData) => {
+//   try {
+//     const response = await AddressServices.postAddress(addressData);
+//     console.log(response); // Log the response data
+//     const savedAddressId = response.data.id; // adjust this line based on the actual response structure
+    
+//     // Add the address ID to the player data
+//     const newPlayerData = {...playerData, address: {id: savedAddressId}};
+
+//     await PlayerServices.postPlayer(newPlayerData);
+
+//     fetchAllPlayers();
+//     fetchAllAddresses();
+//   } catch (error) {
+//     console.error('An error occurred:', error);
+//   }
+// };
+
+const handleAddPlayer = async (playerData, addressData) => {
+  try {
+    const response = await AddressServices.postAddress(addressData);
+    console.log('Response:', response); // Log the response data
+
+    // The following line should be adjusted based on the actual response structure
+    const savedAddressId = response.id; 
+
+    // Add the address ID to the player data
+    const newPlayerData = {...playerData, address: {id: savedAddressId}};
+
+    await PlayerServices.postPlayer(newPlayerData);
+
+    fetchAllPlayers();
+    fetchAllAddresses();
+  } catch (error) {
+    console.error('An error occurred:', error);
+  }
 };
 
 const handleSetGameCompletedStatus = (game) => {
@@ -128,7 +189,18 @@ const fetchAllGames = () => {
     .catch(err => console.error('Error fetching games:', err));
 };
 
-  const handleAddGame = (gameData) => {
+const handleAddGame = async (gameData, addressData) => {
+  try {
+    const response = await AddressServices.postAddress(addressData);
+    const savedAddressId = response.id;
+    const newGameData = {...gameData, address: {id: savedAddressId}};
+    await GameServices.postGame(newGameData);
+    fetchAllGames();
+    fetchAllAddresses();
+  } catch (error) {
+    console.error('An error occured:', error);
+  }
+
     GameServices.postGame(gameData)
     .then(() => {
       fetchAllGames();

@@ -1,19 +1,19 @@
 export const getPlayers = () => {
   return fetch("http://localhost:8080/players")
-  .then((res) => res.json())
+  .then((res) => res.json());
 }
 
 // SHOULD REALLY BE PLAYER RATHER THAN PLAYERS! SHOULD ALSO BE CALLED PROPERLY, LIKE THE OTHERS
-export const getPlayersById = (id) => {
-  return fetch(`http://localhost:8080/players/${id}`).then((res => res.json()));
+export const getPlayerById = (id) => {
+  return fetch(`http://localhost:8080/players/${id}`).then((res) => res.json());
 }
 
 export const getPlayerByAuth0Id = (auth0Id) => {
-  return fetch(`http://localhost:8080/players/${auth0Id}`).then((res => res.json()));
+  return fetch(`http://localhost:8080/players/${auth0Id}`).then((res) => res.json());
 }
 
 export const getPlayerGames = (playerId) => {
-  return fetch(`http://localhost:8080/players/${playerId}/games`).then((res) => res.json())
+  return fetch(`http://localhost:8080/players/${playerId}/games`).then((res) => res.json());
 }
 
 export const postPlayer = (playerData) => {
@@ -46,7 +46,7 @@ export const updatePlayer = (id, updatedData) => {
     body: JSON.stringify(updatedData),
     headers: { "Content-Type": "application/json"},
   })
-  .then(res => res.json())
+  .then(res => res.json());
 }
 
 export const playerJoinGame = (playerId, gameId, updatedData) => {
@@ -55,7 +55,7 @@ export const playerJoinGame = (playerId, gameId, updatedData) => {
     body: JSON.stringify(updatedData),
     headers: { "Content-Type": "application/json"},
   })
-  .then(res => res.text())
+  .then(res => res.text());
 }
 
 export const playerSetGameCompletedStatus = (playerId, gameId) => {
@@ -63,7 +63,7 @@ export const playerSetGameCompletedStatus = (playerId, gameId) => {
     method: "PATCH",
     headers: { "Content-Type": "application/json"},
   })
-  .then(res => res.json())
+  .then(res => res.json());
 }
 
 export const rateOtherPlayerAbility = (ratingAbilityPlayerId, ratedAbilityPlayerId, abilityRating) => {
@@ -92,5 +92,5 @@ export const deletePlayer = (id) => {
   return fetch(`http://localhost:8080/players/${id}`, {
     method: "DELETE",
   })
-  .then(res => res.json())
+  .then(res => res.json());
 }

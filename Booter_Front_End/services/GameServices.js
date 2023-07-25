@@ -1,5 +1,5 @@
 export const getGames = () => {
-  return fetch("http://localhost:8080/games").then((res) => res.json())
+  return fetch("http://localhost:8080/games").then((res) => res.json());
 }
 
 export const getGamesById = (id) => {
@@ -7,7 +7,7 @@ export const getGamesById = (id) => {
 };
 
 export const getGamePlayers = (gameId) => {
-  return fetch(`http://localhost:8080/games/${gameId}/players`).then((res) => res.json())
+  return fetch(`http://localhost:8080/games/${gameId}/players`).then((res) => res.json());
 }
 
 export const postGame = (gameData) => {
@@ -31,7 +31,7 @@ export const updateGame = (id, updatedData) => {
     body: JSON.stringify(updatedData),
     headers: { "Content-Type": "application/json"},
   })
-  .then(res => res.json())
+  .then((res) => res.json());
 }
 
 export const deleteGame = (id) => {

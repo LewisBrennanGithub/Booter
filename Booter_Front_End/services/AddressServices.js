@@ -1,14 +1,15 @@
 export const getAddresses = () => {
   return fetch("http://localhost:8080/addresses")
-  .then((res) => res.json())
+  .then((res) => res.json());
 }
 
 export const getAddressesById = (id) => { 
   return fetch(`http://localhost:8080/addresses/${id}`)
-  .then((res) => res.json())
+  .then((res) => res.json());
 }
 
 export const postAddress = (addressData) => {
+  console.log(addressData);
   return fetch('http://localhost:8080/addresses', {
     method: 'POST',
     body: JSON.stringify(addressData),

@@ -1,25 +1,13 @@
-import React, { useState } from 'react';
-import { View, Text, TextInput, TouchableOpacity, StyleSheet } from 'react-native';
-import * as AddressServices from '../../services/AddressServices';
+import React from 'react';
+import { View, Text, TextInput, StyleSheet } from 'react-native';
 
-const AddressForm = ({ address = {}, onSubmitAddressAdded }) => {
-  const [propertyNumberOrName, setPropertyNumberOrName] = useState(address.propertyNumberOrName || '');
-  const [street, setStreet] = useState(address.street || '');
-  const [city, setCity] = useState(address.city || '');
-  const [country, setCountry] = useState(address.country || '');
-  const [postCode, setPostCode] = useState(address.postCode || '');
-
-  const handleAddAddress = () => {
-    const addressData = {
-      propertyNumberOrName,
-      street,
-      city,
-      country,
-      postCode,
-    };
-    onSubmitAddressAdded(addressData);
-  };
-
+const AddressInputs = ({ 
+  propertyNumberOrName, setPropertyNumberOrName,
+  street, setStreet,
+  city, setCity,
+  country, setCountry,
+  postCode, setPostCode
+}) => {
   return (
     <View style={styles.cardContainer}>
       <Text style={styles.heading}>Address Form</Text>
@@ -53,9 +41,6 @@ const AddressForm = ({ address = {}, onSubmitAddressAdded }) => {
         value={postCode}
         onChangeText={(text) => setPostCode(text)}
       />
-      <TouchableOpacity style={styles.button} onPress={handleAddAddress}>
-        <Text style={styles.buttonText}>Add Address</Text>
-      </TouchableOpacity>
     </View>
   );
 };
@@ -96,4 +81,4 @@ const styles = StyleSheet.create({
   },
 });
 
-export default AddressForm;
+export default AddressInputs;

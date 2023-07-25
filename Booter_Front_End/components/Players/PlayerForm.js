@@ -1,6 +1,8 @@
 import React, { useState, useEffect } from 'react';
 import { View, Text, TextInput, TouchableOpacity, StyleSheet } from 'react-native';
 import { Picker } from '@react-native-picker/picker';
+import AddressForm from '../Addresses/AddressForm';
+import AddressInputs from '../Addresses/AddressInputs';
 
 const PlayerForm = ({ 
   addresses, 
@@ -14,10 +16,16 @@ const PlayerForm = ({
   const [lastName, setLastName] = useState('');
   const [userName, setUserName] = useState('');
   const [phoneNumber, setPhoneNumber] = useState('');
-  const [address, setAddress] = useState('');
+  // const [address, setAddress] = useState('');
+  const [address, setAddress] = useState(null);
   const [age, setAge] = useState('');
   const [selfAssessedAbilityLevel, setSelfAssessedAbilityLevel] = useState('');
   const [selfAssessedSeriousnessLevel, setSelfAssessedSeriousnessLevel] = useState('');
+  const [propertyNumberOrName, setPropertyNumberOrName] = useState('');
+  const [street, setStreet] = useState('');
+  const [city, setCity] = useState('');
+  const [country, setCountry] = useState('');
+  const [postCode, setPostCode] = useState('');
 
   useEffect(() => {
     if (playerCreatedBoolean) {
@@ -29,11 +37,18 @@ const PlayerForm = ({
   const levels = Array.from({ length: 11 }, (_, i) => (i * 0.5).toFixed(1));
 
   const handleAddPlayer = () => {
-    const selectedAddress = addresses.find((a) => a.id == address);
-    if (!selectedAddress) {
-      console.error('No address selected');
-      return;
-    }
+    // const selectedAddress = addresses.find((a) => a.id == address);
+    // if (!selectedAddress) {
+    //   console.error('No address selected');
+    //   return;
+    // }
+    const addressData = {
+      propertyNumberOrName,
+      street,
+      city,
+      country,
+      postCode
+    };
 
     const newPlayer = {
       auth0Id,
@@ -41,15 +56,23 @@ const PlayerForm = ({
       lastName,
       userName,
       phoneNumber,
-      address: {
-        id: selectedAddress.id
-      },
+      // address: {
+      //   id: selectedAddress.id
+      // },
+      // address,
+      // address: {
+      //   propertyNumberOrName,
+      //   street,
+      //   city,
+      //   country,
+      //   postCode
+      // },
       age: Number(age),
       selfAssessedAbilityLevel: Number(selfAssessedAbilityLevel),
       selfAssessedSeriousnessLevel: Number(selfAssessedSeriousnessLevel)
     };
 
-    onSubmitPlayerAdded(newPlayer);
+    onSubmitPlayerAdded(newPlayer, addressData);
     setPlayerCreatedBoolean(true);
     setNewPlayerState(newPlayer)
   };
@@ -90,7 +113,14 @@ const PlayerForm = ({
         keyboardType="numeric"
       />
       <Text style={styles.label}>Select an address:</Text>
-      <Picker
+      <AddressInputs 
+        propertyNumberOrName={propertyNumberOrName} setPropertyNumberOrName={setPropertyNumberOrName}
+        street={street} setStreet={setStreet}
+        city={city} setCity={setCity}
+        country={country} setCountry={setCountry}
+        postCode={postCode} setPostCode={setPostCode}
+      />
+      {/* <Picker
         style={styles.picker}
         selectedValue={address}
         onValueChange={(itemValue) => setAddress(itemValue)}
@@ -102,7 +132,8 @@ const PlayerForm = ({
     value={address.id}
   />
 ))}
-      </Picker>
+      </Picker> */}
+      {/* <AddressForm onSubmitAddressAdded={setAddress} /> */}
       <Text style={styles.label}>Self Assessed Ability Level</Text>
       <Picker
         style={styles.picker}
@@ -132,35 +163,35 @@ const PlayerForm = ({
 
 const styles = StyleSheet.create({
   cardContainer: {
-    // backgroundColor: '#ffffff',
-    // marginVertical: 10,
-    // padding: 20,
-    // borderRadius: 8,
-    // shadowColor: '#000000',
-    // shadowOpacity: 0.1,
-    // shadowRadius: 4,
-    // shadowOffset: {
-    //   width: 0,
-    //   height: 2,
-    // },
-    // elevation: 4,
+    backgroundColor: '#ffffff',
+    marginVertical: 10,
+    padding: 20,
+    borderRadius: 8,
+    shadowColor: '#000000',
+    shadowOpacity: 0.1,
+    shadowRadius: 4,
+    shadowOffset: {
+      width: 0,
+      height: 2,
+    },
+    elevation: 4,
   },
   heading: {
-    // fontSize: 18,
-    // fontWeight: 'bold',
-    // marginBottom: 10,
+    fontSize: 18,
+    fontWeight: 'bold',
+    marginBottom: 10,
   },
   label: {
-    // fontSize: 16,
-    // marginBottom: 5,
+    fontSize: 16,
+    marginBottom: 5,
   },
   input: {
-    // height: 40,
-    // borderColor: 'gray',
-    // borderWidth: 1,
-    // borderRadius: 4,
-    // marginBottom: 10,
-    // paddingHorizontal: 10,
+    height: 40,
+    borderColor: 'gray',
+    borderWidth: 1,
+    borderRadius: 4,
+    marginBottom: 10,
+    paddingHorizontal: 10,
   },
   picker: {
     // height: 40,
@@ -170,15 +201,15 @@ const styles = StyleSheet.create({
     // marginBottom: 10,
   },
   button: {
-    // backgroundColor: '#783c08',
-    // paddingVertical: 10,
-    // paddingHorizontal: 20,
-    // borderRadius: 4,
+    backgroundColor: '#783c08',
+    paddingVertical: 10,
+    paddingHorizontal: 20,
+    borderRadius: 4,
   },
   buttonText: {
-    // color: '#ffffff',
-    // textAlign: 'center',
-    // fontWeight: 'bold',
+    color: '#ffffff',
+    textAlign: 'center',
+    fontWeight: 'bold',
   },
 });
 

@@ -13,18 +13,19 @@ const LogInButton = ({ setAuth0Id, setLoggedPlayer }) => {
       if(user?.sub){
         fetchPlayerByAuth0Id(user.sub);
       }
-      setShouldFetch(false);  // reset the flag after done fetching
+      setShouldFetch(false);  
     }
-  }, [shouldFetch]);  // watch for changes in `shouldFetch` and `user?.sub`
+  }, [shouldFetch]); 
   
   const handleAuthorize = async () => {
     try {
       await authorize();
-      setShouldFetch(true);  // raise the flag after authorization
+      setShouldFetch(true);  
     } catch (e) {
       console.log(e);
     }
   };
+
   const fetchPlayerByAuth0Id = async (id) => {
     if(id){
       try{

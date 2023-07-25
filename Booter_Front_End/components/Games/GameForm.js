@@ -4,8 +4,14 @@ import { Picker } from '@react-native-picker/picker';
 import DateTimePicker from '@react-native-community/datetimepicker';
 import ReactDatePicker from 'react-datepicker';
 import * as GameServices from "../../services/GameServices";
+import AddressInputs from '../Addresses/AddressInputs';
 
-const GameForm = ({ game = {}, addresses, onSubmitGameAdded, loggedPlayer }) => {
+const GameForm = ({ 
+  game = {}, 
+  addresses, 
+  onSubmitGameAdded, 
+  loggedPlayer 
+}) => {
   const [name, setName] = useState(game.name || '');
   // const [address, setAddress] = useState(game.address ? game.address : null);
   const [address, setAddress] = useState(game.address ? game.address : '');
@@ -15,6 +21,11 @@ const GameForm = ({ game = {}, addresses, onSubmitGameAdded, loggedPlayer }) => 
   const [recommendedAbilityLevel, setRecommendedAbilityLevel] = useState(game.recommendedAbilityLevel || '');
   const [recommendedSeriousnessLevel, setRecommendedSeriousnessLevel] = useState(game.recommendedSeriousnessLevel || '');
   const [maxPlayers, setMaxPlayers] = useState(game.maxPlayers || 2);
+  const [propertyNumberOrName, setPropertyNumberOrName] = useState('');
+  const [street, setStreet] = useState('');
+  const [city, setCity] = useState('');
+  const [country, setCountry] = useState('');
+  const [postCode, setPostCode] = useState('');
 
   useEffect(() => {
     if (addresses && addresses.length > 0) {
@@ -49,25 +60,33 @@ const GameForm = ({ game = {}, addresses, onSubmitGameAdded, loggedPlayer }) => 
   // };
 
   const handleAddGame = () => {
-    console.log("address:", address);
-    console.log("addresses:", addresses);
+    // console.log("address:", address);
+    // console.log("addresses:", addresses);
     
-    const selectedAddress = addresses.find((a) => a.id == address);
+    // const selectedAddress = addresses.find((a) => a.id == address);
     
-    console.log("selectedAddress:", selectedAddress);
-    console.log("loggedPlayer:", loggedPlayer);
+    // console.log("selectedAddress:", selectedAddress);
+    // console.log("loggedPlayer:", loggedPlayer);
     
-    if (!selectedAddress || !loggedPlayer) {
-      console.error("selectedAddress or loggedPlayer is undefined");
-      return;
-    }
+    // if (!selectedAddress || !loggedPlayer) {
+    //   console.error("selectedAddress or loggedPlayer is undefined");
+    //   return;
+    // }
+
+    const addressData = {
+      propertyNumberOrName,
+      street,
+      city,
+      country,
+      postCode
+    };
 
     const newGame = {
       creator: { id: loggedPlayer.id },
       name,
-      address: {
-        id: selectedAddress.id
-      },
+      // address: {
+      //   id: selectedAddress.id
+      // },
       dateAndTime,
       duration,
       recommendedAbilityLevel,
@@ -92,7 +111,15 @@ const GameForm = ({ game = {}, addresses, onSubmitGameAdded, loggedPlayer }) => 
         onChangeText={setName}
       />
       <Text style={styles.label}>Select an address:</Text>
-      {addresses && addresses.length > 0 && (
+      <AddressInputs 
+        propertyNumberOrName={propertyNumberOrName} setPropertyNumberOrName={setPropertyNumberOrName}
+        street={street} setStreet={setStreet}
+        city={city} setCity={setCity}
+        country={country} setCountry={setCountry}
+        postCode={postCode} setPostCode={setPostCode}
+      />
+      <Text style={styles.label}>Select an address:</Text>
+      {/* {addresses && addresses.length > 0 && (
     <Picker
       style={styles.picker}
       selectedValue={address}
@@ -106,7 +133,7 @@ const GameForm = ({ game = {}, addresses, onSubmitGameAdded, loggedPlayer }) => 
         />
       ))}
     </Picker>
-      )}
+      )} */}
       <Text style={styles.label}>Date and Time</Text>
       {showDatePicker && (
         Platform.OS === 'web' ? (
