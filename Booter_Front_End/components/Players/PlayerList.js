@@ -2,7 +2,13 @@ import { View, Text, TouchableOpacity } from "react-native";
 import PlayerElement from "./PlayerElement";
 import { styles } from '../../containers/AppStyles';
 
-const PlayerList = ({ players, loggedPlayer, setLoggedPlayer, handleRatePlayerAbility, handleRatePlayerSeriousness }) => {
+const PlayerList = ({ 
+  players, 
+  loggedPlayer, 
+  setLoggedPlayer, 
+  handleRatePlayerAbility, 
+  handleRatePlayerSeriousness 
+}) => {
   return (
     <View>
       {players && players.map((player) => (

@@ -9,6 +9,7 @@ import GamesScreen from '../screens/GamesScreen';
 import PlayersScreen from '../screens/PlayersScreen';
 import AddContentScreen from '../screens/AddContentScreen';
 import LoginScreen from '../screens/LoginScreen';
+import ProfileScreen from '../screens/ProfileScreen';
 
 const BottomTab = createBottomTabNavigator();
 
@@ -311,7 +312,7 @@ const handleAddGame = async (gameData, addressData) => {
           />
         )}
       />
-      <BottomTab.Screen
+      {/* <BottomTab.Screen
         name="AddContentScreen"
         options={{ title: 'Add Content' }}
         children={(props) => (
@@ -326,7 +327,22 @@ const handleAddGame = async (gameData, addressData) => {
             setLoggedPlayer={setLoggedPlayer}
           />
         )}
-      />
+      /> */}
+      <BottomTab.Screen 
+        name="Profile"
+        options={{ title: 'Profile' }}
+        children={(props) => (
+          <ProfileScreen
+          {...props}
+          loggedPlayer={loggedPlayer}
+          auth0Id={auth0Id}
+          players={players}
+          addresses={addresses}
+          handleAddPlayer={handleAddPlayer}
+          setLoggedPlayer={setLoggedPlayer}
+          />
+        )}
+        />
       <BottomTab.Screen
           name="LoginScreen"
           options={{ title: 'Login' }}

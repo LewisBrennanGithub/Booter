@@ -50,8 +50,14 @@ public class Player {
     private int communityAssessedSeriousnessLevelCount;
     @ManyToMany(mappedBy = "players")
     private List<Game> games = new ArrayList<>();
+//    CHANGES MADE BELOW, PROCEED WITH CAUTION
+//    @ManyToMany(cascade = CascadeType.REMOVE, mappedBy = "players")
+//    private List<Game> games = new ArrayList<>();
     @OneToMany(mappedBy = "creator")
     private List<Game> createdGames;
+    //    CHANGES MADE BELOW, PROCEED WITH CAUTION
+//    @OneToMany(cascade = CascadeType.REMOVE, mappedBy = "creator", orphanRemoval = true)
+//    private List<Game> createdGames;
 
 //    KEEP FOR UNIT TESTING
 //    @JsonManagedReference("player_last_game_created")
