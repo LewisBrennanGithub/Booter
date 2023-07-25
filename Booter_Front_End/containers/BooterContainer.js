@@ -223,12 +223,7 @@ const handleAddGame = async (gameData, addressData) => {
   } catch (error) {
     console.error('An error occured:', error);
   }
-
-    GameServices.postGame(gameData)
-    .then(() => {
-      fetchAllGames();
-    });
-  };
+};
 
   const handleDeleteGame = (id) => {
     GameServices.deleteGame(id)

@@ -96,7 +96,8 @@ const GameForm = ({
       maxPlayers
     };
   
-    handleAddGame(newGame);
+    handleAddGame(newGame, addressData); // Include addressData as second parameter
+
 };
 
   const levels = Array.from({ length: 11 }, (_, i) => (i * 0.5).toFixed(1));
