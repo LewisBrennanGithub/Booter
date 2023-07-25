@@ -9,9 +9,10 @@ import AddressInputs from '../Addresses/AddressInputs';
 const GameForm = ({ 
   game = {}, 
   addresses, 
-  onSubmitGameAdded, 
+  handleAddGame, 
   loggedPlayer 
 }) => {
+  const [formVisible, setFormVisible] = useState(false);
   const [name, setName] = useState(game.name || '');
   // const [address, setAddress] = useState(game.address ? game.address : null);
   const [address, setAddress] = useState(game.address ? game.address : '');
@@ -59,7 +60,7 @@ const GameForm = ({
   //   onSubmitGameAdded(newGame);
   // };
 
-  const handleAddGame = () => {
+  const handleAddNewGame = () => {
     // console.log("address:", address);
     // console.log("addresses:", addresses);
     
@@ -95,14 +96,19 @@ const GameForm = ({
       maxPlayers
     };
   
-    onSubmitGameAdded(newGame);
+    handleAddGame(newGame);
 };
 
   const levels = Array.from({ length: 11 }, (_, i) => (i * 0.5).toFixed(1));
   const maxPlayersOptions = Array.from({ length: 21 }, (_, i) => i + 2);
 
   return (
-    <View style={styles.cardContainer}>
+<View style={styles.cardContainer}>
+  {formVisible ? (
+    <>
+      <TouchableOpacity style={styles.button} onPress={() => setFormVisible(false)}>
+        <Text style={styles.buttonText}>Minimize</Text>
+      </TouchableOpacity>
       <Text style={styles.heading}>Add Game</Text>
       <TextInput
         style={styles.input}
@@ -110,30 +116,6 @@ const GameForm = ({
         value={name}
         onChangeText={setName}
       />
-      <Text style={styles.label}>Select an address:</Text>
-      <AddressInputs 
-        propertyNumberOrName={propertyNumberOrName} setPropertyNumberOrName={setPropertyNumberOrName}
-        street={street} setStreet={setStreet}
-        city={city} setCity={setCity}
-        country={country} setCountry={setCountry}
-        postCode={postCode} setPostCode={setPostCode}
-      />
-      <Text style={styles.label}>Select an address:</Text>
-      {/* {addresses && addresses.length > 0 && (
-    <Picker
-      style={styles.picker}
-      selectedValue={address}
-      onValueChange={(itemValue) => setAddress(itemValue)}
-    >
-      {addresses.map((address) => (
-        <Picker.Item
-          key={address.id}
-          label={`${address.propertyNumberOrName}, ${address.street}, ${address.city}, ${address.country}, ${address.postCode}`}
-          value={address.id}
-        />
-      ))}
-    </Picker>
-      )} */}
       <Text style={styles.label}>Date and Time</Text>
       {showDatePicker && (
         Platform.OS === 'web' ? (
@@ -193,10 +175,24 @@ const GameForm = ({
           <Picker.Item key={players} label={players.toString()} value={players} />
         ))}
       </Picker>
-      <TouchableOpacity style={styles.button} onPress={handleAddGame}>
+      <Text style={styles.label}>Select an address</Text>
+      <AddressInputs 
+        propertyNumberOrName={propertyNumberOrName} setPropertyNumberOrName={setPropertyNumberOrName}
+        street={street} setStreet={setStreet}
+        city={city} setCity={setCity}
+        country={country} setCountry={setCountry}
+        postCode={postCode} setPostCode={setPostCode}
+      />
+      <TouchableOpacity style={styles.button} onPress={handleAddNewGame}>
         <Text style={styles.buttonText}>Add Game</Text>
       </TouchableOpacity>
-    </View>
+    </>
+  ) : (
+    <TouchableOpacity style={styles.button} onPress={() => setFormVisible(true)}>
+      <Text style={styles.buttonText}>Host New Game?</Text>
+    </TouchableOpacity>
+  )}
+</View>
   );
 };
 

@@ -292,6 +292,8 @@ const handleAddGame = async (gameData, addressData) => {
             handleUpdateGame={handleUpdateGame}
             loggedPlayer={loggedPlayer}
             handleSetGameCompletedStatus={handleSetGameCompletedStatus}
+            address={addresses}
+            handleAddGame={handleAddGame}
           />
         )}
       />

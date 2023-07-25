@@ -24,15 +24,13 @@ const AddContentPage = ({
         auth0Id={auth0Id}
         setLoggedPlayer={setLoggedPlayer}
       />
-      <GameForm
+      {/* <GameForm
         addresses={addresses}
         onSubmitGameAdded={handleAddGame}
-        onCancel={() => {}}
         loggedPlayer={loggedPlayer}
-      />
+      /> */}
       <AddressForm
         onSubmitAddressAdded={handleAddAddress}
-        onCancel={() => {}}
       />
     </ScrollView>
   );

@@ -1,5 +1,6 @@
 import { View, ScrollView, StyleSheet } from 'react-native';
 import GameList from '../components/Games/GameList';
+import GameForm from '../components/Games/GameForm';
 
 const GamesScreen = ({ 
   games,
@@ -9,12 +10,19 @@ const GamesScreen = ({
   loggedPlayer,
   handleSetGameCompletedStatus,
   players,
+  addresses,
+  handleAddGame
 }) => {
   
   // console.log('Games in GamesScreen:', games);
 
   return (
       <ScrollView>
+        <GameForm 
+            addresses={addresses}
+            handleAddGame={handleAddGame}
+            loggedPlayer={loggedPlayer}
+        />
           <GameList
             players={players}
             games={games}
