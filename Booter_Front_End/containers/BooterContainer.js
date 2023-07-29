@@ -74,18 +74,33 @@ const handleJoinGame = (gameId, player) => {
     .catch(err => console.error("Error joining game:", err));
 };
 
+// const handleAddPlayer = async (playerData, addressData) => {
+//   try {
+//     const response = await AddressServices.postAddress(addressData);
+//     const savedAddressId = response.id; 
+//     const newPlayerData = {...playerData, address: {id: savedAddressId}};
+//     await PlayerServices.postPlayer(newPlayerData);
+//     fetchAllPlayers();
+//     fetchAllAddresses();
+//   } catch (error) {
+//     console.error('An error occurred:', error);
+//   }
+// };
+
 const handleAddPlayer = async (playerData, addressData) => {
   try {
     const response = await AddressServices.postAddress(addressData);
     const savedAddressId = response.id; 
     const newPlayerData = {...playerData, address: {id: savedAddressId}};
-    await PlayerServices.postPlayer(newPlayerData);
+    const playerResponse = await PlayerServices.postPlayer(newPlayerData);
     fetchAllPlayers();
     fetchAllAddresses();
+    return playerResponse;  // This is the newly created player data.
   } catch (error) {
     console.error('An error occurred:', error);
   }
 };
+
 
 // const handleEditPlayer = (playerData) => {
 //   PlayerServices.updatePlayer(loggedPlayer.id, playerData)
