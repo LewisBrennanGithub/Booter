@@ -1,24 +1,35 @@
 import { View, Text, TouchableOpacity, StyleSheet, ScrollView } from "react-native";
 import PlayerForm from "../Players/PlayerForm";
+import LoggedPlayerUpdateForm from "./LoggedPlayerUpdateForm";
 
 const LoggedPlayerElement = ({ 
     loggedPlayer,  
-    players, 
     auth0Id,
     addresses,
     onSubmitPlayerAdded,
-    setLoggedPlayer
-
+    setLoggedPlayer,
+    handleEditPlayer,
+    fetchAllPlayers,
 }) => {
     return (
         loggedPlayer ? (
             <ScrollView style={styles.cardContainer}>
+                <LoggedPlayerUpdateForm
+                handleEditPlayer={handleEditPlayer}
+                loggedPlayer={loggedPlayer}
+                auth0Id={auth0Id}
+                setLoggedPlayer={setLoggedPlayer}
+                fetchAllPlayers={fetchAllPlayers}
+                />
                 <Text style={styles.usernameText}>{loggedPlayer.userName}</Text>
                 <View>
                     <Text>Participating Games:</Text>
-                    {loggedPlayer.games && loggedPlayer.games.map((game) => (
-                        <Text key={game.id}>- {game.name}</Text>
-                    ))}
+                    {loggedPlayer.games && loggedPlayer.games.length > 0 
+                        ? loggedPlayer.games.map((game) => (
+                            <Text key={game.id}>- {game.name}</Text>
+                          ))
+                        : <Text>None</Text>
+                    }
                 </View>
                 <Text>Ability Rating: {loggedPlayer.displayedAbilityLevel}</Text>
                 <Text>Seriousness Rating: {loggedPlayer.displayedSeriousnessLevel}</Text>
@@ -31,6 +42,7 @@ const LoggedPlayerElement = ({
                         onSubmitPlayerAdded={onSubmitPlayerAdded}
                         auth0Id={auth0Id}
                         setLoggedPlayer={setLoggedPlayer}
+                        fetchAllPlayers={fetchAllPlayers}
                 />
             </ScrollView>
         )

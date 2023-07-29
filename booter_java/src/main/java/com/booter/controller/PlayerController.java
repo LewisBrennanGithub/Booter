@@ -68,7 +68,7 @@ public class PlayerController {
         return new ResponseEntity<>(player, HttpStatus.CREATED);
     }
 
-    @PatchMapping(value = "/players/{playerId}")
+    @PatchMapping(value = "/players/{id}")
     public ResponseEntity<Player> updatePlayer(@PathVariable Long id, @RequestBody Player player) {
         Optional<Player> playerOptional = playerRepository.findById(id);
         Player existingPlayer = playerOptional.get();

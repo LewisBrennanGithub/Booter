@@ -39,14 +39,18 @@ export const postPlayer = (playerData) => {
   });
 };
 
-
 export const updatePlayer = (id, updatedData) => {
   return fetch(`http://localhost:8080/players/${id}`, {
     method: "PATCH",
     body: JSON.stringify(updatedData),
     headers: { "Content-Type": "application/json"},
   })
-  .then(res => res.json());
+  .then(res => {
+    if (!res.ok) {
+        return res.text().then(text => {throw new Error(text)});
+    }
+    return res.json();
+  });
 }
 
 export const playerJoinGame = (playerId, gameId, updatedData) => {
