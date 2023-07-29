@@ -43,7 +43,8 @@ const LoggedPlayerUpdateForm = ({
       phoneNumber,
       age: Number(age),
       selfAssessedAbilityLevel: Number(selfAssessedAbilityLevel),
-      selfAssessedSeriousnessLevel: Number(selfAssessedSeriousnessLevel)
+      selfAssessedSeriousnessLevel: Number(selfAssessedSeriousnessLevel),
+      addressId: loggedPlayer.addressId 
     }
     
     await handleEditPlayer(updatedPlayer); // Wait for handleEditPlayer to finish

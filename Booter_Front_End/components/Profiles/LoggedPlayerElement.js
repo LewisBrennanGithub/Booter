@@ -33,6 +33,7 @@ const LoggedPlayerElement = ({
                 </View>
                 <Text>Ability Rating: {loggedPlayer.displayedAbilityLevel}</Text>
                 <Text>Seriousness Rating: {loggedPlayer.displayedSeriousnessLevel}</Text>
+                <Text>{loggedPlayer.addressId}</Text>
             </ScrollView>
         ) : (
             <ScrollView>
