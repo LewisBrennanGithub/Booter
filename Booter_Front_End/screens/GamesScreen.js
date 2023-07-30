@@ -3,15 +3,17 @@ import GameList from '../components/Games/GameList';
 import GameForm from '../components/Games/GameForm';
 
 const GamesScreen = ({ 
-  games,
-  handleDeleteGame,
-  handleUpdateGame,
-  handleJoinGame,
   loggedPlayer,
-  handleSetGameCompletedStatus,
+  setLoggedPlayer,
   players,
+  games,
   addresses,
-  handleAddGame
+  handleAddGame,
+  handleUpdateGame,
+  handleDeleteGame,
+  handleJoinGame,
+  handleSetGameCompletedStatus,
+  handleUpdateAddress
 }) => {
   
   // console.log('Games in GamesScreen:', games);
@@ -24,13 +26,16 @@ const GamesScreen = ({
             loggedPlayer={loggedPlayer}
         />
           <GameList
+            loggedPlayer={loggedPlayer}
+            setLoggedPlayer={setLoggedPlayer}
             players={players}
             games={games}
+            addresses={addresses}
             handleDeleteGame={handleDeleteGame}
-            handleJoinGame={handleJoinGame}
             handleUpdateGame={handleUpdateGame}
-            loggedPlayer={loggedPlayer}
+            handleJoinGame={handleJoinGame}
             handleSetGameCompletedStatus={handleSetGameCompletedStatus}
+            handleUpdateAddress={handleUpdateAddress}
           />
       </ScrollView>
   );

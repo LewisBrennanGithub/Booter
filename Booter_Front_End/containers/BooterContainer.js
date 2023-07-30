@@ -229,6 +229,7 @@ const handleAddGame = async (gameData, addressData) => {
       .then(updatedAddress => {
         fetchAllAddresses();
         fetchAllPlayers();
+        fetchAllGames();
         // return the updated address so we can use it in the `.then()` in your `AddressUpdateForm` component
         return updatedAddress;
       });
@@ -266,15 +267,17 @@ const handleAddGame = async (gameData, addressData) => {
         children={(props) => (
           <GamesScreen
             {...props}
+            loggedPlayer={loggedPlayer}
+            setLoggedPlayer={setLoggedPlayer}
             players={players}
             games={games}
+            handleAddGame={handleAddGame}
+            handleUpdateGame={handleUpdateGame}
             handleDeleteGame={handleDeleteGame}
             handleJoinGame={handleJoinGame}
-            handleUpdateGame={handleUpdateGame}
-            loggedPlayer={loggedPlayer}
             handleSetGameCompletedStatus={handleSetGameCompletedStatus}
             address={addresses}
-            handleAddGame={handleAddGame}
+            handleUpdateAddress={handleUpdateAddress}
           />
         )}
       />

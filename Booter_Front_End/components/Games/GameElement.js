@@ -4,7 +4,19 @@ import GameUpdateForm from './GameUpdateForm';
 import * as GameServices from "../../services/GameServices";
 import * as PlayerServices from "../../services/PlayerServices";
 
-const GameElement = ({ players, game, handleDeleteGame, handleJoinGame, loggedPlayer, handleUpdateGame, handleSetGameCompletedStatus }) => {
+const GameElement = ({ 
+  loggedPlayer, 
+  setLoggedPlayer,
+  players, 
+  game, 
+  addresses,
+  handleUpdateGame, 
+  handleDeleteGame, 
+  handleJoinGame, 
+  handleSetGameCompletedStatus,
+  handleUpdateAddress
+
+}) => {
   const [isEditing, setIsEditing] = useState(false);
   const [gamePlayers, setGamePlayers] = useState([]);
 
@@ -49,9 +61,12 @@ const GameElement = ({ players, game, handleDeleteGame, handleJoinGame, loggedPl
     <View style={styles.cardContainer}>
       {isEditing ? (
         <GameUpdateForm
+          setLoggedPlayer={setLoggedPlayer}
           game={game}
+          address={addresses}
           handleUpdateGame={handleEdit}
           onCancel={handleCancelUpdate}
+          handleUpdateAddress={handleUpdateAddress}
         />
       ) : (
         <View style={styles.card}>

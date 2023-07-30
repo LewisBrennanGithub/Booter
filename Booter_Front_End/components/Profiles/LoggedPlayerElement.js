@@ -75,12 +75,12 @@ const LoggedPlayerElement = ({
                 {loggedPlayer.address.city || 'N/A'}, {loggedPlayer.address.country || 'N/A'},
                 {loggedPlayer.address.postCode || 'N/A'}
               </Text>
-              <TouchableOpacity style={styles.buttonStyle} onPress={toggleEditAddressTrue}>
+              <TouchableOpacity style={styles.cardButton} onPress={toggleEditAddressTrue}>
                 <Text style={styles.whiteText}>Update</Text>
               </TouchableOpacity>
-              <TouchableOpacity style={styles.buttonStyle} onPress={() => handleDeleteAddress(loggedPlayer.address.id)}>
+              {/* <TouchableOpacity style={styles.buttonStyle} onPress={() => handleDeleteAddress(loggedPlayer.address.id)}>
                 <Text style={styles.whiteText}>Delete</Text>
-              </TouchableOpacity>
+              </TouchableOpacity> */}
             </>
           ) : (
             <Text>No address available</Text>

@@ -2,7 +2,18 @@ import React from 'react';
 import { View, Text } from 'react-native';
 import GameElement from './GameElement';
 
-const GameList = ({ players, games, handleDeleteGame, handleJoinGame, handleUpdateGame, loggedPlayer, handleSetGameCompletedStatus }) => {
+const GameList = ({ 
+  loggedPlayer, 
+  setLoggedPlayer,
+  players, 
+  games, 
+  addresses,
+  handleUpdateGame, 
+  handleDeleteGame, 
+  handleJoinGame, 
+  handleSetGameCompletedStatus,
+  handleUpdateAddress 
+}) => {
 
   // console.log('Games in GameList:', games); 
 
@@ -11,13 +22,16 @@ const GameList = ({ players, games, handleDeleteGame, handleJoinGame, handleUpda
       {games && games.map((game) => (
           <GameElement
             key={game.id}
+            loggedPlayer={loggedPlayer}
+            setLoggedPlayer={setLoggedPlayer}
+            players={players}
             game={game}
+            addresses={addresses}
+            handleUpdateGame={handleUpdateGame}
             handleDeleteGame={handleDeleteGame}
             handleJoinGame={handleJoinGame}
-            players={players}
-            handleUpdateGame={handleUpdateGame}
-            loggedPlayer={loggedPlayer}
             handleSetGameCompletedStatus={handleSetGameCompletedStatus}
+            handleUpdateAddress={handleUpdateAddress}
           />
         ))}
     </View>
