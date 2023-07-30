@@ -209,17 +209,48 @@ const handleAddGame = async (gameData, addressData) => {
       })
   };
 
+  // const handleUpdateAddress = (id, updatedData) => {
+  //   AddressServices.updateAddress(id, updatedData).then(() => {
+  //     fetchAllAddresses(); 
+  //     fetchAllPlayers();
+  //   });
+  // };
+
+  // const handleUpdateAddress = (id, updatedData) => {
+  //   return AddressServices.updateAddress(id, updatedData)
+  //     .then((updatedAddress) => {
+  //       fetchAllAddresses(); 
+  //       return updatedAddress;
+  //     });
+  // };
+
   const handleUpdateAddress = (id, updatedData) => {
-    AddressServices.updateAddress(id, updatedData).then(() => {
-      fetchAllAddresses(); 
-    });
+    return AddressServices.updateAddress(id, updatedData)
+      .then(updatedAddress => {
+        fetchAllAddresses();
+        fetchAllPlayers();
+        // return the updated address so we can use it in the `.then()` in your `AddressUpdateForm` component
+        return updatedAddress;
+      });
   };
+  
+  // const handleDeleteAddress = (id) => {
+  //   AddressServices.deleteAddress(id).then(() => {
+  //     fetchAllAddresses();
+  //   });
+  // };
 
   const handleDeleteAddress = (id) => {
     AddressServices.deleteAddress(id).then(() => {
-      fetchAllAddresses();
+      fetchAllAddresses(); 
+      fetchAllPlayers(); // fetch all players to update players list
+      setLoggedPlayer(prevLoggedPlayer => ({ // update loggedPlayer's address to null
+        ...prevLoggedPlayer,
+        address: null
+      }));
     });
   };
+  
   
   const BottomTabNavigator = () => (
     <View style={styles.container}>
@@ -270,11 +301,14 @@ const handleAddGame = async (gameData, addressData) => {
           loggedPlayer={loggedPlayer}
           auth0Id={auth0Id}
           players={players}
-          addresses={addresses}
           handleAddPlayer={handleAddPlayer}
           setLoggedPlayer={setLoggedPlayer}
           handleEditPlayer={handleEditPlayer}
           fetchAllPlayers={fetchAllPlayers}
+          addresses={addresses}
+          fetchAllAddresses={fetchAllAddresses}
+          handleUpdateAddress={handleUpdateAddress}
+          handleDeleteAddress={handleDeleteAddress}
           />
         )}
         />

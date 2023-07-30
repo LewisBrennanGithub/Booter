@@ -1,16 +1,40 @@
 import { View, Text, TouchableOpacity, StyleSheet, ScrollView } from "react-native";
+import { useState, useEffect } from 'react';
 import PlayerForm from "../Players/PlayerForm";
 import LoggedPlayerUpdateForm from "./LoggedPlayerUpdateForm";
+import AddressUpdateForm from "../Addresses/AdressUpdateForm";
 
 const LoggedPlayerElement = ({ 
-    loggedPlayer,  
-    auth0Id,
-    addresses,
-    onSubmitPlayerAdded,
-    setLoggedPlayer,
-    handleEditPlayer,
-    fetchAllPlayers,
+  loggedPlayer,
+  auth0Id,
+  setLoggedPlayer,
+  fetchAllPlayers,
+  onSubmitPlayerAdded,
+  handleEditPlayer,
+  addresses,
+  fetchAllAddresses,
+  handleUpdateAddress,
+  handleDeleteAddress
 }) => {
+  const [editingAddressBoolean, setEditingAddressBoolean] = useState(false);
+  const [triggerUseEffect, setTriggerUseEffect] = useState(false);
+
+  useEffect(() => {
+    if (triggerUseEffect) {
+      fetchAllAddresses();
+      fetchAllPlayers();
+      setTriggerUseEffect(false);
+      console.log(loggedPlayer.address.propertyNumberOrName)
+    }
+  }, [triggerUseEffect]);
+
+  const toggleEditAddressTrue = () => {
+    setEditingAddressBoolean(true);
+  }
+  const toggleEditAddressFalse = () => {
+    setEditingAddressBoolean(false);
+    setTriggerUseEffect(true);
+  }
     return (
         loggedPlayer ? (
             <ScrollView style={styles.cardContainer}>
@@ -33,7 +57,35 @@ const LoggedPlayerElement = ({
                 </View>
                 <Text>Ability Rating: {loggedPlayer.displayedAbilityLevel}</Text>
                 <Text>Seriousness Rating: {loggedPlayer.displayedSeriousnessLevel}</Text>
-                <Text>{loggedPlayer.addressId}</Text>
+                <Text>Address:</Text>
+        {editingAddressBoolean ? (
+          <AddressUpdateForm
+            address={loggedPlayer.address}
+            onUpdate={handleUpdateAddress}
+            onSuccess={() => toggleEditAddressFalse()}
+            fetchAllPlayers={fetchAllPlayers}
+            fetchAllAddresses={fetchAllAddresses}
+            setLoggedPlayer={setLoggedPlayer}
+          />
+        ) : (
+          loggedPlayer.address ? (
+            <>
+              <Text>
+                {loggedPlayer.address.propertyNumberOrName || 'N/A'}, {loggedPlayer.address.street || 'N/A'},
+                {loggedPlayer.address.city || 'N/A'}, {loggedPlayer.address.country || 'N/A'},
+                {loggedPlayer.address.postCode || 'N/A'}
+              </Text>
+              <TouchableOpacity style={styles.buttonStyle} onPress={toggleEditAddressTrue}>
+                <Text style={styles.whiteText}>Update</Text>
+              </TouchableOpacity>
+              <TouchableOpacity style={styles.buttonStyle} onPress={() => handleDeleteAddress(loggedPlayer.address.id)}>
+                <Text style={styles.whiteText}>Delete</Text>
+              </TouchableOpacity>
+            </>
+          ) : (
+            <Text>No address available</Text>
+          )
+        )}
             </ScrollView>
         ) : (
             <ScrollView>
