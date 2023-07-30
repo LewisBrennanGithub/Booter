@@ -3,6 +3,7 @@ import { View, Text, TouchableOpacity, StyleSheet } from 'react-native';
 import GameUpdateForm from './GameUpdateForm';
 import * as GameServices from "../../services/GameServices";
 import * as PlayerServices from "../../services/PlayerServices";
+import AddressUpdateForm from '../Addresses/AdressUpdateForm';
 
 const GameElement = ({ 
   loggedPlayer, 
@@ -15,9 +16,9 @@ const GameElement = ({
   handleJoinGame, 
   handleSetGameCompletedStatus,
   handleUpdateAddress
-
 }) => {
   const [isEditing, setIsEditing] = useState(false);
+  const [isEditingAddress, setIsEditingAddress] = useState(false); // new isEditingAddress state
   const [gamePlayers, setGamePlayers] = useState([]);
 
   useEffect(() => {
@@ -38,11 +39,27 @@ const GameElement = ({
   const gameIsFull = (game.players?.length ?? 0) >= game.maxPlayers;
 
   const handleEditGame = () => {
-    setIsEditing(true);
+    if (isCreator) {
+      setIsEditing(true);
+    } else {
+      alert("You are not the creator of this game and therefore cannot edit it.");
+    }
   };
 
   const handleCancelUpdate = () => {
     setIsEditing(false);
+  };
+
+  const handleEditAddress = () => {
+    if (isCreator) {
+      setIsEditingAddress(true);
+    } else {
+      alert("You are not the creator of this game and therefore cannot edit its address.");
+    }
+  };
+
+  const handleCancelUpdateAddress = () => {
+    setIsEditingAddress(false);
   };
 
   const handleEdit = (updatedData) => {
@@ -55,18 +72,32 @@ const GameElement = ({
     return player ? player.userName : 'N/A';
   };
 
-  // console.log('Game in GameElement:', game);
+  const handleAddressUpdated = (newAddress) => {
+    setLoggedPlayer(prevLoggedPlayer => ({
+      ...prevLoggedPlayer,
+      address: newAddress
+    }));
+  };
 
   return (
     <View style={styles.cardContainer}>
-      {isEditing ? (
+      {isEditing && isCreator ? (
         <GameUpdateForm
           setLoggedPlayer={setLoggedPlayer}
           game={game}
           address={addresses}
           handleUpdateGame={handleEdit}
           onCancel={handleCancelUpdate}
-          handleUpdateAddress={handleUpdateAddress}
+        />
+      ) : isEditingAddress && isCreator ? (   // Only show the AddressUpdateForm if isEditingAddress is true and the loggedPlayer is the creator of the game
+        <AddressUpdateForm
+          setLoggedPlayer={setLoggedPlayer}
+          game={game}
+          // address={addresses}
+          address={game.address}
+          onUpdate={handleUpdateAddress}
+          onCancel={handleCancelUpdateAddress}
+          handleAddressUpdated={handleAddressUpdated}
         />
       ) : (
         <View style={styles.card}>
@@ -90,16 +121,21 @@ const GameElement = ({
             </TouchableOpacity>
           )}
           {isCreator && (
-            <TouchableOpacity style={styles.cardButton} onPress={() => handleSetGameCompletedStatus(game)}>
-              <Text style={styles.buttonText}>Toggle Completed Status</Text>
-            </TouchableOpacity>
+            <View>
+              <TouchableOpacity style={styles.cardButton} onPress={() => handleSetGameCompletedStatus(game)}>
+                <Text style={styles.buttonText}>Toggle Completed Status</Text>
+              </TouchableOpacity>
+              <TouchableOpacity style={styles.cardButton} onPress={handleEditGame}>
+                <Text style={styles.buttonText}>Edit</Text>
+              </TouchableOpacity>
+              <TouchableOpacity style={styles.cardButton} onPress={handleEditAddress}>
+                <Text style={styles.buttonText}>Edit Address</Text>
+              </TouchableOpacity>
+              <TouchableOpacity style={styles.cardButton} onPress={() => handleDeleteGame(game.id)}>
+                <Text style={styles.buttonText}>Delete</Text>
+              </TouchableOpacity>
+            </View>
           )}
-          <TouchableOpacity style={styles.cardButton} onPress={handleEditGame}>
-            <Text style={styles.buttonText}>Edit</Text>
-          </TouchableOpacity>
-          <TouchableOpacity style={styles.cardButton} onPress={() => handleDeleteGame(game.id)}>
-            <Text style={styles.buttonText}>Delete</Text>
-          </TouchableOpacity>
         </View>
       )}
     </View>

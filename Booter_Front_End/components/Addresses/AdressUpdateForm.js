@@ -3,12 +3,14 @@ import { View, Text, TextInput, TouchableOpacity, StyleSheet } from 'react-nativ
 import * as AddressServices from "../../services/AddressServices";
 
 const AddressUpdateForm = ({ 
+  setLoggedPlayer,
+  game,
   address, 
   onUpdate, 
   onSuccess,
-  fetchAllPlayers,
-  fetchAllAddresses, 
-  setLoggedPlayer
+  handleAddressUpdated
+  // fetchAllPlayers,
+  // fetchAllAddresses, 
 }) => {
   const [propertyNumberOrName, setPropertyNumberOrName] = useState('');
   const [street, setStreet] = useState('');
@@ -26,10 +28,10 @@ const AddressUpdateForm = ({
     }
   }, [address]);
 
-  const fetchStuff = () => {
-    fetchAllPlayers()
-    fetchAllAddresses()
-  }
+  // const fetchStuff = () => {
+  //   fetchAllPlayers()
+  //   fetchAllAddresses()
+  // }
 
   // const handleUpdateAddress = () => {
   //   const updatedData = {
@@ -85,6 +87,8 @@ const AddressUpdateForm = ({
   //     });
   // };
 
+// THIS ONE WAS WORKING
+
   const handleUpdateAddress = () => {
     const updatedData = {
       propertyNumberOrName,
@@ -94,6 +98,7 @@ const AddressUpdateForm = ({
       postCode
     };
     
+    console.log('Address prop:', address);
     onUpdate(address.id, updatedData)
       .then(newAddress => {
         if (typeof onSuccess === 'function') {
@@ -109,6 +114,29 @@ const AddressUpdateForm = ({
       });
   };
   
+  // const handleUpdateAddress = () => {
+  //   const updatedData = {
+  //     propertyNumberOrName,
+  //     street,
+  //     city,
+  //     country,
+  //     postCode
+  //   };
+    
+  //   onUpdate(address.id, updatedData)
+  //     .then(newAddress => {
+  //       if (typeof onSuccess === 'function') {
+  //         onSuccess(newAddress);
+  //       }
+  //       if (typeof handleAddressUpdated === 'function') {
+  //         handleAddressUpdated(newAddress);
+  //       }
+  //     })
+  //     .catch(error => {
+  //       console.error("Error updating address:", error);
+  //     });
+  // };
+
   return (
     <View style={styles.cardContainer}>
       <Text style={styles.heading}>Update Address</Text>
