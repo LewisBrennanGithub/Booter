@@ -174,32 +174,66 @@ public class PlayerController {
         return new ResponseEntity<>(response, HttpStatus.OK);
     }
 
+//    @DeleteMapping("/players/{playerId}")
+//    public ResponseEntity<?> deletePlayer(@PathVariable Long playerId) {
+//        Optional<Player> playerOptional = playerRepository.findById(playerId);
+//        Player player = playerOptional.get();
+//        List<Game> games = player.getGames();
+//        for (Game game : games) {
+//            game.removePlayer(player);
+//            gameRepository.save(game);
+//        }
+//        List<Game> createdGames = gameRepository.findByCreator(player);
+//        for (Game createdGame : createdGames) {
+//            List<Player> playersInGame = createdGame.getPlayers();
+//            if (!playersInGame.isEmpty()) {
+//                for (Player newCreator : playersInGame) {
+//                    if (!newCreator.equals(player)) {
+//                        createdGame.setCreator(newCreator);
+//                        break;
+//                    }
+//                }
+//            } else {
+//                createdGame.setCreator(null);
+//            }
+//            gameRepository.save(createdGame);
+//        }
+//        playerRepository.deleteById(playerId);
+//        return new ResponseEntity<>("Player deleted", HttpStatus.OK);
+//    }
+
+
     @DeleteMapping("/players/{playerId}")
     public ResponseEntity<?> deletePlayer(@PathVariable Long playerId) {
         Optional<Player> playerOptional = playerRepository.findById(playerId);
-        Player player = playerOptional.get();
-        List<Game> games = player.getGames();
-        for (Game game : games) {
-            game.removePlayer(player);
-            gameRepository.save(game);
-        }
-        List<Game> createdGames = gameRepository.findByCreator(player);
-        for (Game createdGame : createdGames) {
-            List<Player> playersInGame = createdGame.getPlayers();
-            if (!playersInGame.isEmpty()) {
-                for (Player newCreator : playersInGame) {
-                    if (!newCreator.equals(player)) {
-                        createdGame.setCreator(newCreator);
-                        break;
-                    }
-                }
-            } else {
-                createdGame.setCreator(null);
+        if (playerOptional.isPresent()) {
+            Player player = playerOptional.get();
+            List<Game> games = player.getGames();
+            for (Game game : games) {
+                game.removePlayer(player);
+                gameRepository.save(game);
             }
-            gameRepository.save(createdGame);
+            List<Game> createdGames = gameRepository.findByCreator(player);
+            for (Game createdGame : createdGames) {
+                List<Player> playersInGame = createdGame.getPlayers();
+                if (!playersInGame.isEmpty()) {
+                    for (Player newCreator : playersInGame) {
+                        if (!newCreator.equals(player)) {
+                            createdGame.setCreator(newCreator);
+                            break;
+                        }
+                    }
+                } else {
+                    createdGame.setCreator(null);
+                }
+                gameRepository.save(createdGame);
+            }
+            playerRepository.deleteById(playerId);
+            return new ResponseEntity<>("Player deleted", HttpStatus.OK);
+        } else {
+            // Handling when no Player is found.
+            return new ResponseEntity<>("Player not found", HttpStatus.NOT_FOUND);
         }
-        playerRepository.deleteById(playerId);
-        return new ResponseEntity<>("Player deleted", HttpStatus.OK);
     }
 
 }

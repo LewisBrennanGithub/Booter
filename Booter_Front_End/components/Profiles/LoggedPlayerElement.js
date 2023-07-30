@@ -6,15 +6,17 @@ import AddressUpdateForm from "../Addresses/AdressUpdateForm";
 
 const LoggedPlayerElement = ({ 
   loggedPlayer,
-  auth0Id,
   setLoggedPlayer,
-  fetchAllPlayers,
+  auth0Id,
+  players,
   onSubmitPlayerAdded,
   handleEditPlayer,
+  handleDeletePlayer,
   addresses,
-  fetchAllAddresses,
   handleUpdateAddress,
-  handleDeleteAddress
+  handleDeleteAddress,
+  fetchAllPlayers,
+  fetchAllAddresses
 }) => {
   const [editingAddressBoolean, setEditingAddressBoolean] = useState(false);
   const [triggerUseEffect, setTriggerUseEffect] = useState(false);
@@ -45,6 +47,9 @@ const LoggedPlayerElement = ({
                 setLoggedPlayer={setLoggedPlayer}
                 fetchAllPlayers={fetchAllPlayers}
                 />
+                <TouchableOpacity style={styles.cardButton} onPress={() => handleDeletePlayer(loggedPlayer.id)}>
+                  <Text style={styles.whiteText}>Delete</Text>
+                </TouchableOpacity>
                 <Text style={styles.usernameText}>{loggedPlayer.userName}</Text>
                 <View>
                     <Text>Participating Games:</Text>

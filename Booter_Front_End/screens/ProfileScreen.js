@@ -4,31 +4,34 @@ import LoggedPlayerUpdateForm from "../components/Profiles/LoggedPlayerUpdateFor
 
 const ProfileScreen = ({
     loggedPlayer,
-    auth0Id,
     setLoggedPlayer,
-    fetchAllPlayers,
+    auth0Id,
+    players,
     handleAddPlayer,
     handleEditPlayer,
+    handleDeletePlayer,
     addresses,
-    fetchAllAddresses,
     handleUpdateAddress,
-    handleDeleteAddress
+    handleDeleteAddress,
+    fetchAllPlayers,
+    fetchAllAddresses
 }) => {
 
     return(
         <ScrollView>
             <LoggedPlayerElement
                 loggedPlayer={loggedPlayer}
-                auth0Id={auth0Id}
                 setLoggedPlayer={setLoggedPlayer}
-                fetchAllPlayers={fetchAllPlayers}
+                auth0Id={auth0Id}
+                players={players}
                 onSubmitPlayerAdded={handleAddPlayer}
                 handleEditPlayer={handleEditPlayer}
+                handleDeletePlayer={handleDeletePlayer}
                 addresses={addresses}
-                fetchAllAddresses={fetchAllAddresses}
                 handleUpdateAddress={handleUpdateAddress}
                 handleDeleteAddress={handleDeleteAddress}
-                
+                fetchAllPlayers={fetchAllPlayers}
+                fetchAllAddresses={fetchAllAddresses}
             />
         </ScrollView>
     )

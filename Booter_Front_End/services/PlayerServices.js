@@ -92,9 +92,16 @@ export const rateOtherPlayerSeriousness = (ratingSeriousnessPlayerId, ratedSerio
   .then(res => res.json());
 }
 
+// export const deletePlayer = (id) => {
+//   return fetch(`http://localhost:8080/players/${id}`, {
+//     method: "DELETE",
+//   })
+//   .then(res => res.json());
+// }
+
 export const deletePlayer = (id) => {
   return fetch(`http://localhost:8080/players/${id}`, {
     method: "DELETE",
   })
-  .then(res => res.json());
+  .then(res => res.text());
 }

@@ -156,6 +156,14 @@ const handleRatePlayerSeriousness = (player, selectedSeriousnessRating) => {
     .catch(error => console.error('Error rating player seriousness:', error));
 };
 
+const handleDeletePlayer = (id) => {
+  PlayerServices.deletePlayer(id)
+  .then(() => {
+    fetchAllPlayers();
+    fetchAllGames();
+    setLoggedPlayer(null);
+  })
+}
 // GAMES
 
 const fetchAllGames = () => {
@@ -302,16 +310,17 @@ const handleAddGame = async (gameData, addressData) => {
           <ProfileScreen
           {...props}
           loggedPlayer={loggedPlayer}
+          setLoggedPlayer={setLoggedPlayer}
           auth0Id={auth0Id}
           players={players}
           handleAddPlayer={handleAddPlayer}
-          setLoggedPlayer={setLoggedPlayer}
           handleEditPlayer={handleEditPlayer}
-          fetchAllPlayers={fetchAllPlayers}
+          handleDeletePlayer={handleDeletePlayer}
           addresses={addresses}
-          fetchAllAddresses={fetchAllAddresses}
           handleUpdateAddress={handleUpdateAddress}
           handleDeleteAddress={handleDeleteAddress}
+          fetchAllPlayers={fetchAllPlayers}
+          fetchAllAddresses={fetchAllAddresses}
           />
         )}
         />
