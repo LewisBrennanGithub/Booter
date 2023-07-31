@@ -1,5 +1,5 @@
 import React from 'react';
-import { View, Text } from 'react-native';
+import { View } from 'react-native';
 import GameElement from './GameElement';
 
 const GameList = ({ 
@@ -14,8 +14,6 @@ const GameList = ({
   handleSetGameCompletedStatus,
   handleUpdateAddress 
 }) => {
-
-  // console.log('Games in GameList:', games); 
 
   return (
     <View>

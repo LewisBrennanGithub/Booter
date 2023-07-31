@@ -8,6 +8,7 @@ const AddressUpdateForm = ({
   address, 
   onUpdate, 
   onSuccess,
+  onCancel,
   handleAddressUpdated
   // fetchAllPlayers,
   // fetchAllAddresses, 
@@ -170,6 +171,9 @@ const AddressUpdateForm = ({
         value={postCode}
         onChangeText={text => setPostCode(text)}
       />
+      <TouchableOpacity style={styles.button} onPress={onCancel}>
+        <Text style={styles.buttonText}>Cancel</Text>
+      </TouchableOpacity>
       <TouchableOpacity style={styles.button} onPress={handleUpdateAddress}>
         <Text style={styles.buttonText}>Update Address</Text>
       </TouchableOpacity>

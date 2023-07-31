@@ -1,21 +1,17 @@
-import React, { useState, useEffect } from 'react';
+import React, { useState } from 'react';
 import { View, Text, TextInput, TouchableOpacity, StyleSheet, Platform } from 'react-native';
 import { Picker } from '@react-native-picker/picker';
 import DateTimePicker from '@react-native-community/datetimepicker';
 import ReactDatePicker from 'react-datepicker';
-import * as GameServices from "../../services/GameServices";
 import AddressInputs from '../Addresses/AddressInputs';
 
 const GameForm = ({ 
   game = {}, 
-  addresses, 
   handleAddGame, 
   loggedPlayer 
 }) => {
   const [formVisible, setFormVisible] = useState(false);
   const [name, setName] = useState(game.name || '');
-  // const [address, setAddress] = useState(game.address ? game.address : null);
-  const [address, setAddress] = useState(game.address ? game.address : '');
   const [dateAndTime, setDateAndTime] = useState(new Date());
   const [showDatePicker, setShowDatePicker] = useState(false);
   const [duration, setDuration] = useState(game.duration || '');
@@ -28,52 +24,13 @@ const GameForm = ({
   const [country, setCountry] = useState('');
   const [postCode, setPostCode] = useState('');
 
-  // useEffect(() => {
-  //   if (addresses && addresses.length > 0) {
-  //     setAddress(addresses[0].id);
-  //   }
-  // }, [addresses]);
-
-  const handleDateChange = (event, selectedDate) => {
+  const handleDateChange = (selectedDate) => {
     const currentDate = selectedDate || dateAndTime;
     setShowDatePicker(Platform.OS === 'ios');
     setDateAndTime(currentDate); 
   };
 
-  // const handleAddGame = () => {
-  //   const selectedAddress = addresses.find((a) => a.id == address);
-  
-  //   const newGame = {
-  //     creator: {id: loggedPlayer.id},
-  //     name,
-  //     address: {
-  //       id: selectedAddress.id
-  //     },
-  //     dateAndTime,
-  //     duration,
-  //     recommendedAbilityLevel,
-  //     recommendedSeriousnessLevel,
-  //     playersList: [],
-  //     maxPlayers
-  //   };
-  
-  //   onSubmitGameAdded(newGame);
-  // };
-
   const handleAddNewGame = () => {
-    // console.log("address:", address);
-    // console.log("addresses:", addresses);
-    
-    // const selectedAddress = addresses.find((a) => a.id == address);
-    
-    // console.log("selectedAddress:", selectedAddress);
-    // console.log("loggedPlayer:", loggedPlayer);
-    
-    // if (!selectedAddress || !loggedPlayer) {
-    //   console.error("selectedAddress or loggedPlayer is undefined");
-    //   return;
-    // }
-
     const addressData = {
       propertyNumberOrName,
       street,
@@ -81,13 +38,9 @@ const GameForm = ({
       country,
       postCode
     };
-
     const newGame = {
       creator: { id: loggedPlayer.id },
       name,
-      // address: {
-      //   id: selectedAddress.id
-      // },
       dateAndTime,
       duration,
       recommendedAbilityLevel,
@@ -95,9 +48,7 @@ const GameForm = ({
       playersList: [],
       maxPlayers
     };
-  
-    handleAddGame(newGame, addressData); // Include addressData as second parameter
-
+    handleAddGame(newGame, addressData); 
 };
 
   const levels = Array.from({ length: 11 }, (_, i) => (i * 0.5).toFixed(1));

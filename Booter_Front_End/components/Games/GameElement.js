@@ -2,7 +2,6 @@ import React, { useState, useEffect } from 'react';
 import { View, Text, TouchableOpacity, StyleSheet } from 'react-native';
 import GameUpdateForm from './GameUpdateForm';
 import * as GameServices from "../../services/GameServices";
-import * as PlayerServices from "../../services/PlayerServices";
 import AddressUpdateForm from '../Addresses/AdressUpdateForm';
 
 const GameElement = ({ 
@@ -18,7 +17,7 @@ const GameElement = ({
   handleUpdateAddress
 }) => {
   const [isEditing, setIsEditing] = useState(false);
-  const [isEditingAddress, setIsEditingAddress] = useState(false); // new isEditingAddress state
+  const [isEditingAddress, setIsEditingAddress] = useState(false); 
   const [gamePlayers, setGamePlayers] = useState([]);
 
   useEffect(() => {
@@ -46,7 +45,7 @@ const GameElement = ({
     }
   };
 
-  const handleCancelUpdate = () => {
+  const handleCancelGameUpdate = () => {
     setIsEditing(false);
   };
 
@@ -87,13 +86,12 @@ const GameElement = ({
           game={game}
           address={addresses}
           handleUpdateGame={handleEdit}
-          onCancel={handleCancelUpdate}
+          handleCancelGameUpdate={handleCancelGameUpdate}
         />
-      ) : isEditingAddress && isCreator ? (   // Only show the AddressUpdateForm if isEditingAddress is true and the loggedPlayer is the creator of the game
+      ) : isEditingAddress && isCreator ? (   
         <AddressUpdateForm
           setLoggedPlayer={setLoggedPlayer}
           game={game}
-          // address={addresses}
           address={game.address}
           onUpdate={handleUpdateAddress}
           onCancel={handleCancelUpdateAddress}
