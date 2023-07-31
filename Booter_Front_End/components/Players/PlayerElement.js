@@ -3,7 +3,13 @@ import { View, Text, TouchableOpacity, StyleSheet } from 'react-native';
 import { Picker } from '@react-native-picker/picker';
 import * as PlayerServices from '../../services/PlayerServices';
 
-const PlayerElement = ({ player, loggedPlayer, setLoggedPlayer, handleRatePlayerAbility, handleRatePlayerSeriousness }) => {
+const PlayerElement = ({ 
+  player, 
+  loggedPlayer, 
+  setLoggedPlayer, 
+  handleRatePlayerAbility, 
+  handleRatePlayerSeriousness 
+}) => {
   const levels = Array.from({ length: 11 }, (_, i) => (i * 0.5).toFixed(1));
   const isSelected = loggedPlayer && loggedPlayer.id === player.id;
 
@@ -12,11 +18,11 @@ const PlayerElement = ({ player, loggedPlayer, setLoggedPlayer, handleRatePlayer
 
   return (
     <View style={styles.cardContainer}>
-      <TouchableOpacity onPress={() => setLoggedPlayer(player)}>
+
         <Text style={[styles.username, isSelected && styles.selectedUsername]}>
           <Text style={styles.usernameText}>{player.userName}</Text>
         </Text>
-      </TouchableOpacity>
+
       <View>
         <Text>Participating Games:</Text>
         {player.games && player.games.map((game) => (
