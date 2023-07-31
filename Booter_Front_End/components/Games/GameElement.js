@@ -9,7 +9,6 @@ const GameElement = ({
   setLoggedPlayer,
   players, 
   game, 
-  addresses,
   handleUpdateGame, 
   handleDeleteGame, 
   handleJoinGame, 
@@ -37,7 +36,7 @@ const GameElement = ({
   const playerIsInGame = game?.players?.some(player => player.id === loggedPlayer?.id);
   const gameIsFull = (game.players?.length ?? 0) >= game.maxPlayers;
 
-  const handleEditGame = () => {
+  const toggleEditGameTrue = () => {
     if (isCreator) {
       setIsEditing(true);
     } else {
@@ -49,7 +48,7 @@ const GameElement = ({
     setIsEditing(false);
   };
 
-  const handleEditAddress = () => {
+  const toggleEditAddressTrue = () => {
     if (isCreator) {
       setIsEditingAddress(true);
     } else {
@@ -82,9 +81,7 @@ const GameElement = ({
     <View style={styles.cardContainer}>
       {isEditing && isCreator ? (
         <GameUpdateForm
-          setLoggedPlayer={setLoggedPlayer}
           game={game}
-          address={addresses}
           handleUpdateGame={handleEdit}
           handleCancelGameUpdate={handleCancelGameUpdate}
         />
@@ -94,7 +91,7 @@ const GameElement = ({
           game={game}
           address={game.address}
           onUpdate={handleUpdateAddress}
-          onCancel={handleCancelUpdateAddress}
+          handleCancelUpdateAddress={handleCancelUpdateAddress}
           handleAddressUpdated={handleAddressUpdated}
         />
       ) : (
@@ -123,10 +120,10 @@ const GameElement = ({
               <TouchableOpacity style={styles.cardButton} onPress={() => handleSetGameCompletedStatus(game)}>
                 <Text style={styles.buttonText}>Toggle Completed Status</Text>
               </TouchableOpacity>
-              <TouchableOpacity style={styles.cardButton} onPress={handleEditGame}>
+              <TouchableOpacity style={styles.cardButton} onPress={toggleEditGameTrue}>
                 <Text style={styles.buttonText}>Edit</Text>
               </TouchableOpacity>
-              <TouchableOpacity style={styles.cardButton} onPress={handleEditAddress}>
+              <TouchableOpacity style={styles.cardButton} onPress={toggleEditAddressTrue}>
                 <Text style={styles.buttonText}>Edit Address</Text>
               </TouchableOpacity>
               <TouchableOpacity style={styles.cardButton} onPress={() => handleDeleteGame(game.id)}>

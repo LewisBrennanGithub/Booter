@@ -7,7 +7,6 @@ const GamesScreen = ({
   setLoggedPlayer,
   players,
   games,
-  addresses,
   handleAddGame,
   handleUpdateGame,
   handleDeleteGame,
@@ -29,7 +28,6 @@ const GamesScreen = ({
             setLoggedPlayer={setLoggedPlayer}
             players={players}
             games={games}
-            addresses={addresses}
             handleDeleteGame={handleDeleteGame}
             handleUpdateGame={handleUpdateGame}
             handleJoinGame={handleJoinGame}

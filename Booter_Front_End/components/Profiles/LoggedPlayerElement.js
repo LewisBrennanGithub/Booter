@@ -66,8 +66,8 @@ const LoggedPlayerElement = ({
         {editingAddressBoolean ? (
           <AddressUpdateForm
             address={loggedPlayer.address}
-            onUpdate={handleUpdateAddress}
-            onSuccess={() => toggleEditAddressFalse()}
+            handleUpdateAddress={handleUpdateAddress}
+            toggleEditAddressFalse={toggleEditAddressFalse}
             fetchAllPlayers={fetchAllPlayers}
             fetchAllAddresses={fetchAllAddresses}
             setLoggedPlayer={setLoggedPlayer}
@@ -81,7 +81,7 @@ const LoggedPlayerElement = ({
                 {loggedPlayer.address.postCode || 'N/A'}
               </Text>
               <TouchableOpacity style={styles.cardButton} onPress={toggleEditAddressTrue}>
-                <Text style={styles.whiteText}>Update</Text>
+                <Text style={styles.whiteText}>Update Address</Text>
               </TouchableOpacity>
               {/* <TouchableOpacity style={styles.buttonStyle} onPress={() => handleDeleteAddress(loggedPlayer.address.id)}>
                 <Text style={styles.whiteText}>Delete</Text>

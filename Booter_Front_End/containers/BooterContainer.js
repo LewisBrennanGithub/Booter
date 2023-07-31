@@ -54,7 +54,7 @@ const BooterContainer = () => {
         console.log("Error fetching player: ", error);
       }
     }
-  }
+  };
 
 // PLAYERS
 
@@ -62,7 +62,7 @@ const fetchAllPlayers = () => {
   PlayerServices.getPlayers().then(data => { 
     setPlayers(data);
   });
-}
+};
 
 const handleJoinGame = (gameId, player) => {
   PlayerServices.playerJoinGame(player.id, gameId, {})
@@ -237,7 +237,6 @@ const handleAddGame = async (gameData, addressData) => {
             handleDeleteGame={handleDeleteGame}
             handleJoinGame={handleJoinGame}
             handleSetGameCompletedStatus={handleSetGameCompletedStatus}
-            address={addresses}
             handleUpdateAddress={handleUpdateAddress}
           />
         )}

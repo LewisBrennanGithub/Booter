@@ -1,13 +1,10 @@
 import React, { useState } from 'react';
 import { View, Text, TextInput, TouchableOpacity } from 'react-native';
 import { styles } from '../../containers/AppStyles';
-import AddressUpdateForm from '../Addresses/AdressUpdateForm';
 
 const GameUpdateForm = ({ 
-  setLoggedPlayer,
   game, 
   handleUpdateGame, 
-  handleUpdateAddress,
   handleCancelGameUpdate
 }) => {
   const [name, setName] = useState(game.name);
@@ -36,18 +33,12 @@ const GameUpdateForm = ({
       <TextInput value={String(duration)} onChangeText={text => setDuration(Number(text))} />
       <Text>Max Players:</Text>
       <TextInput value={String(maxPlayers)} onChangeText={text => setMaxPlayers(Number(text))} />
-      {/* <AddressUpdateForm 
-        address={game.address} 
-        onUpdate={handleUpdateAddress} 
-        setLoggedPlayer={setLoggedPlayer}
-      /> */}
-            <TouchableOpacity style={styles.buttonStyle} onPress={handleCancelGameUpdate}>
-  <Text style={styles.whiteText}>Cancel</Text>
-</TouchableOpacity>
+      <TouchableOpacity style={styles.buttonStyle} onPress={handleCancelGameUpdate}>
+      <Text style={styles.whiteText}>Cancel</Text>
+      </TouchableOpacity>
       <TouchableOpacity style={styles.buttonStyle} onPress={updateGame}>
-  <Text style={styles.whiteText}>Save</Text>
-</TouchableOpacity>
-
+      <Text style={styles.whiteText}>Save</Text>
+      </TouchableOpacity>
     </View>
   );
 };

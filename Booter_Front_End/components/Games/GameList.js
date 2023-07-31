@@ -7,7 +7,6 @@ const GameList = ({
   setLoggedPlayer,
   players, 
   games, 
-  addresses,
   handleUpdateGame, 
   handleDeleteGame, 
   handleJoinGame, 
@@ -24,7 +23,6 @@ const GameList = ({
             setLoggedPlayer={setLoggedPlayer}
             players={players}
             game={game}
-            addresses={addresses}
             handleUpdateGame={handleUpdateGame}
             handleDeleteGame={handleDeleteGame}
             handleJoinGame={handleJoinGame}

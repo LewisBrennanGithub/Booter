@@ -64,7 +64,6 @@ const LoggedPlayerUpdateForm = ({
   }
 
   const setEditProfileBooleanTrue = () => {
-    // setTriggerFetch(true);
     setEditProfileBoolean(true);
   } 
   const setEditProfileBooleanFalse = () => {
@@ -139,12 +138,12 @@ const LoggedPlayerUpdateForm = ({
         <Text>{triggerFetch.toString()}</Text>
       </View>
         ) : (
-            <View>
-                <TouchableOpacity style={styles.button} onPress={setEditProfileBooleanTrue}>
-                    <Text style={styles.buttonText}>Edit Profile</Text>
-                </TouchableOpacity>
-                <Text>{triggerFetch.toString()}</Text>
-            </View>
+      <View>
+          <TouchableOpacity style={styles.button} onPress={setEditProfileBooleanTrue}>
+              <Text style={styles.buttonText}>Edit Profile</Text>
+          </TouchableOpacity>
+          <Text>{triggerFetch.toString()}</Text>
+      </View>
         )
     );
 };

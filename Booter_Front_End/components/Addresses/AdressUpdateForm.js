@@ -4,14 +4,12 @@ import * as AddressServices from "../../services/AddressServices";
 
 const AddressUpdateForm = ({ 
   setLoggedPlayer,
-  game,
   address, 
-  onUpdate, 
-  onSuccess,
-  onCancel,
+  handleUpdateAddress, 
+  toggleEditAddressFalse,
+  handleCancelUpdateAddress,
   handleAddressUpdated
-  // fetchAllPlayers,
-  // fetchAllAddresses, 
+
 }) => {
   const [propertyNumberOrName, setPropertyNumberOrName] = useState('');
   const [street, setStreet] = useState('');
@@ -90,7 +88,7 @@ const AddressUpdateForm = ({
 
 // THIS ONE WAS WORKING
 
-  const handleUpdateAddress = () => {
+  const processUpdateAddress = () => {
     const updatedData = {
       propertyNumberOrName,
       street,
@@ -100,10 +98,10 @@ const AddressUpdateForm = ({
     };
     
     console.log('Address prop:', address);
-    onUpdate(address.id, updatedData)
+    handleUpdateAddress(address.id, updatedData)
       .then(newAddress => {
-        if (typeof onSuccess === 'function') {
-          onSuccess(newAddress);
+        if (typeof toggleEditAddressFalse === 'function') {
+          toggleEditAddressFalse(newAddress);
         }
         setLoggedPlayer(prevLoggedPlayer => ({
           ...prevLoggedPlayer,
@@ -171,10 +169,10 @@ const AddressUpdateForm = ({
         value={postCode}
         onChangeText={text => setPostCode(text)}
       />
-      <TouchableOpacity style={styles.button} onPress={onCancel}>
+      <TouchableOpacity style={styles.button} onPress={handleCancelUpdateAddress}>
         <Text style={styles.buttonText}>Cancel</Text>
       </TouchableOpacity>
-      <TouchableOpacity style={styles.button} onPress={handleUpdateAddress}>
+      <TouchableOpacity style={styles.button} onPress={processUpdateAddress}>
         <Text style={styles.buttonText}>Update Address</Text>
       </TouchableOpacity>
     </View>
