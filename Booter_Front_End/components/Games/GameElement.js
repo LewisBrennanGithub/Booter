@@ -70,13 +70,6 @@ const GameElement = ({
     return player ? player.userName : 'N/A';
   };
 
-  const handleAddressUpdated = (newAddress) => {
-    setLoggedPlayer(prevLoggedPlayer => ({
-      ...prevLoggedPlayer,
-      address: newAddress
-    }));
-  };
-
   return (
     <View style={styles.cardContainer}>
       {isEditing && isCreator ? (
@@ -92,7 +85,6 @@ const GameElement = ({
           address={game.address}
           onUpdate={handleUpdateAddress}
           handleCancelUpdateAddress={handleCancelUpdateAddress}
-          handleAddressUpdated={handleAddressUpdated}
         />
       ) : (
         <View style={styles.card}>

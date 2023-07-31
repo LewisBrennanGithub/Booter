@@ -8,13 +8,11 @@ const LoggedPlayerElement = ({
   loggedPlayer,
   setLoggedPlayer,
   auth0Id,
-  players,
   onSubmitPlayerAdded,
   handleEditPlayer,
   handleDeletePlayer,
   addresses,
   handleUpdateAddress,
-  handleDeleteAddress,
   fetchAllPlayers,
   fetchAllAddresses
 }) => {
@@ -41,10 +39,10 @@ const LoggedPlayerElement = ({
         loggedPlayer ? (
             <ScrollView style={styles.cardContainer}>
                 <LoggedPlayerUpdateForm
-                handleEditPlayer={handleEditPlayer}
                 loggedPlayer={loggedPlayer}
                 auth0Id={auth0Id}
                 setLoggedPlayer={setLoggedPlayer}
+                handleEditPlayer={handleEditPlayer}
                 fetchAllPlayers={fetchAllPlayers}
                 />
                 <TouchableOpacity style={styles.cardButton} onPress={() => handleDeletePlayer(loggedPlayer.id)}>
@@ -83,9 +81,6 @@ const LoggedPlayerElement = ({
               <TouchableOpacity style={styles.cardButton} onPress={toggleEditAddressTrue}>
                 <Text style={styles.whiteText}>Update Address</Text>
               </TouchableOpacity>
-              {/* <TouchableOpacity style={styles.buttonStyle} onPress={() => handleDeleteAddress(loggedPlayer.address.id)}>
-                <Text style={styles.whiteText}>Delete</Text>
-              </TouchableOpacity> */}
             </>
           ) : (
             <Text>No address available</Text>

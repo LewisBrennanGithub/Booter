@@ -2,13 +2,12 @@ import React, { useState, useEffect } from 'react';
 import { View, Text, TextInput, TouchableOpacity, StyleSheet } from 'react-native';
 import { Picker } from '@react-native-picker/picker';
 import * as PlayerServices from "../../services/PlayerServices";
-// ADDRESS TOO?
 
 const LoggedPlayerUpdateForm = ({
-    handleEditPlayer,
     loggedPlayer,
     auth0Id,
     setLoggedPlayer,
+    handleEditPlayer,
     fetchAllPlayers,
 }) => {
     const [firstName, setFirstName] = useState(loggedPlayer.firstName);
@@ -19,19 +18,6 @@ const LoggedPlayerUpdateForm = ({
     const [selfAssessedAbilityLevel, setSelfAssessedAbilityLevel] = useState(loggedPlayer.selfAssessedAbilityLevel.toString());
     const [selfAssessedSeriousnessLevel, setSelfAssessedSeriousnessLevel] = useState(loggedPlayer.selfAssessedSeriousnessLevel.toString());
     const [editProfileBoolean, setEditProfileBoolean] = useState(false);
-    const [triggerFetch, setTriggerFetch] = useState(false);
-
-    // useEffect(() => {
-    //   if (loggedPlayer) {
-    //     setFirstName(loggedPlayer.firstName);
-    //     setLastName(loggedPlayer.lastName);
-    //     setUserName(loggedPlayer.userName);
-    //     setPhoneNumber(loggedPlayer.phoneNumber);
-    //     setAge(loggedPlayer.age.toString());
-    //     setSelfAssessedAbilityLevel(loggedPlayer.selfAssessedAbilityLevel.toString());
-    //     setSelfAssessedSeriousnessLevel(loggedPlayer.selfAssessedSeriousnessLevel.toString());
-    //   }
-    // }, [loggedPlayer]);
 
   const levels = Array.from({ length: 11 }, (_, i) => (i * 0.5).toFixed(1));
 
@@ -47,7 +33,7 @@ const LoggedPlayerUpdateForm = ({
       addressId: loggedPlayer.addressId 
     }
     
-    await handleEditPlayer(updatedPlayer); // Wait for handleEditPlayer to finish
+    await handleEditPlayer(updatedPlayer); 
     await fetchAllPlayers();
     await fetchPlayerByAuth0Id(auth0Id);
   }
@@ -135,14 +121,12 @@ const LoggedPlayerUpdateForm = ({
         <TouchableOpacity style={styles.button} onPress={handleUpdatePlayer}>
           <Text style={styles.buttonText}>Update Player</Text>
         </TouchableOpacity>
-        <Text>{triggerFetch.toString()}</Text>
       </View>
         ) : (
       <View>
           <TouchableOpacity style={styles.button} onPress={setEditProfileBooleanTrue}>
               <Text style={styles.buttonText}>Edit Profile</Text>
           </TouchableOpacity>
-          <Text>{triggerFetch.toString()}</Text>
       </View>
         )
     );

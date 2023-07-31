@@ -264,13 +264,11 @@ const handleAddGame = async (gameData, addressData) => {
           loggedPlayer={loggedPlayer}
           setLoggedPlayer={setLoggedPlayer}
           auth0Id={auth0Id}
-          players={players}
           handleAddPlayer={handleAddPlayer}
           handleEditPlayer={handleEditPlayer}
           handleDeletePlayer={handleDeletePlayer}
           addresses={addresses}
           handleUpdateAddress={handleUpdateAddress}
-          handleDeleteAddress={handleDeleteAddress}
           fetchAllPlayers={fetchAllPlayers}
           fetchAllAddresses={fetchAllAddresses}
           />

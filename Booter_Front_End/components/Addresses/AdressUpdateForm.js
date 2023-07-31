@@ -1,6 +1,5 @@
 import React, { useState, useEffect } from 'react';
 import { View, Text, TextInput, TouchableOpacity, StyleSheet } from 'react-native';
-import * as AddressServices from "../../services/AddressServices";
 
 const AddressUpdateForm = ({ 
   setLoggedPlayer,
@@ -8,7 +7,6 @@ const AddressUpdateForm = ({
   handleUpdateAddress, 
   toggleEditAddressFalse,
   handleCancelUpdateAddress,
-  handleAddressUpdated
 
 }) => {
   const [propertyNumberOrName, setPropertyNumberOrName] = useState('');
@@ -26,67 +24,6 @@ const AddressUpdateForm = ({
       setPostCode(address.postCode || '');
     }
   }, [address]);
-
-  // const fetchStuff = () => {
-  //   fetchAllPlayers()
-  //   fetchAllAddresses()
-  // }
-
-  // const handleUpdateAddress = () => {
-  //   const updatedData = {
-  //     propertyNumberOrName,
-  //     street,
-  //     city,
-  //     country,
-  //     postCode
-  //   };
-      
-  //   console.log('Address ID:', address.id);
-  //   onUpdate(address.id, updatedData);
-  //   if (typeof onSuccess === 'function') {
-  //     onSuccess();
-  //   }
-  // };
-
-  // const handleUpdateAddress = () => {
-  //   const updatedData = {
-  //     propertyNumberOrName,
-  //     street,
-  //     city,
-  //     country,
-  //     postCode
-  //   };
-      
-  //   console.log('Address ID:', address.id);
-  //   onUpdate(address.id, updatedData).then(newAddress => {
-  //     if (typeof onSuccess === 'function') {
-  //       onSuccess(newAddress);
-  //     }
-  //   });
-  // };
-
-  // const handleUpdateAddress = () => {
-  //   const updatedData = {
-  //     propertyNumberOrName,
-  //     street,
-  //     city,
-  //     country,
-  //     postCode
-  //   };
-  
-  //   console.log('Address ID:', address.id);
-  //   onUpdate(address.id, updatedData)
-  //     .then(newAddress => {
-  //       if (typeof onSuccess === 'function') {
-  //         onSuccess(newAddress);
-  //       }
-  //     })
-  //     .catch(error => {
-  //       console.error("Error updating address:", error);
-  //     });
-  // };
-
-// THIS ONE WAS WORKING
 
   const processUpdateAddress = () => {
     const updatedData = {
@@ -112,29 +49,6 @@ const AddressUpdateForm = ({
         console.error("Error updating address:", error);
       });
   };
-  
-  // const handleUpdateAddress = () => {
-  //   const updatedData = {
-  //     propertyNumberOrName,
-  //     street,
-  //     city,
-  //     country,
-  //     postCode
-  //   };
-    
-  //   onUpdate(address.id, updatedData)
-  //     .then(newAddress => {
-  //       if (typeof onSuccess === 'function') {
-  //         onSuccess(newAddress);
-  //       }
-  //       if (typeof handleAddressUpdated === 'function') {
-  //         handleAddressUpdated(newAddress);
-  //       }
-  //     })
-  //     .catch(error => {
-  //       console.error("Error updating address:", error);
-  //     });
-  // };
 
   return (
     <View style={styles.cardContainer}>
