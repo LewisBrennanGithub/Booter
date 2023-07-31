@@ -10,7 +10,6 @@ import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.http.HttpStatus;
 import org.springframework.http.ResponseEntity;
 import org.springframework.web.bind.annotation.*;
-import org.springframework.web.server.ResponseStatusException;
 
 import java.util.*;
 
@@ -56,12 +55,6 @@ public class PlayerController {
         return new ResponseEntity<>(games, HttpStatus.OK);
     }
 
-//    @PostMapping(value = "/players")
-//    public ResponseEntity<Player> postPlayer(@RequestBody Player player){
-//        playerRepository.save(player);
-//        return new ResponseEntity<>(player, HttpStatus.CREATED);
-//    }
-
     @PostMapping(value = "/players")
     public ResponseEntity<Player> postPlayer(@RequestBody Player player){
         Player existingPlayer = playerRepository.findByAuth0Id(player.getAuth0Id());
@@ -71,31 +64,6 @@ public class PlayerController {
         playerRepository.save(player);
         return new ResponseEntity<>(player, HttpStatus.CREATED);
     }
-
-//    @PatchMapping(value = "/players/{id}")
-//    public ResponseEntity<Player> updatePlayer(@PathVariable Long id, @RequestBody Player player) {
-//        Optional<Player> playerOptional = playerRepository.findById(id);
-//        if (!playerOptional.isPresent()) {
-//            return new ResponseEntity<>(HttpStatus.NOT_FOUND);
-//        }
-//        Player existingPlayer = playerOptional.get();
-//        if (player.getAddress() != null) {
-//            Optional<Address> addressOptional = addressRepository.findById(player.getAddress().getId());
-//            if (!addressOptional.isPresent()) {
-//                return new ResponseEntity<>(HttpStatus.NOT_FOUND);
-//            }
-//            existingPlayer.setAddress(addressOptional.get());
-//        }
-//        existingPlayer.setFirstName(player.getFirstName());
-//        existingPlayer.setLastName(player.getLastName());
-//        existingPlayer.setUserName(player.getUserName());
-//        existingPlayer.setPhoneNumber(player.getPhoneNumber());
-//        existingPlayer.setAge(player.getAge());
-//        existingPlayer.setSelfAssessedAbilityLevel(player.getSelfAssessedAbilityLevel());
-//        existingPlayer.setSelfAssessedSeriousnessLevel(player.getSelfAssessedSeriousnessLevel());
-//        playerRepository.save(existingPlayer);
-//        return new ResponseEntity<>(existingPlayer, HttpStatus.OK);
-//    }
 
     @PatchMapping(value = "/players/{id}")
     public ResponseEntity<?> updatePlayer(@PathVariable Long id, @RequestBody Player player) {
@@ -131,7 +99,6 @@ public class PlayerController {
         player.joinGame(game);
         playerRepository.save(player);
         gameRepository.save(game);
-//        return new ResponseEntity<>("Player joined the game", HttpStatus.OK);
         return new ResponseEntity<>(Collections.singletonMap("message", "Player joined the game"), HttpStatus.OK);
     }
 
@@ -180,9 +147,6 @@ public class PlayerController {
         ratingSeriousnessPlayer.addCommunityAssessedSeriousnessRating(ratedSeriousnessPlayer, seriousnessRating);
         playerRepository.save(ratedSeriousnessPlayer);
         return new ResponseEntity<>(Collections.singletonMap("message", "Player has rated other player's seriousness"), HttpStatus.OK);
-//        Map<String, String> response = new HashMap<>();
-//        response.put("message", "Player has rated other player's seriousness");
-//        return new ResponseEntity<>(response, HttpStatus.OK);
     }
 
     @DeleteMapping("/players/{playerId}")
