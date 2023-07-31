@@ -30,26 +30,19 @@ export const updateAddress = (id, updatedData) => {
     body: JSON.stringify(updatedData),
     headers: { "Content-Type": "application/json" },
   })
-  .then(res => {
-    console.log('Response Status Code:', res.status); 
-    console.log('Response OK:', res.ok);
-    
+  .then((res) => {
     if (!res.ok) {
-      throw new Error('Network response was not ok');
+      return res.json().then(json => {throw new Error(json.message)});
     }
-
-    return res.text().then(text => {
-      console.log('Response Text:', text); 
-      return text ? JSON.parse(text) : {};
-    });
+    return res.json();
   });
-}
+};
 
 export const deleteAddress = (id) => {
   return fetch(`http://localhost:8080/addresses/${id}`, {
     method: "DELETE",
   })
-  .then(res => {
+  .then((res) => {
     if (!res.ok) {
       throw new Error('Network response was not ok');
     }

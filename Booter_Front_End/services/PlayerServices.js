@@ -44,7 +44,7 @@ export const updatePlayer = (id, updatedData) => {
     body: JSON.stringify(updatedData),
     headers: { "Content-Type": "application/json"},
   })
-  .then(res => {
+  .then((res) => {
     if (!res.ok) {
         return res.json().then(json => {throw new Error(json.message)});
     }
@@ -58,7 +58,7 @@ export const playerJoinGame = (playerId, gameId, updatedData) => {
     body: JSON.stringify(updatedData),
     headers: { "Content-Type": "application/json"},
   })
-  .then(res => res.json());
+  .then((res) => res.json());
 }
 
 export const playerSetGameCompletedStatus = (playerId, gameId) => {
@@ -66,7 +66,7 @@ export const playerSetGameCompletedStatus = (playerId, gameId) => {
     method: "PATCH",
     headers: { "Content-Type": "application/json"},
   })
-  .then(res => res.json());
+  .then((res) => res.json());
 }
 
 export const rateOtherPlayerAbility = (ratingAbilityPlayerId, ratedAbilityPlayerId, abilityRating) => {
@@ -74,14 +74,7 @@ export const rateOtherPlayerAbility = (ratingAbilityPlayerId, ratedAbilityPlayer
     method: "PATCH",
     headers: { "Content-Type": "application/json" },
   })
-  .then(res => res.json());
-  // .then(response => {
-  //   if (response.ok) {
-  //     return response.json();
-  //   } else {
-  //     return response.text().then(text => Promise.reject(text));
-  //   }
-  // });
+  .then((res) => res.json());
 }
 
 export const rateOtherPlayerSeriousness = (ratingSeriousnessPlayerId, ratedSeriousnessPlayerId, seriousnessRating) => {
