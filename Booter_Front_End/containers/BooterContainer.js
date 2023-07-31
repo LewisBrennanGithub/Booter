@@ -74,19 +74,6 @@ const handleJoinGame = (gameId, player) => {
     .catch(err => console.error("Error joining game:", err));
 };
 
-// const handleAddPlayer = async (playerData, addressData) => {
-//   try {
-//     const response = await AddressServices.postAddress(addressData);
-//     const savedAddressId = response.id; 
-//     const newPlayerData = {...playerData, address: {id: savedAddressId}};
-//     await PlayerServices.postPlayer(newPlayerData);
-//     fetchAllPlayers();
-//     fetchAllAddresses();
-//   } catch (error) {
-//     console.error('An error occurred:', error);
-//   }
-// };
-
 const handleAddPlayer = async (playerData, addressData) => {
   try {
     const response = await AddressServices.postAddress(addressData);
@@ -95,18 +82,11 @@ const handleAddPlayer = async (playerData, addressData) => {
     const playerResponse = await PlayerServices.postPlayer(newPlayerData);
     fetchAllPlayers();
     fetchAllAddresses();
-    return playerResponse;  // This is the newly created player data.
+    return playerResponse; 
   } catch (error) {
     console.error('An error occurred:', error);
   }
 };
-
-
-// const handleEditPlayer = (playerData) => {
-//   PlayerServices.updatePlayer(loggedPlayer.id, playerData)
-//     .then(() => { fetchAllPlayers(); })
-//     .catch(err => console.error('Error updating player profile', err));
-// };
 
 const handleEditPlayer = (playerData) => {
   return PlayerServices.updatePlayer(loggedPlayer.id, playerData) // Return the promise
@@ -128,9 +108,7 @@ const handleRatePlayerAbility = (player, selectedAbilityRating) => {
     console.error("No player is logged in.");
     return;
   }
-
   const abilityRatingNumber = parseFloat(selectedAbilityRating);
-
   PlayerServices.rateOtherPlayerAbility(loggedPlayer.id, player.id, abilityRatingNumber)
     .then(response => {
       console.log(response);
@@ -145,9 +123,7 @@ const handleRatePlayerSeriousness = (player, selectedSeriousnessRating) => {
     fetchAllPlayers();
     return;
   }
-
   const seriousnessRatingNumber = parseFloat(selectedSeriousnessRating);
-
   PlayerServices.rateOtherPlayerSeriousness(loggedPlayer.id, player.id, seriousnessRatingNumber)
     .then(response => {
       console.log(response);
@@ -217,49 +193,26 @@ const handleAddGame = async (gameData, addressData) => {
       })
   };
 
-  // const handleUpdateAddress = (id, updatedData) => {
-  //   AddressServices.updateAddress(id, updatedData).then(() => {
-  //     fetchAllAddresses(); 
-  //     fetchAllPlayers();
-  //   });
-  // };
-
-  // const handleUpdateAddress = (id, updatedData) => {
-  //   return AddressServices.updateAddress(id, updatedData)
-  //     .then((updatedAddress) => {
-  //       fetchAllAddresses(); 
-  //       return updatedAddress;
-  //     });
-  // };
-
   const handleUpdateAddress = (id, updatedData) => {
     return AddressServices.updateAddress(id, updatedData)
       .then(updatedAddress => {
         fetchAllAddresses();
         fetchAllPlayers();
         fetchAllGames();
-        // return the updated address so we can use it in the `.then()` in your `AddressUpdateForm` component
         return updatedAddress;
       });
   };
   
-  // const handleDeleteAddress = (id) => {
-  //   AddressServices.deleteAddress(id).then(() => {
-  //     fetchAllAddresses();
-  //   });
-  // };
-
   const handleDeleteAddress = (id) => {
     AddressServices.deleteAddress(id).then(() => {
       fetchAllAddresses(); 
-      fetchAllPlayers(); // fetch all players to update players list
-      setLoggedPlayer(prevLoggedPlayer => ({ // update loggedPlayer's address to null
+      fetchAllPlayers(); 
+      setLoggedPlayer(prevLoggedPlayer => ({ 
         ...prevLoggedPlayer,
         address: null
       }));
     });
   };
-  
   
   const BottomTabNavigator = () => (
     <View style={styles.container}>
@@ -340,13 +293,11 @@ const handleAddGame = async (gameData, addressData) => {
     </View>
     </View>
   );
-
   return (
     <>
     <BottomTabNavigator />
     </>
 );
-
 };
 
 const styles = StyleSheet.create({
