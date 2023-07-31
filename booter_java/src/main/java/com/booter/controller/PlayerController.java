@@ -75,12 +75,21 @@ public class PlayerController {
 //    @PatchMapping(value = "/players/{id}")
 //    public ResponseEntity<Player> updatePlayer(@PathVariable Long id, @RequestBody Player player) {
 //        Optional<Player> playerOptional = playerRepository.findById(id);
+//        if (!playerOptional.isPresent()) {
+//            return new ResponseEntity<>(HttpStatus.NOT_FOUND);
+//        }
 //        Player existingPlayer = playerOptional.get();
+//        if (player.getAddress() != null) {
+//            Optional<Address> addressOptional = addressRepository.findById(player.getAddress().getId());
+//            if (!addressOptional.isPresent()) {
+//                return new ResponseEntity<>(HttpStatus.NOT_FOUND);
+//            }
+//            existingPlayer.setAddress(addressOptional.get());
+//        }
 //        existingPlayer.setFirstName(player.getFirstName());
 //        existingPlayer.setLastName(player.getLastName());
 //        existingPlayer.setUserName(player.getUserName());
 //        existingPlayer.setPhoneNumber(player.getPhoneNumber());
-//        existingPlayer.setAddress(player.getAddress());
 //        existingPlayer.setAge(player.getAge());
 //        existingPlayer.setSelfAssessedAbilityLevel(player.getSelfAssessedAbilityLevel());
 //        existingPlayer.setSelfAssessedSeriousnessLevel(player.getSelfAssessedSeriousnessLevel());
@@ -89,16 +98,16 @@ public class PlayerController {
 //    }
 
     @PatchMapping(value = "/players/{id}")
-    public ResponseEntity<Player> updatePlayer(@PathVariable Long id, @RequestBody Player player) {
+    public ResponseEntity<?> updatePlayer(@PathVariable Long id, @RequestBody Player player) {
         Optional<Player> playerOptional = playerRepository.findById(id);
         if (!playerOptional.isPresent()) {
-            return new ResponseEntity<>(HttpStatus.NOT_FOUND);
+            return new ResponseEntity<>(Collections.singletonMap("message", "Player not found"), HttpStatus.NOT_FOUND);
         }
         Player existingPlayer = playerOptional.get();
         if (player.getAddress() != null) {
             Optional<Address> addressOptional = addressRepository.findById(player.getAddress().getId());
             if (!addressOptional.isPresent()) {
-                return new ResponseEntity<>(HttpStatus.NOT_FOUND);
+                return new ResponseEntity<>(Collections.singletonMap("message", "Address not found"), HttpStatus.NOT_FOUND);
             }
             existingPlayer.setAddress(addressOptional.get());
         }
@@ -109,11 +118,9 @@ public class PlayerController {
         existingPlayer.setAge(player.getAge());
         existingPlayer.setSelfAssessedAbilityLevel(player.getSelfAssessedAbilityLevel());
         existingPlayer.setSelfAssessedSeriousnessLevel(player.getSelfAssessedSeriousnessLevel());
-
         playerRepository.save(existingPlayer);
         return new ResponseEntity<>(existingPlayer, HttpStatus.OK);
     }
-
 
     @PatchMapping("/players/{playerId}/joinGame/{gameId}")
     public ResponseEntity<?> joinGame(@PathVariable Long playerId, @PathVariable Long gameId) {
@@ -124,7 +131,8 @@ public class PlayerController {
         player.joinGame(game);
         playerRepository.save(player);
         gameRepository.save(game);
-        return new ResponseEntity<>("Player joined the game", HttpStatus.OK);
+//        return new ResponseEntity<>("Player joined the game", HttpStatus.OK);
+        return new ResponseEntity<>(Collections.singletonMap("message", "Player joined the game"), HttpStatus.OK);
     }
 
     @PatchMapping("/players/{playerId}/setCompletedStatus/{gameId}")
@@ -164,44 +172,18 @@ public class PlayerController {
             @RequestParam double seriousnessRating) {
         Optional<Player> ratingSeriousnessPlayerOptional = playerRepository.findById(ratingSeriousnessPlayerId);
         Optional<Player> ratedSeriousnessPlayerOptional = playerRepository.findById(ratedSeriousnessPlayerId);
+        if (!ratingSeriousnessPlayerOptional.isPresent() || !ratedSeriousnessPlayerOptional.isPresent()) {
+            return new ResponseEntity<>(Collections.singletonMap("message", "Player not found"), HttpStatus.NOT_FOUND);
+        }
         Player ratingSeriousnessPlayer = ratingSeriousnessPlayerOptional.get();
         Player ratedSeriousnessPlayer = ratedSeriousnessPlayerOptional.get();
         ratingSeriousnessPlayer.addCommunityAssessedSeriousnessRating(ratedSeriousnessPlayer, seriousnessRating);
         playerRepository.save(ratedSeriousnessPlayer);
-
-        Map<String, String> response = new HashMap<>();
-        response.put("message", "Player has rated other player's seriousness");
-        return new ResponseEntity<>(response, HttpStatus.OK);
+        return new ResponseEntity<>(Collections.singletonMap("message", "Player has rated other player's seriousness"), HttpStatus.OK);
+//        Map<String, String> response = new HashMap<>();
+//        response.put("message", "Player has rated other player's seriousness");
+//        return new ResponseEntity<>(response, HttpStatus.OK);
     }
-
-//    @DeleteMapping("/players/{playerId}")
-//    public ResponseEntity<?> deletePlayer(@PathVariable Long playerId) {
-//        Optional<Player> playerOptional = playerRepository.findById(playerId);
-//        Player player = playerOptional.get();
-//        List<Game> games = player.getGames();
-//        for (Game game : games) {
-//            game.removePlayer(player);
-//            gameRepository.save(game);
-//        }
-//        List<Game> createdGames = gameRepository.findByCreator(player);
-//        for (Game createdGame : createdGames) {
-//            List<Player> playersInGame = createdGame.getPlayers();
-//            if (!playersInGame.isEmpty()) {
-//                for (Player newCreator : playersInGame) {
-//                    if (!newCreator.equals(player)) {
-//                        createdGame.setCreator(newCreator);
-//                        break;
-//                    }
-//                }
-//            } else {
-//                createdGame.setCreator(null);
-//            }
-//            gameRepository.save(createdGame);
-//        }
-//        playerRepository.deleteById(playerId);
-//        return new ResponseEntity<>("Player deleted", HttpStatus.OK);
-//    }
-
 
     @DeleteMapping("/players/{playerId}")
     public ResponseEntity<?> deletePlayer(@PathVariable Long playerId) {
@@ -229,10 +211,9 @@ public class PlayerController {
                 gameRepository.save(createdGame);
             }
             playerRepository.deleteById(playerId);
-            return new ResponseEntity<>("Player deleted", HttpStatus.OK);
+            return new ResponseEntity<>(Collections.singletonMap("message", "Player deleted"), HttpStatus.OK);
         } else {
-            // Handling when no Player is found.
-            return new ResponseEntity<>("Player not found", HttpStatus.NOT_FOUND);
+            return new ResponseEntity<>(Collections.singletonMap("message", "Player not found"), HttpStatus.NOT_FOUND);
         }
     }
 

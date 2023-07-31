@@ -3,7 +3,6 @@ export const getPlayers = () => {
   .then((res) => res.json());
 }
 
-// SHOULD REALLY BE PLAYER RATHER THAN PLAYERS! SHOULD ALSO BE CALLED PROPERLY, LIKE THE OTHERS
 export const getPlayerById = (id) => {
   return fetch(`http://localhost:8080/players/${id}`).then((res) => res.json());
 }
@@ -39,6 +38,20 @@ export const postPlayer = (playerData) => {
   });
 };
 
+// export const updatePlayer = (id, updatedData) => {
+//   return fetch(`http://localhost:8080/players/${id}`, {
+//     method: "PATCH",
+//     body: JSON.stringify(updatedData),
+//     headers: { "Content-Type": "application/json"},
+//   })
+//   .then(res => {
+//     if (!res.ok) {
+//         return res.text().then(text => {throw new Error(text)});
+//     }
+//     return res.json();
+//   });
+// }
+
 export const updatePlayer = (id, updatedData) => {
   return fetch(`http://localhost:8080/players/${id}`, {
     method: "PATCH",
@@ -47,11 +60,12 @@ export const updatePlayer = (id, updatedData) => {
   })
   .then(res => {
     if (!res.ok) {
-        return res.text().then(text => {throw new Error(text)});
+        return res.json().then(json => {throw new Error(json.message)});
     }
     return res.json();
   });
 }
+
 
 export const playerJoinGame = (playerId, gameId, updatedData) => {
   return fetch(`http://localhost:8080/players/${playerId}/joinGame/${gameId}`, {
@@ -59,7 +73,7 @@ export const playerJoinGame = (playerId, gameId, updatedData) => {
     body: JSON.stringify(updatedData),
     headers: { "Content-Type": "application/json"},
   })
-  .then(res => res.text());
+  .then(res => res.json());
 }
 
 export const playerSetGameCompletedStatus = (playerId, gameId) => {
@@ -75,13 +89,14 @@ export const rateOtherPlayerAbility = (ratingAbilityPlayerId, ratedAbilityPlayer
     method: "PATCH",
     headers: { "Content-Type": "application/json" },
   })
-  .then(response => {
-    if (response.ok) {
-      return response.json();
-    } else {
-      return response.text().then(text => Promise.reject(text));
-    }
-  });
+  .then(res => res.json());
+  // .then(response => {
+  //   if (response.ok) {
+  //     return response.json();
+  //   } else {
+  //     return response.text().then(text => Promise.reject(text));
+  //   }
+  // });
 }
 
 export const rateOtherPlayerSeriousness = (ratingSeriousnessPlayerId, ratedSeriousnessPlayerId, seriousnessRating) => {
@@ -92,16 +107,16 @@ export const rateOtherPlayerSeriousness = (ratingSeriousnessPlayerId, ratedSerio
   .then(res => res.json());
 }
 
-// export const deletePlayer = (id) => {
-//   return fetch(`http://localhost:8080/players/${id}`, {
-//     method: "DELETE",
-//   })
-//   .then(res => res.json());
-// }
-
 export const deletePlayer = (id) => {
   return fetch(`http://localhost:8080/players/${id}`, {
     method: "DELETE",
   })
-  .then(res => res.text());
+  .then(res => res.json());
 }
+
+// export const deletePlayer = (id) => {
+//   return fetch(`http://localhost:8080/players/${id}`, {
+//     method: "DELETE",
+//   })
+//   .then(res => res.text());
+// }
