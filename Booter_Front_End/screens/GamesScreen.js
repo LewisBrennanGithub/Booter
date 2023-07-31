@@ -20,11 +20,13 @@ const GamesScreen = ({
 
   return (
       <ScrollView>
+        { loggedPlayer ? (
         <GameForm 
             addresses={addresses}
             handleAddGame={handleAddGame}
             loggedPlayer={loggedPlayer}
-        />
+        /> 
+        ) : null }
           <GameList
             loggedPlayer={loggedPlayer}
             setLoggedPlayer={setLoggedPlayer}

@@ -188,14 +188,14 @@ const GameForm = ({
         <Text style={styles.buttonText}>Add Game</Text>
       </TouchableOpacity>
     </>
-  ) : (
+  ) :  (
     <TouchableOpacity style={styles.button} onPress={() => setFormVisible(true)}>
       <Text style={styles.buttonText}>Host New Game?</Text>
     </TouchableOpacity>
   )}
 </View>
-  );
-};
+);
+}
 
 const styles = StyleSheet.create({
   cardContainer: {

@@ -354,10 +354,11 @@ const styles = StyleSheet.create({
     flex: 1,
   },
   header: {
-    height: 50, 
+    height: 75, 
     backgroundColor: 'lightgrey', 
     alignItems: 'center',
     justifyContent: 'center',
+    paddingTop: 25, 
   },
   content: {
     flex: 1, 

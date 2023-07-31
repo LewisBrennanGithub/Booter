@@ -5,24 +5,16 @@ import * as PlayerServices from '../../services/PlayerServices';
 
 const PlayerElement = ({ 
   player, 
-  loggedPlayer, 
-  setLoggedPlayer, 
   handleRatePlayerAbility, 
   handleRatePlayerSeriousness 
 }) => {
   const levels = Array.from({ length: 11 }, (_, i) => (i * 0.5).toFixed(1));
-  const isSelected = loggedPlayer && loggedPlayer.id === player.id;
-
   const [selectedAbilityRating, setSelectedAbilityRating] = useState(levels[0]);
   const [selectedSeriousnessRating, setSelectedSeriousnessRating] = useState(levels[0]);
 
   return (
     <View style={styles.cardContainer}>
-
-        <Text style={[styles.username, isSelected && styles.selectedUsername]}>
           <Text style={styles.usernameText}>{player.userName}</Text>
-        </Text>
-
       <View>
         <Text>Participating Games:</Text>
         {player.games && player.games.map((game) => (
@@ -31,7 +23,7 @@ const PlayerElement = ({
       </View>
       <Text>Ability Rating: {player.displayedAbilityLevel}</Text>
       <Text>Seriousness Rating: {player.displayedSeriousnessLevel}</Text>
-      {!isSelected && (
+      
         <>
           <Picker
             selectedValue={selectedAbilityRating}
@@ -56,7 +48,7 @@ const PlayerElement = ({
             <Text style={styles.buttonText}>Rate Seriousness</Text>
           </TouchableOpacity>
         </>
-      )}
+      
     </View>
   );
 };
