@@ -1,6 +1,6 @@
 import React, { useState } from 'react';
 import { View, Text, TouchableOpacity, StyleSheet } from 'react-native';
-import { Picker } from '@react-native-picker/picker';
+import CustomSlider from '../../Reusable/CustomSlider';
 
 const PlayerElement = ({ 
   player, 
@@ -20,33 +20,32 @@ const PlayerElement = ({
           <Text key={game.id}>- {game.name}</Text>
         ))}
       </View>
-      <Text>Ability Rating: {player.displayedAbilityLevel}</Text>
-      <Text>Seriousness Rating: {player.displayedSeriousnessLevel}</Text>
-        <>
-          <Picker
-            selectedValue={selectedAbilityRating}
-            onValueChange={(itemValue) => setSelectedAbilityRating(itemValue)}
-          >
-            {levels.map((level) => (
-              <Picker.Item key={level} label={level} value={level} />
-            ))}
-          </Picker>
-          <TouchableOpacity style={styles.cardButton} onPress={() => handleRatePlayerAbility(player, selectedAbilityRating)}>
+      <Text>Ability Rating: {player.displayedAbilityLevel.toFixed(1)}</Text>
+      <Text>Seriousness Rating: {player.displayedSeriousnessLevel.toFixed(1)}</Text>
+          <Text style={styles.label}>Self Assessed Ability Level</Text>
+        <View style={styles.container}>
+          <Text>Slider Value: {selectedAbilityRating}</Text>
+          <CustomSlider
+            value={selectedAbilityRating}
+            onValueChange={setSelectedAbilityRating}
+            step={0.5}
+          />
+        </View>
+        <TouchableOpacity style={styles.cardButton} onPress={() => handleRatePlayerAbility(player, selectedAbilityRating)}>
             <Text style={styles.buttonText}>Rate Ability</Text>
           </TouchableOpacity>
-          <Picker
-            selectedValue={selectedSeriousnessRating}
-            onValueChange={(itemValue) => setSelectedSeriousnessRating(itemValue)}
-          >
-            {levels.map((level) => (
-              <Picker.Item key={level} label={level} value={level} />
-            ))}
-          </Picker>
+        <Text style={styles.label}>Self Assessed Seriousness Level</Text>
+        <View style={styles.container}>
+          <Text>Slider Value: {selectedSeriousnessRating}</Text>
+          <CustomSlider
+            value={selectedSeriousnessRating}
+            onValueChange={setSelectedSeriousnessRating}
+            step={0.5}
+          />
           <TouchableOpacity style={styles.cardButton} onPress={() => handleRatePlayerSeriousness(player, selectedSeriousnessRating)}>
             <Text style={styles.buttonText}>Rate Seriousness</Text>
           </TouchableOpacity>
-        </>
-      
+        </View>
     </View>
   );
 };

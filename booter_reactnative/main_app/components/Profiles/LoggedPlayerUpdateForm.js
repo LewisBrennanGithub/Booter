@@ -1,7 +1,5 @@
-import React, { useState, useEffect } from 'react';
+import React, { useState } from 'react';
 import { View, Text, TextInput, TouchableOpacity, StyleSheet } from 'react-native';
-import { Picker } from '@react-native-picker/picker';
-import Slider from '@react-native-community/slider';
 import CustomSlider from '../../Reusable/CustomSlider';
 import * as PlayerServices from "../../services/PlayerServices";
 
@@ -17,15 +15,9 @@ const LoggedPlayerUpdateForm = ({
     const [userName, setUserName] = useState(loggedPlayer.userName);
     const [phoneNumber, setPhoneNumber] = useState(loggedPlayer.phoneNumber);
     const [age, setAge] = useState(loggedPlayer.age.toString());
-    // const [selfAssessedAbilityLevel, setSelfAssessedAbilityLevel] = useState(loggedPlayer.selfAssessedAbilityLevel.toString());
-    // const [selfAssessedSeriousnessLevel, setSelfAssessedSeriousnessLevel] = useState(loggedPlayer.selfAssessedSeriousnessLevel.toString());
     const [selfAssessedAbilityLevel, setSelfAssessedAbilityLevel] = useState(loggedPlayer.selfAssessedAbilityLevel);
     const [selfAssessedSeriousnessLevel, setSelfAssessedSeriousnessLevel] = useState(loggedPlayer.selfAssessedSeriousnessLevel);
     const [editProfileBoolean, setEditProfileBoolean] = useState(false);
-    const [value, setValue] = React.useState(0);
-    const [sliderValue, setSliderValue] = useState(0);
-
-  const levels = Array.from({ length: 11 }, (_, i) => (i * 0.5).toFixed(1));
 
   const handleUpdatePlayer = async () => {
     const updatedPlayer = {
@@ -171,13 +163,6 @@ const styles = StyleSheet.create({
       borderRadius: 4,
       marginBottom: 10,
       paddingHorizontal: 10,
-    },
-    picker: {
-      // height: 40,
-      // borderColor: 'gray',
-      // borderWidth: 1,
-      // borderRadius: 4,
-      // marginBottom: 10,
     },
     button: {
       backgroundColor: '#783c08',

@@ -83,7 +83,7 @@ const GameElement = ({
           setLoggedPlayer={setLoggedPlayer}
           game={game}
           address={game.address}
-          onUpdate={handleUpdateAddress}
+          handleUpdateAddress={handleUpdateAddress}
           handleCancelUpdateAddress={handleCancelUpdateAddress}
         />
       ) : (

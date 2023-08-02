@@ -1,6 +1,8 @@
 import React, { useState } from 'react';
 import { View, Text, TextInput, TouchableOpacity, StyleSheet, Platform } from 'react-native';
 import { Picker } from '@react-native-picker/picker';
+import CustomSlider from '../../Reusable/CustomSlider';
+import Slider from '@react-native-community/slider';
 import DateTimePicker from '@react-native-community/datetimepicker';
 import ReactDatePicker from 'react-datepicker';
 import AddressInputs from '../Addresses/AddressInputs';
@@ -15,8 +17,8 @@ const GameForm = ({
   const [dateAndTime, setDateAndTime] = useState(new Date());
   const [showDatePicker, setShowDatePicker] = useState(false);
   const [duration, setDuration] = useState(game.duration || '');
-  const [recommendedAbilityLevel, setRecommendedAbilityLevel] = useState(game.recommendedAbilityLevel || '');
-  const [recommendedSeriousnessLevel, setRecommendedSeriousnessLevel] = useState(game.recommendedSeriousnessLevel || '');
+  const [recommendedAbilityLevel, setRecommendedAbilityLevel] = useState(game.recommendedAbilityLevel || 0);
+  const [recommendedSeriousnessLevel, setRecommendedSeriousnessLevel] = useState(game.recommendedSeriousnessLevel || 0);
   const [maxPlayers, setMaxPlayers] = useState(game.maxPlayers || 2);
   const [propertyNumberOrName, setPropertyNumberOrName] = useState('');
   const [street, setStreet] = useState('');
@@ -24,11 +26,11 @@ const GameForm = ({
   const [country, setCountry] = useState('');
   const [postCode, setPostCode] = useState('');
 
-  const handleDateChange = (selectedDate) => {
+  const handleDateChange = (event, selectedDate) => {
     const currentDate = selectedDate || dateAndTime;
     setShowDatePicker(Platform.OS === 'ios');
-    setDateAndTime(currentDate); 
-  };
+    setDateAndTime(currentDate);
+};
 
   const handleAddNewGame = () => {
     const addressData = {
@@ -50,9 +52,6 @@ const GameForm = ({
     };
     handleAddGame(newGame, addressData); 
 };
-
-  const levels = Array.from({ length: 11 }, (_, i) => (i * 0.5).toFixed(1));
-  const maxPlayersOptions = Array.from({ length: 21 }, (_, i) => i + 2);
 
   return (
 <View style={styles.cardContainer}>
@@ -76,7 +75,7 @@ const GameForm = ({
             onChange={date => setDateAndTime(date)}
             showTimeSelect
             dateFormat="Pp"
-            className={styles.datePickerStyle}
+            // className={styles.datePickerStyle}
           />
         ) : (
           <DateTimePicker
@@ -84,7 +83,7 @@ const GameForm = ({
             mode="datetime"
             display="default"
             onChange={handleDateChange}
-            style={styles.dateTimePicker}
+            // style={styles.dateTimePicker}
           />
         )
       )}
@@ -97,36 +96,35 @@ const GameForm = ({
         value={duration}
         onChangeText={setDuration}
       />
-      <Text style={styles.label}>Recommended Ability Level</Text>
-      <Picker
-        style={styles.picker}
-        selectedValue={recommendedAbilityLevel}
-        onValueChange={(itemValue) => setRecommendedAbilityLevel(itemValue)}
-      >
-        {levels.map((level) => (
-          <Picker.Item key={level} label={level} value={level} />
-        ))}
-      </Picker>
-      <Text style={styles.label}>Recommended Seriousness Ability</Text>
-      <Picker
-        style={styles.picker}
-        selectedValue={recommendedSeriousnessLevel}
-        onValueChange={(itemValue) => setRecommendedSeriousnessLevel(itemValue)}
-      >
-        {levels.map((level) => (
-          <Picker.Item key={level} label={level} value={level} />
-        ))}
-      </Picker>
-      <Text style={styles.label}>Max Players</Text>
-      <Picker
-        style={styles.picker}
-        selectedValue={maxPlayers}
-        onValueChange={(itemValue) => setMaxPlayers(itemValue)}
-      >
-        {maxPlayersOptions.map((players) => (
-          <Picker.Item key={players} label={players.toString()} value={players} />
-        ))}
-      </Picker>
+        <Text style={styles.label}>Recommended Ability Level</Text>
+        <View style={styles.container}>
+          <Text>Slider Value: {recommendedAbilityLevel.toFixed(1)}</Text>
+          <CustomSlider
+            value={recommendedAbilityLevel}
+            onValueChange={setRecommendedAbilityLevel}
+            step={0.5}
+          />
+        </View>
+        <Text style={styles.label}>Recommended Seriousness Ability</Text>
+        <View style={styles.container}>
+          <Text>Slider Value: {recommendedSeriousnessLevel.toFixed(1)}</Text>
+          <CustomSlider
+            value={recommendedSeriousnessLevel}
+            onValueChange={setRecommendedSeriousnessLevel}
+            step={0.5}
+          />
+        </View>
+        <Text style={styles.label}>Max Players</Text>
+        <View style={styles.container}>
+          <Text>Slider Value: {maxPlayers.toFixed(1)}</Text>
+          <Slider
+            value={maxPlayers}
+            onValueChange={setMaxPlayers}
+            minimumValue={2}
+            maximumValue={22}
+            step={1}
+          />
+        </View>
       <Text style={styles.label}>Select an address</Text>
       <AddressInputs 
         propertyNumberOrName={propertyNumberOrName} setPropertyNumberOrName={setPropertyNumberOrName}

@@ -1,7 +1,7 @@
 import React, { useState } from 'react';
 import { View, Text, TextInput, TouchableOpacity, StyleSheet } from 'react-native';
-import { Picker } from '@react-native-picker/picker';
 import AddressInputs from '../Addresses/AddressInputs';
+import CustomSlider from '../../Reusable/CustomSlider';
 
 const LoggedPlayerForm = ({ 
   onSubmitPlayerAdded,
@@ -13,8 +13,8 @@ const LoggedPlayerForm = ({
   const [userName, setUserName] = useState('');
   const [phoneNumber, setPhoneNumber] = useState('');
   const [age, setAge] = useState('');
-  const [selfAssessedAbilityLevel, setSelfAssessedAbilityLevel] = useState('');
-  const [selfAssessedSeriousnessLevel, setSelfAssessedSeriousnessLevel] = useState('');
+  const [selfAssessedAbilityLevel, setSelfAssessedAbilityLevel] = useState(0);
+  const [selfAssessedSeriousnessLevel, setSelfAssessedSeriousnessLevel] = useState(0);
   const [propertyNumberOrName, setPropertyNumberOrName] = useState('');
   const [street, setStreet] = useState('');
   const [city, setCity] = useState('');
@@ -83,26 +83,24 @@ const LoggedPlayerForm = ({
         onChangeText={setAge}
         keyboardType="numeric"
       />
-      <Text style={styles.label}>Self Assessed Ability Level</Text>
-      <Picker
-        style={styles.picker}
-        selectedValue={selfAssessedAbilityLevel}
-        onValueChange={(itemValue) => setSelfAssessedAbilityLevel(itemValue)}
-      >
-        {levels.map((level) => (
-          <Picker.Item key={level} label={level} value={level} />
-        ))}
-      </Picker>
-      <Text style={styles.label}>Self Assessed Seriousness Level</Text>
-      <Picker
-        style={styles.picker}
-        selectedValue={selfAssessedSeriousnessLevel}
-        onValueChange={(itemValue) => setSelfAssessedSeriousnessLevel(itemValue)}
-      >
-        {levels.map((level) => (
-          <Picker.Item key={level} label={level} value={level} />
-        ))}
-      </Picker>
+        <Text style={styles.label}>Self Assessed Ability Level</Text>
+        <View style={styles.container}>
+          <Text>Slider Value: {selfAssessedAbilityLevel.toFixed(1)}</Text>
+          <CustomSlider
+            value={selfAssessedAbilityLevel}
+            onValueChange={setSelfAssessedAbilityLevel}
+            step={0.5}
+          />
+        </View>
+        <Text style={styles.label}>Self Assessed Seriousness Level</Text>
+        <View style={styles.container}>
+          <Text>Slider Value: {selfAssessedSeriousnessLevel.toFixed(1)}</Text>
+          <CustomSlider
+            value={selfAssessedSeriousnessLevel}
+            onValueChange={setSelfAssessedSeriousnessLevel}
+            step={0.5}
+          />
+        </View>
       <Text style={styles.label}>Select an address:</Text>
       <AddressInputs 
         propertyNumberOrName={propertyNumberOrName} setPropertyNumberOrName={setPropertyNumberOrName}

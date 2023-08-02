@@ -89,7 +89,7 @@ const handleAddPlayer = async (playerData, addressData) => {
 };
 
 const handleEditPlayer = (playerData) => {
-  return PlayerServices.updatePlayer(loggedPlayer.id, playerData) // Return the promise
+  return PlayerServices.updatePlayer(loggedPlayer.id, playerData) 
     .then(() => { fetchAllPlayers(); })
     .catch(err => console.error('Error updating player profile', err));
 };
