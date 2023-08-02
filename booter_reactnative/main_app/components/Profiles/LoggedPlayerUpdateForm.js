@@ -15,6 +15,8 @@ const LoggedPlayerUpdateForm = ({
     const [userName, setUserName] = useState(loggedPlayer.userName);
     const [phoneNumber, setPhoneNumber] = useState(loggedPlayer.phoneNumber);
     const [age, setAge] = useState(loggedPlayer.age.toString());
+    // const [selfAssessedAbilityLevel, setSelfAssessedAbilityLevel] = useState(loggedPlayer.selfAssessedAbilityLevel.toString());
+    // const [selfAssessedSeriousnessLevel, setSelfAssessedSeriousnessLevel] = useState(loggedPlayer.selfAssessedSeriousnessLevel.toString());
     const [selfAssessedAbilityLevel, setSelfAssessedAbilityLevel] = useState(loggedPlayer.selfAssessedAbilityLevel.toString());
     const [selfAssessedSeriousnessLevel, setSelfAssessedSeriousnessLevel] = useState(loggedPlayer.selfAssessedSeriousnessLevel.toString());
     const [editProfileBoolean, setEditProfileBoolean] = useState(false);
@@ -105,7 +107,8 @@ const LoggedPlayerUpdateForm = ({
           onValueChange={(itemValue) => setSelfAssessedAbilityLevel(itemValue)}
         >
           {levels.map((level) => (
-            <Picker.Item key={level} label={level} value={level} />
+            // <Picker.Item key={level} label={level} value={level} />
+            <Picker.Item key={level} label={level} value={level.toString()} />
           ))}
         </Picker>
         <Text style={styles.label}>Self Assessed Seriousness Level</Text>
@@ -115,7 +118,9 @@ const LoggedPlayerUpdateForm = ({
           onValueChange={(itemValue) => setSelfAssessedSeriousnessLevel(itemValue)}
         >
           {levels.map((level) => (
-            <Picker.Item key={level} label={level} value={level} />
+            // <Picker.Item key={level} label={level} value={level} />
+            <Picker.Item key={level} label={level} value={level.toString()} />
+
           ))}
         </Picker>
         <TouchableOpacity style={styles.button} onPress={handleUpdatePlayer}>

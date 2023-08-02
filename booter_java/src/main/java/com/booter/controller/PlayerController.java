@@ -56,12 +56,24 @@ public class PlayerController {
         return new ResponseEntity<>(games, HttpStatus.OK);
     }
 
+//    @PostMapping(value = "/players")
+//    public ResponseEntity<Player> postPlayer(@RequestBody Player player){
+//        Player existingPlayer = playerRepository.findByAuth0Id(player.getAuth0Id());
+//        if (existingPlayer != null) {
+//            return new ResponseEntity<>(HttpStatus.CONFLICT);
+//        }
+//        playerRepository.save(player);
+//        return new ResponseEntity<>(player, HttpStatus.CREATED);
+//    }
+
     @PostMapping(value = "/players")
     public ResponseEntity<Player> postPlayer(@RequestBody Player player){
         Player existingPlayer = playerRepository.findByAuth0Id(player.getAuth0Id());
         if (existingPlayer != null) {
             return new ResponseEntity<>(HttpStatus.CONFLICT);
         }
+        player.displayedAbilityLevelVariableMethod();
+        player.displayedSeriousnessLevelVariableMethod();
         playerRepository.save(player);
         return new ResponseEntity<>(player, HttpStatus.CREATED);
     }
@@ -87,6 +99,8 @@ public class PlayerController {
         existingPlayer.setAge(player.getAge());
         existingPlayer.setSelfAssessedAbilityLevel(player.getSelfAssessedAbilityLevel());
         existingPlayer.setSelfAssessedSeriousnessLevel(player.getSelfAssessedSeriousnessLevel());
+        existingPlayer.displayedAbilityLevelVariableMethod();
+        existingPlayer.displayedSeriousnessLevelVariableMethod();
         playerRepository.save(existingPlayer);
         return new ResponseEntity<>(existingPlayer, HttpStatus.OK);
     }
