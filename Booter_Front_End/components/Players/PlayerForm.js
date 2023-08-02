@@ -1,4 +1,4 @@
-import React, { useState, useEffect } from 'react';
+import React, { useState } from 'react';
 import { View, Text, TextInput, TouchableOpacity, StyleSheet } from 'react-native';
 import { Picker } from '@react-native-picker/picker';
 import AddressInputs from '../Addresses/AddressInputs';
@@ -7,10 +7,7 @@ const PlayerForm = ({
   onSubmitPlayerAdded,
   auth0Id,
   setLoggedPlayer,
-  fetchAllPlayers,
 }) => {
-  const [playerCreatedBoolean, setPlayerCreatedBoolean] = useState(false);
-  const [newPlayerState, setNewPlayerState] = useState(null);
   const [firstName, setFirstName] = useState('');
   const [lastName, setLastName] = useState('');
   const [userName, setUserName] = useState('');
@@ -24,40 +21,7 @@ const PlayerForm = ({
   const [country, setCountry] = useState('');
   const [postCode, setPostCode] = useState('');
 
-  useEffect(() => {
-    if (playerCreatedBoolean) {
-      setLoggedPlayer(newPlayerState);
-      setPlayerCreatedBoolean(false);
-    }
-  }, [playerCreatedBoolean]);
-
   const levels = Array.from({ length: 11 }, (_, i) => (i * 0.5).toFixed(1));
-
-  // const handleAddPlayer = async () => {
-  //   const addressData = {
-  //     propertyNumberOrName,
-  //     street,
-  //     city,
-  //     country,
-  //     postCode
-  //   };
-
-  //   const newPlayer = {
-  //     auth0Id,
-  //     firstName,
-  //     lastName,
-  //     userName,
-  //     phoneNumber,
-  //     age: Number(age),
-  //     selfAssessedAbilityLevel: Number(selfAssessedAbilityLevel),
-  //     selfAssessedSeriousnessLevel: Number(selfAssessedSeriousnessLevel)
-  //   };
-
-  //   await onSubmitPlayerAdded(newPlayer, addressData);
-  //   await fetchAllPlayers();
-  //   await setPlayerCreatedBoolean(true);
-  //   await setNewPlayerState(newPlayer)
-  // };
 
   const handleAddPlayer = () => {
     const addressData = {
@@ -83,31 +47,6 @@ const PlayerForm = ({
       setLoggedPlayer(createdPlayer)
     });
   };
-
-  // const handleAddPlayer = () => {
-  //   const addressData = {
-  //     propertyNumberOrName,
-  //     street,
-  //     city,
-  //     country,
-  //     postCode
-  //   };
-  
-  //   const newPlayer = {
-  //     auth0Id,
-  //     firstName,
-  //     lastName,
-  //     userName,
-  //     phoneNumber,
-  //     age: Number(age),
-  //     selfAssessedAbilityLevel: Number(selfAssessedAbilityLevel),
-  //     selfAssessedSeriousnessLevel: Number(selfAssessedSeriousnessLevel)
-  //   };
-  
-  //   postPlayer({ ...newPlayer, address: addressData }).then((createdPlayer) => {
-  //     setLoggedPlayer(createdPlayer);
-  //   });
-  // };
 
   return (
     <View style={styles.cardContainer}>

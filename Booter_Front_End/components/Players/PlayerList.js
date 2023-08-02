@@ -1,6 +1,5 @@
 import { View, Text, TouchableOpacity } from "react-native";
 import PlayerElement from "./PlayerElement";
-import { styles } from '../../containers/AppStyles';
 
 const PlayerList = ({ 
   players, 

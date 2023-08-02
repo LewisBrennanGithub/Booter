@@ -149,6 +149,38 @@ public class PlayerController {
         return new ResponseEntity<>(Collections.singletonMap("message", "Player has rated other player's seriousness"), HttpStatus.OK);
     }
 
+//    @DeleteMapping("/players/{playerId}")
+//    public ResponseEntity<?> deletePlayer(@PathVariable Long playerId) {
+//        Optional<Player> playerOptional = playerRepository.findById(playerId);
+//        if (playerOptional.isPresent()) {
+//            Player player = playerOptional.get();
+//            List<Game> games = player.getGames();
+//            for (Game game : games) {
+//                game.removePlayer(player);
+//                gameRepository.save(game);
+//            }
+//            List<Game> createdGames = gameRepository.findByCreator(player);
+//            for (Game createdGame : createdGames) {
+//                List<Player> playersInGame = createdGame.getPlayers();
+//                if (!playersInGame.isEmpty()) {
+//                    for (Player newCreator : playersInGame) {
+//                        if (!newCreator.equals(player)) {
+//                            createdGame.setCreator(newCreator);
+//                            break;
+//                        }
+//                    }
+//                } else {
+//                    createdGame.setCreator(null);
+//                }
+//                gameRepository.delete(createdGame);
+//            }
+//            playerRepository.deleteById(playerId);
+//            return new ResponseEntity<>(Collections.singletonMap("message", "Player deleted"), HttpStatus.OK);
+//        } else {
+//            return new ResponseEntity<>(Collections.singletonMap("message", "Player not found"), HttpStatus.NOT_FOUND);
+//        }
+//    }
+
     @DeleteMapping("/players/{playerId}")
     public ResponseEntity<?> deletePlayer(@PathVariable Long playerId) {
         Optional<Player> playerOptional = playerRepository.findById(playerId);
@@ -169,10 +201,10 @@ public class PlayerController {
                             break;
                         }
                     }
+                    gameRepository.save(createdGame);
                 } else {
-                    createdGame.setCreator(null);
+                    gameRepository.delete(createdGame);
                 }
-                gameRepository.save(createdGame);
             }
             playerRepository.deleteById(playerId);
             return new ResponseEntity<>(Collections.singletonMap("message", "Player deleted"), HttpStatus.OK);
@@ -180,5 +212,6 @@ public class PlayerController {
             return new ResponseEntity<>(Collections.singletonMap("message", "Player not found"), HttpStatus.NOT_FOUND);
         }
     }
+
 
 }

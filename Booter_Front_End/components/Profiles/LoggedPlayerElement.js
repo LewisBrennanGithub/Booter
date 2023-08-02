@@ -91,11 +91,9 @@ const LoggedPlayerElement = ({
             <ScrollView>
                 <Text>Create a new player</Text>
                 <PlayerForm 
-                        addresses={addresses}
                         onSubmitPlayerAdded={onSubmitPlayerAdded}
                         auth0Id={auth0Id}
                         setLoggedPlayer={setLoggedPlayer}
-                        fetchAllPlayers={fetchAllPlayers}
                 />
             </ScrollView>
         )

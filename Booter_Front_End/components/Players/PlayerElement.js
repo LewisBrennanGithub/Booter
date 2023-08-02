@@ -1,7 +1,6 @@
 import React, { useState } from 'react';
 import { View, Text, TouchableOpacity, StyleSheet } from 'react-native';
 import { Picker } from '@react-native-picker/picker';
-import * as PlayerServices from '../../services/PlayerServices';
 
 const PlayerElement = ({ 
   player, 
@@ -23,7 +22,6 @@ const PlayerElement = ({
       </View>
       <Text>Ability Rating: {player.displayedAbilityLevel}</Text>
       <Text>Seriousness Rating: {player.displayedSeriousnessLevel}</Text>
-      
         <>
           <Picker
             selectedValue={selectedAbilityRating}
