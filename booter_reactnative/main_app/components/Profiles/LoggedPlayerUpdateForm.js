@@ -1,6 +1,8 @@
 import React, { useState, useEffect } from 'react';
 import { View, Text, TextInput, TouchableOpacity, StyleSheet } from 'react-native';
 import { Picker } from '@react-native-picker/picker';
+import Slider from '@react-native-community/slider';
+import CustomSlider from '../../Reusable/CustomSlider';
 import * as PlayerServices from "../../services/PlayerServices";
 
 const LoggedPlayerUpdateForm = ({
@@ -17,9 +19,11 @@ const LoggedPlayerUpdateForm = ({
     const [age, setAge] = useState(loggedPlayer.age.toString());
     // const [selfAssessedAbilityLevel, setSelfAssessedAbilityLevel] = useState(loggedPlayer.selfAssessedAbilityLevel.toString());
     // const [selfAssessedSeriousnessLevel, setSelfAssessedSeriousnessLevel] = useState(loggedPlayer.selfAssessedSeriousnessLevel.toString());
-    const [selfAssessedAbilityLevel, setSelfAssessedAbilityLevel] = useState(loggedPlayer.selfAssessedAbilityLevel.toString());
-    const [selfAssessedSeriousnessLevel, setSelfAssessedSeriousnessLevel] = useState(loggedPlayer.selfAssessedSeriousnessLevel.toString());
+    const [selfAssessedAbilityLevel, setSelfAssessedAbilityLevel] = useState(loggedPlayer.selfAssessedAbilityLevel);
+    const [selfAssessedSeriousnessLevel, setSelfAssessedSeriousnessLevel] = useState(loggedPlayer.selfAssessedSeriousnessLevel);
     const [editProfileBoolean, setEditProfileBoolean] = useState(false);
+    const [value, setValue] = React.useState(0);
+    const [sliderValue, setSliderValue] = useState(0);
 
   const levels = Array.from({ length: 11 }, (_, i) => (i * 0.5).toFixed(1));
 
@@ -101,28 +105,27 @@ const LoggedPlayerUpdateForm = ({
           keyboardType="numeric"
         />
         <Text style={styles.label}>Self Assessed Ability Level</Text>
-        <Picker
-          style={styles.picker}
-          selectedValue={selfAssessedAbilityLevel}
-          onValueChange={(itemValue) => setSelfAssessedAbilityLevel(itemValue)}
-        >
-          {levels.map((level) => (
-            // <Picker.Item key={level} label={level} value={level} />
-            <Picker.Item key={level} label={level} value={level.toString()} />
-          ))}
-        </Picker>
+        <View style={styles.container}>
+          <Text>Slider Value: {selfAssessedAbilityLevel.toFixed(1)}</Text>
+          <CustomSlider
+            value={selfAssessedAbilityLevel}
+            onValueChange={setSelfAssessedAbilityLevel}
+            step={0.5}
+          />
+        </View>
         <Text style={styles.label}>Self Assessed Seriousness Level</Text>
-        <Picker
-          style={styles.picker}
-          selectedValue={selfAssessedSeriousnessLevel}
-          onValueChange={(itemValue) => setSelfAssessedSeriousnessLevel(itemValue)}
-        >
-          {levels.map((level) => (
-            // <Picker.Item key={level} label={level} value={level} />
-            <Picker.Item key={level} label={level} value={level.toString()} />
-
-          ))}
-        </Picker>
+        <View style={styles.container}>
+          <Text>Slider Value: {selfAssessedSeriousnessLevel.toFixed(1)}</Text>
+          <CustomSlider
+            value={selfAssessedSeriousnessLevel}
+            onValueChange={setSelfAssessedSeriousnessLevel}
+            step={0.5}
+          />
+        </View>
+        <View style={styles.container}>
+        <View style={styles.container}>
+  </View>
+    </View>
         <TouchableOpacity style={styles.button} onPress={handleUpdatePlayer}>
           <Text style={styles.buttonText}>Update Player</Text>
         </TouchableOpacity>
