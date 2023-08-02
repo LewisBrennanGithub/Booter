@@ -7,6 +7,7 @@ import com.booter.repository.GameRepository;
 import com.booter.repository.PlayerRepository;
 import com.booter.repository.AddressRepository;
 import org.springframework.beans.factory.annotation.Autowired;
+import org.springframework.data.domain.Sort;
 import org.springframework.http.HttpStatus;
 import org.springframework.http.ResponseEntity;
 import org.springframework.web.bind.annotation.*;
@@ -27,7 +28,7 @@ public class PlayerController {
 
     @GetMapping(value = "/players")
     public ResponseEntity<List<Player>> getAllPlayers(){
-        return new ResponseEntity<>(playerRepository.findAll(), HttpStatus.OK);
+        return new ResponseEntity<>(playerRepository.findAll(Sort.by("id")), HttpStatus.OK);
     }
 
     @GetMapping(value = "/players/id/{id}")
@@ -148,38 +149,6 @@ public class PlayerController {
         playerRepository.save(ratedSeriousnessPlayer);
         return new ResponseEntity<>(Collections.singletonMap("message", "Player has rated other player's seriousness"), HttpStatus.OK);
     }
-
-//    @DeleteMapping("/players/{playerId}")
-//    public ResponseEntity<?> deletePlayer(@PathVariable Long playerId) {
-//        Optional<Player> playerOptional = playerRepository.findById(playerId);
-//        if (playerOptional.isPresent()) {
-//            Player player = playerOptional.get();
-//            List<Game> games = player.getGames();
-//            for (Game game : games) {
-//                game.removePlayer(player);
-//                gameRepository.save(game);
-//            }
-//            List<Game> createdGames = gameRepository.findByCreator(player);
-//            for (Game createdGame : createdGames) {
-//                List<Player> playersInGame = createdGame.getPlayers();
-//                if (!playersInGame.isEmpty()) {
-//                    for (Player newCreator : playersInGame) {
-//                        if (!newCreator.equals(player)) {
-//                            createdGame.setCreator(newCreator);
-//                            break;
-//                        }
-//                    }
-//                } else {
-//                    createdGame.setCreator(null);
-//                }
-//                gameRepository.delete(createdGame);
-//            }
-//            playerRepository.deleteById(playerId);
-//            return new ResponseEntity<>(Collections.singletonMap("message", "Player deleted"), HttpStatus.OK);
-//        } else {
-//            return new ResponseEntity<>(Collections.singletonMap("message", "Player not found"), HttpStatus.NOT_FOUND);
-//        }
-//    }
 
     @DeleteMapping("/players/{playerId}")
     public ResponseEntity<?> deletePlayer(@PathVariable Long playerId) {

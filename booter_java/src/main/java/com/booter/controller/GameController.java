@@ -7,6 +7,7 @@ import com.booter.repository.AddressRepository;
 import com.booter.repository.GameRepository;
 import com.booter.repository.PlayerRepository;
 import org.springframework.beans.factory.annotation.Autowired;
+import org.springframework.data.domain.Sort;
 import org.springframework.http.HttpStatus;
 import org.springframework.http.ResponseEntity;
 import org.springframework.web.bind.annotation.*;
@@ -25,7 +26,7 @@ public class GameController {
 
     @GetMapping(value = "/games")
     public ResponseEntity<List<Game>> getAllGames(){
-        return new ResponseEntity<>(gameRepository.findAll(), HttpStatus.OK);
+        return new ResponseEntity<>(gameRepository.findAll(Sort.by("id")), HttpStatus.OK);
     }
 
     @GetMapping(value = "/games/{id}")

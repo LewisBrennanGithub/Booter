@@ -95,8 +95,8 @@ const GameElement = ({
           <Text>Duration: {game.duration}</Text>
           <Text>Recommended Ability Level: {game.recommendedAbilityLevel}</Text>
           <Text>Recommended Seriousness Level: {game.recommendedSeriousnessLevel}</Text>
-          <Text>Actual Ability Level: {game.actualAbilityLevel}</Text>
-          <Text>Actual Seriousness Level: {game.actualSeriousnessLevel}</Text>
+          <Text>Actual Ability Level: {game.actualAbilityLevel.toFixed(1)}</Text>
+          <Text>Actual Seriousness Level: {game.actualSeriousnessLevel.toFixed(1)}</Text>
           <Text>Completed: {game.completedStatus ? 'Yes' : 'No'}</Text>
           <Text>Max Players: {game.maxPlayers}</Text>
           {gamePlayers.map(player => (
