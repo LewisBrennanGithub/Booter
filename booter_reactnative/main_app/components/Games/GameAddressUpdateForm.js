@@ -51,30 +51,35 @@ const GameAddressUpdateForm = ({
   return (
     <View style={styles.cardContainer}>
       <Text style={styles.heading}>Update Address</Text>
+      <Text>Property Number or Name</Text>
       <TextInput
         style={styles.input}
         placeholder="Property Number or Name"
         value={propertyNumberOrName}
         onChangeText={text => setPropertyNumberOrName(text)}
       />
+      <Text>Street</Text>
       <TextInput
         style={styles.input}
         placeholder="Street"
         value={street}
         onChangeText={text => setStreet(text)}
       />
+      <Text>City</Text>
       <TextInput
         style={styles.input}
         placeholder="City"
         value={city}
         onChangeText={text => setCity(text)}
       />
+      <Text>Country</Text>
       <TextInput
         style={styles.input}
         placeholder="Country"
         value={country}
         onChangeText={text => setCountry(text)}
       />
+      <Text>Post Code</Text>
       <TextInput
         style={styles.input}
         placeholder="Post Code"

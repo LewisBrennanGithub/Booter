@@ -2,8 +2,9 @@ import React, { useState, useEffect } from 'react';
 import { View, Text, TouchableOpacity, StyleSheet } from 'react-native';
 import GameUpdateForm from './GameUpdateForm';
 import * as GameServices from "../../services/GameServices";
-import AddressUpdateForm from '../Addresses/AdressUpdateForm';
 import GameAddressUpdateForm from './GameAddressUpdateForm';
+import { formatGameDateAndTime } from '../../Reusable/DateTimeInterpreter';
+
 
 const GameElement = ({ 
   loggedPlayer, 
@@ -91,7 +92,7 @@ const GameElement = ({
           <Text style={styles.cardTitle}>Name: {game.name}</Text>
           <Text>Creator: {players && game && game.creator ? getPlayerUsername(game.creator.id) : 'N/A'}</Text>
           <Text>Address: {game.address ? `${game.address.street}, ${game.address.city}` : 'N/A'}</Text>
-          <Text>Date and Time: {game.dateAndTime}</Text>
+          <Text>Date and Time: {formatGameDateAndTime(game.dateAndTime)}</Text>
           <Text>Duration: {game.duration}</Text>
           <Text>Recommended Ability Level: {game.recommendedAbilityLevel}</Text>
           <Text>Recommended Seriousness Level: {game.recommendedSeriousnessLevel}</Text>

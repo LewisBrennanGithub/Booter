@@ -53,7 +53,10 @@ public class GameController {
         Optional<Game> gameOptional = gameRepository.findById(id);
         Game existingGame = gameOptional.get();
         existingGame.setName(game.getName());
-        existingGame.setAddress(game.getAddress());
+//        existingGame.setAddress(game.getAddress());
+        if (game.getAddress() != null) {
+            existingGame.setAddress(game.getAddress());
+        }
         existingGame.setDateAndTime(game.getDateAndTime());
         existingGame.setDuration(game.getDuration());
         existingGame.setRecommendedAbilityLevel(game.getRecommendedAbilityLevel());

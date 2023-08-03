@@ -12,17 +12,13 @@ const GameUpdateForm = ({
   handleCancelGameUpdate
 }) => {
   const [name, setName] = useState(game.name || '');
-  const [dateAndTime, setDateAndTime] = useState(game.dateAndTime || new Date());
+  const [dateAndTime, setDateAndTime] = useState(new Date(game.dateAndTime) || new Date());
   const [showDatePicker, setShowDatePicker] = useState(false);
   const [duration, setDuration] = useState(game.duration ? game.duration.toString() : '');
   const [recommendedAbilityLevel, setRecommendedAbilityLevel] = useState(game.recommendedAbilityLevel || 0);
   const [recommendedSeriousnessLevel, setRecommendedSeriousnessLevel] = useState(game.recommendedSeriousnessLevel || 0);
   const [maxPlayers, setMaxPlayers] = useState(game.maxPlayers || 2);
-  const [propertyNumberOrName, setPropertyNumberOrName] = useState(game.address.propertyNumberOrName || '');
-  const [street, setStreet] = useState(game.address.street || '');
-  const [city, setCity] = useState(game.address.city || '');
-  const [country, setCountry] = useState(game.address.country || '');
-  const [postCode, setPostCode] = useState(game.address.postCode || '');
+
 
   const handleDateChange = (event, selectedDate) => {
     const currentDate = selectedDate || dateAndTime;
@@ -38,13 +34,6 @@ const GameUpdateForm = ({
       recommendedAbilityLevel,
       recommendedSeriousnessLevel,
       maxPlayers,
-      address: {
-        propertyNumberOrName,
-        street,
-        city,
-        country,
-        postCode
-      }
     };
     handleUpdateGame(updatedData); 
   };
@@ -118,17 +107,9 @@ const GameUpdateForm = ({
               step={1}
             />
           </View>
-          {/* <Text style={styles.label}>Select an address</Text>
-          <AddressInputs 
-            propertyNumberOrName={propertyNumberOrName} setPropertyNumberOrName={setPropertyNumberOrName}
-            street={street} setStreet={setStreet}
-            city={city} setCity={setCity}
-            country={country} setCountry={setCountry}
-            postCode={postCode} setPostCode={setPostCode}
-          />
           <TouchableOpacity style={styles.button} onPress={updateGame}>
             <Text style={styles.buttonText}>Save</Text>
-          </TouchableOpacity> */}
+          </TouchableOpacity>
         </>
     </View>
   );
