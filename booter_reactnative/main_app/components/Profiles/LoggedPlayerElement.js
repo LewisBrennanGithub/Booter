@@ -2,7 +2,7 @@ import { View, Text, TouchableOpacity, StyleSheet, ScrollView } from "react-nati
 import { useState, useEffect } from 'react';
 import LoggedPlayerForm from "./LoggedPlayerForm";
 import LoggedPlayerUpdateForm from "./LoggedPlayerUpdateForm";
-import AddressUpdateForm from "../Addresses/AdressUpdateForm";
+import LoggedPlayerAddressUpdateForm from "./LoggedPlayerAddressUpdateForm";
 
 const LoggedPlayerElement = ({ 
   loggedPlayer,
@@ -18,14 +18,14 @@ const LoggedPlayerElement = ({
   const [editingAddressBoolean, setEditingAddressBoolean] = useState(false);
   const [triggerUseEffect, setTriggerUseEffect] = useState(false);
 
-  useEffect(() => {
-    if (triggerUseEffect) {
-      fetchAllAddresses();
-      fetchAllPlayers();
-      setTriggerUseEffect(false);
-      console.log(loggedPlayer.address.propertyNumberOrName)
-    }
-  }, [triggerUseEffect]);
+  // useEffect(() => {
+  //   if (triggerUseEffect) {
+  //     fetchAllAddresses();
+  //     fetchAllPlayers();
+  //     setTriggerUseEffect(false);
+  //     console.log(loggedPlayer.address.propertyNumberOrName)
+  //   }
+  // }, [triggerUseEffect]);
 
   const toggleEditAddressTrue = () => {
     setEditingAddressBoolean(true);
@@ -61,13 +61,13 @@ const LoggedPlayerElement = ({
                 <Text>Seriousness Rating: {loggedPlayer.displayedSeriousnessLevel}</Text>
                 <Text>Address:</Text>
         {editingAddressBoolean ? (
-          <AddressUpdateForm
+          <LoggedPlayerAddressUpdateForm
+            setLoggedPlayer={setLoggedPlayer}
             address={loggedPlayer.address}
             handleUpdateAddress={handleUpdateAddress}
             toggleEditAddressFalse={toggleEditAddressFalse}
-            fetchAllPlayers={fetchAllPlayers}
-            fetchAllAddresses={fetchAllAddresses}
-            setLoggedPlayer={setLoggedPlayer}
+            // fetchAllPlayers={fetchAllPlayers}
+            // fetchAllAddresses={fetchAllAddresses}
           />
         ) : (
           loggedPlayer.address ? (

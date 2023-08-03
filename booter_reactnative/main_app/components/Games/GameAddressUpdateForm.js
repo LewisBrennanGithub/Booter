@@ -1,11 +1,10 @@
 import React, { useState, useEffect } from 'react';
 import { View, Text, TextInput, TouchableOpacity, StyleSheet } from 'react-native';
 
-const AddressUpdateForm = ({ 
+const GameAddressUpdateForm = ({ 
   setLoggedPlayer,
   address, 
   handleUpdateAddress, 
-  toggleEditAddressFalse,
   handleCancelUpdateAddress,
 }) => {
   const [propertyNumberOrName, setPropertyNumberOrName] = useState('');
@@ -49,11 +48,6 @@ const AddressUpdateForm = ({
       });
   };
 
-  const cancelUpdate = () => {
-    handleCancelUpdateAddress, 
-    toggleEditAddressFalse
-  }
-
   return (
     <View style={styles.cardContainer}>
       <Text style={styles.heading}>Update Address</Text>
@@ -87,7 +81,7 @@ const AddressUpdateForm = ({
         value={postCode}
         onChangeText={text => setPostCode(text)}
       />
-      <TouchableOpacity style={styles.button} onPress={cancelUpdate()}>
+      <TouchableOpacity style={styles.button} onPress={handleCancelUpdateAddress}>
         <Text style={styles.buttonText}>Cancel</Text>
       </TouchableOpacity>
       <TouchableOpacity style={styles.button} onPress={processUpdateAddress}>
@@ -132,4 +126,4 @@ const styles = StyleSheet.create({
   },
 });
 
-export default AddressUpdateForm;
+export default GameAddressUpdateForm;

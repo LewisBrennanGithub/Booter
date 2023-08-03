@@ -3,6 +3,7 @@ import { View, Text, TouchableOpacity, StyleSheet } from 'react-native';
 import GameUpdateForm from './GameUpdateForm';
 import * as GameServices from "../../services/GameServices";
 import AddressUpdateForm from '../Addresses/AdressUpdateForm';
+import GameAddressUpdateForm from './GameAddressUpdateForm';
 
 const GameElement = ({ 
   loggedPlayer, 
@@ -79,9 +80,8 @@ const GameElement = ({
           handleCancelGameUpdate={handleCancelGameUpdate}
         />
       ) : isEditingAddress && isCreator ? (   
-        <AddressUpdateForm
+        <GameAddressUpdateForm
           setLoggedPlayer={setLoggedPlayer}
-          game={game}
           address={game.address}
           handleUpdateAddress={handleUpdateAddress}
           handleCancelUpdateAddress={handleCancelUpdateAddress}
