@@ -126,8 +126,9 @@ const styles = StyleSheet.create({
     paddingHorizontal: 16,
   },
   buttonText: {
-    color: 'white',
+    color: '#ffffff',
     textAlign: 'center',
+    fontWeight: 'bold',
   },
 });
 

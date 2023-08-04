@@ -9,6 +9,7 @@ const LoggedPlayerUpdateForm = ({
     setLoggedPlayer,
     handleEditPlayer,
     fetchAllPlayers,
+    toggleEditProfileFalse
 }) => {
     const [firstName, setFirstName] = useState(loggedPlayer.firstName);
     const [lastName, setLastName] = useState(loggedPlayer.lastName);
@@ -17,7 +18,6 @@ const LoggedPlayerUpdateForm = ({
     const [age, setAge] = useState(loggedPlayer.age.toString());
     const [selfAssessedAbilityLevel, setSelfAssessedAbilityLevel] = useState(loggedPlayer.selfAssessedAbilityLevel);
     const [selfAssessedSeriousnessLevel, setSelfAssessedSeriousnessLevel] = useState(loggedPlayer.selfAssessedSeriousnessLevel);
-    const [editProfileBoolean, setEditProfileBoolean] = useState(false);
 
   const handleUpdatePlayer = async () => {
     const updatedPlayer = {
@@ -47,16 +47,9 @@ const LoggedPlayerUpdateForm = ({
     }
   }
 
-  const setEditProfileBooleanTrue = () => {
-    setEditProfileBoolean(true);
-  } 
-  const setEditProfileBooleanFalse = () => {
-    setEditProfileBoolean(false);
-  }
     return (
-        editProfileBoolean ? (
         <View style={styles.cardContainer}>
-        <TouchableOpacity style={styles.button} onPress={setEditProfileBooleanFalse}>
+        <TouchableOpacity style={styles.button} onPress={toggleEditProfileFalse}>
         <Text style={styles.buttonText}>Cancel Edit Profile</Text>
         </TouchableOpacity>
         <Text style={styles.heading}>Edit Player</Text>
@@ -122,13 +115,6 @@ const LoggedPlayerUpdateForm = ({
           <Text style={styles.buttonText}>Update Player</Text>
         </TouchableOpacity>
       </View>
-        ) : (
-      <View>
-          <TouchableOpacity style={styles.button} onPress={setEditProfileBooleanTrue}>
-              <Text style={styles.buttonText}>Edit Profile</Text>
-          </TouchableOpacity>
-      </View>
-        )
     );
 };
 
