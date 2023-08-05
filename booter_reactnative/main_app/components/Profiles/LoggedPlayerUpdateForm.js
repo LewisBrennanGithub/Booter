@@ -2,6 +2,7 @@ import React, { useState } from 'react';
 import { View, Text, TextInput, TouchableOpacity, StyleSheet } from 'react-native';
 import CustomSlider from '../../Reusable/CustomSlider';
 import * as PlayerServices from "../../services/PlayerServices";
+import { appStyles } from '../../containers/AppStyles';
 
 const LoggedPlayerUpdateForm = ({
     loggedPlayer,
@@ -48,73 +49,66 @@ const LoggedPlayerUpdateForm = ({
   }
 
     return (
-        <View style={styles.cardContainer}>
-        <TouchableOpacity style={styles.button} onPress={toggleEditProfileFalse}>
-        <Text style={styles.buttonText}>Cancel Edit Profile</Text>
-        </TouchableOpacity>
-        <Text style={styles.heading}>Edit Player</Text>
-        <Text>First Name</Text>
+        <>
+        <View style={appStyles.presentationalTurqouoiseLine}></View>
+        <Text style={appStyles.cardTitleText}>Edit Player</Text>
+        <Text style={appStyles.cardText}>First Name</Text>
         <TextInput
-          style={styles.input}
+          style={appStyles.input}
           placeholder="First Name"
           value={firstName}
           onChangeText={setFirstName}
         />
-        <Text>Last Name</Text>
+        <Text style={appStyles.cardText}>Last Name</Text>
         <TextInput
-          style={styles.input}
+          style={appStyles.input}
           placeholder="Last Name"
           value={lastName}
           onChangeText={setLastName}
         />
-        <Text>Username</Text>
+        <Text style={appStyles.cardText}>Username</Text>
         <TextInput
-          style={styles.input}
+          style={appStyles.input}
           placeholder="User Name"
           value={userName}
           onChangeText={setUserName}
         />
-        <Text>Phone Number</Text>
+        <Text style={appStyles.cardText}>Phone Number</Text>
         <TextInput
-          style={styles.input}
+          style={appStyles.input}
           placeholder="Phone Number"
           value={phoneNumber}
           onChangeText={setPhoneNumber}
         />
-        <Text>Age</Text>
+        <Text style={appStyles.cardText}>Age</Text>
         <TextInput
-          style={styles.input}
+          style={appStyles.input}
           placeholder="Age"
           value={age}
           onChangeText={setAge}
           keyboardType="numeric"
         />
-        <Text style={styles.label}>Self Assessed Ability Level</Text>
-        <View style={styles.container}>
-          <Text>Slider Value: {selfAssessedAbilityLevel.toFixed(1)}</Text>
+        <Text style={appStyles.cardText}>Self Assessed Ability Level</Text>
+          <Text style={appStyles.cardText}>Slider Value: {selfAssessedAbilityLevel.toFixed(1)}</Text>
           <CustomSlider
             value={selfAssessedAbilityLevel}
             onValueChange={setSelfAssessedAbilityLevel}
             step={0.5}
           />
-        </View>
-        <Text style={styles.label}>Self Assessed Seriousness Level</Text>
-        <View style={styles.container}>
-          <Text>Slider Value: {selfAssessedSeriousnessLevel.toFixed(1)}</Text>
+        <Text style={appStyles.cardText}>Self Assessed Seriousness Level</Text>
+          <Text style={appStyles.cardText}>Slider Value: {selfAssessedSeriousnessLevel.toFixed(1)}</Text>
           <CustomSlider
             value={selfAssessedSeriousnessLevel}
             onValueChange={setSelfAssessedSeriousnessLevel}
             step={0.5}
           />
-        </View>
-        <View style={styles.container}>
-        <View style={styles.container}>
-  </View>
-    </View>
-        <TouchableOpacity style={styles.button} onPress={handleUpdatePlayer}>
-          <Text style={styles.buttonText}>Update Player</Text>
+        <TouchableOpacity style={appStyles.buttonColor} onPress={handleUpdatePlayer}>
+          <Text style={appStyles.buttonColorText}>Update Player</Text>
         </TouchableOpacity>
-      </View>
+        <TouchableOpacity style={appStyles.buttonColor} onPress={toggleEditProfileFalse}>
+        <Text style={appStyles.buttonColorText}>Cancel Edit Profile</Text>
+        </TouchableOpacity>
+        </>
     );
 };
 

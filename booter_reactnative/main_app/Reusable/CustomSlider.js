@@ -1,6 +1,5 @@
 import React from 'react';
 import Slider from '@react-native-community/slider';
-import { appStyles } from '../containers/AppStyles';
 
 const CustomSlider = ({ value, onValueChange, step }) => (
   <Slider

@@ -1,5 +1,5 @@
 import React, { useState } from 'react';
-import { View, Text, TextInput, TouchableOpacity, StyleSheet, Platform } from 'react-native';
+import { View, Text, TextInput, TouchableOpacity, Platform } from 'react-native';
 import { appStyles } from '../../containers/AppStyles';
 import CustomSlider from '../../Reusable/CustomSlider';
 import Slider from '@react-native-community/slider';
@@ -74,7 +74,6 @@ const GameForm = ({
             onChange={date => setDateAndTime(date)}
             showTimeSelect
             dateFormat="Pp"
-            // className={styles.datePickerStyle}
           />
         </View>
         ) : (
@@ -84,11 +83,11 @@ const GameForm = ({
             mode="datetime"
             display="default"
             onChange={handleDateChange}
-            // style={styles.dateTimePicker}
           />
           </View>
         )
       )}
+      {/* REDO THE BELOW BUTTON POSSIBLY */}
       <TouchableOpacity style={appStyles.bespokeButtonOne} onPress={() => setShowDatePicker(true)}>
         <Text style={appStyles.buttonColorText}>Select Date and Time</Text>
       </TouchableOpacity>
@@ -100,25 +99,20 @@ const GameForm = ({
         onChangeText={setDuration}
       />
         <Text style={appStyles.cardText}>Recommended Ability Level</Text>
-        <View style={styles.container}>
           <Text style={appStyles.cardText}>Slider Value: {recommendedAbilityLevel.toFixed(1)}</Text>
           <CustomSlider
             value={recommendedAbilityLevel}
             onValueChange={setRecommendedAbilityLevel}
             step={0.5}
           />
-        </View>
         <Text style={appStyles.cardText}>Recommended Seriousness Ability</Text>
-        <View style={styles.container}>
           <Text style={appStyles.cardText}>Slider Value: {recommendedSeriousnessLevel.toFixed(1)}</Text>
           <CustomSlider
             value={recommendedSeriousnessLevel}
             onValueChange={setRecommendedSeriousnessLevel}
             step={0.5}
           />
-        </View>
         <Text style={appStyles.cardText}>Max Players</Text>
-        <View style={styles.container}>
           <Text>Slider Value: {maxPlayers.toFixed(1)}</Text>
           <Slider
             value={maxPlayers}
@@ -129,7 +123,6 @@ const GameForm = ({
             minimumTrackTintColor="#068DA9"
             maximumTrackTintColor="#d44908"
           />
-        </View>
       <Text style={appStyles.cardText}>Select an address</Text>
       <AddressInputs 
         propertyNumberOrName={propertyNumberOrName} setPropertyNumberOrName={setPropertyNumberOrName}
@@ -155,57 +148,5 @@ const GameForm = ({
 </View>
 );
 }
-
-const styles = StyleSheet.create({
-  cardContainer: {
-    backgroundColor: '#ffffff',
-    marginVertical: 10,
-    padding: 20,
-    borderRadius: 8,
-    shadowColor: '#000000',
-    shadowOpacity: 0.1,
-    shadowRadius: 4,
-    shadowOffset: {
-      width: 0,
-      height: 2,
-    },
-    elevation: 4,
-  },
-  heading: {
-    fontSize: 18,
-    fontWeight: 'bold',
-    marginBottom: 10,
-  },
-  label: {
-    fontSize: 16,
-    marginBottom: 5,
-  },
-  input: {
-    height: 40,
-    borderColor: 'gray',
-    borderWidth: 1,
-    borderRadius: 4,
-    marginBottom: 10,
-    paddingHorizontal: 10,
-  },
-  picker: {
-    marginBottom: 10,
-  },
-  button: {
-    backgroundColor: '#783c08',
-    paddingVertical: 10,
-    paddingHorizontal: 20,
-    borderRadius: 4,
-    marginBottom: 10,
-  },
-  buttonText: {
-    color: '#ffffff',
-    textAlign: 'center',
-    fontWeight: 'bold',
-  },
-  dateTimePicker: {
-    backgroundColor: '#783c08',
-  },
-});
 
 export default GameForm;

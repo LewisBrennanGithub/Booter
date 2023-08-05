@@ -1,11 +1,11 @@
 import React, { useState, useEffect } from 'react';
-import { View, Text, TouchableOpacity, StyleSheet } from 'react-native';
+import { View, Text, TouchableOpacity } from 'react-native';
 import { appStyles } from '../../containers/AppStyles';
-import GameUpdateForm from './GameUpdateForm';
-import * as GameServices from "../../services/GameServices";
-import GameAddressUpdateForm from './GameAddressUpdateForm';
 import { formatGameDateAndTime } from '../../Reusable/DateTimeInterpreter';
-
+// Why the straight import? Consider prop drilling
+import * as GameServices from "../../services/GameServices";
+import GameUpdateForm from './GameUpdateForm';
+import GameAddressUpdateForm from './GameAddressUpdateForm';
 
 const GameElement = ({ 
   loggedPlayer, 
@@ -106,8 +106,9 @@ const GameElement = ({
           <View style={appStyles.presentationalCopperLine}></View>
           <Text style={appStyles.subHeaderText}>Game Player Information</Text>
           <Text style={appStyles.cardText}>Max Players: {game.maxPlayers}</Text>
+          <Text style={appStyles.cardText}>Players:</Text>
           {gamePlayers.map(player => (
-            <Text  style={appStyles.cardText} key={player.id}>Player: {player.userName}</Text>
+            <Text  style={appStyles.cardText} key={player.id}>- {player.userName}</Text>
           ))}
           {!playerIsInGame && !gameIsFull && (
 
@@ -118,17 +119,17 @@ const GameElement = ({
           )}
           {isCreator && (
             <>
-              <TouchableOpacity style={appStyles.buttonColor} onPress={() => handleSetGameCompletedStatus(game)}>
-                <Text style={appStyles.buttonColorText}>Game Completed</Text>
-              </TouchableOpacity>
-              <TouchableOpacity style={appStyles.buttonColor} onPress={() => handleDeleteGame(game.id)}>
-                <Text style={appStyles.buttonColorText}>Delete Game</Text>
-              </TouchableOpacity>
               <TouchableOpacity style={appStyles.buttonColor} onPress={toggleEditGameTrue}>
                 <Text style={appStyles.buttonColorText}>Edit Game</Text>
               </TouchableOpacity>
               <TouchableOpacity style={appStyles.buttonColor} onPress={toggleEditAddressTrue}>
                 <Text style={appStyles.buttonColorText}>Edit Address</Text>
+              </TouchableOpacity>
+              <TouchableOpacity style={appStyles.buttonColor} onPress={() => handleSetGameCompletedStatus(game)}>
+                <Text style={appStyles.buttonColorText}>Game Completed</Text>
+              </TouchableOpacity>
+              <TouchableOpacity style={appStyles.buttonColor} onPress={() => handleDeleteGame(game.id)}>
+                <Text style={appStyles.buttonColorText}>Delete Game</Text>
               </TouchableOpacity>
               </>
           )}
@@ -137,37 +138,5 @@ const GameElement = ({
     </View>
   );
 };
-
-const styles = StyleSheet.create({
-  cardContainer: {
-    marginBottom: 10,
-  },
-  card: {
-    backgroundColor: '#ffffff',
-    borderRadius: 8,
-    padding: 16,
-    shadowColor: '#000000',
-    shadowOffset: { width: 0, height: 2 },
-    shadowOpacity: 0.1,
-    shadowRadius: 4,
-    elevation: 2,
-  },
-  cardTitle: {
-    fontSize: 16,
-    fontWeight: 'bold',
-    marginBottom: 8,
-  },
-  cardButton: {
-    backgroundColor: '#783c08',
-    borderRadius: 4,
-    paddingVertical: 8,
-    paddingHorizontal: 12,
-    marginTop: 8,
-  },
-  buttonText: {
-    color: 'white',
-    textAlign: 'center',
-  },
-});
 
 export default GameElement;

@@ -91,7 +91,7 @@ export const appStyles = StyleSheet.create({
     elevation: 2,
     marginVertical: 5,
     // borderRadius: 4,
-    // marginHorizontal: 4,
+    marginHorizontal: 10,
   },
 
   cardNoBackground: {
@@ -232,14 +232,14 @@ presentationalTurqouoiseLine: {
   height: 1,
   borderColor: '#068DA9',
   borderWidth: 2,
-  marginVertical: 2,
+  marginVertical: 5,
 },
 
 presentationalCopperLine: {
   height: 1,
   borderColor: '#d44908',
   borderWidth: 2,
-  marginVertical: 2,
+  marginVertical: 5,
 }
 
 });

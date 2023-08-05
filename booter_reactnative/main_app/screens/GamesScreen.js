@@ -18,9 +18,6 @@ const GamesScreen = ({
 
   return (
       <ScrollView>
-        {/* <View style={appStyles.subHeader}>
-          <Text style={appStyles.subHeaderText}>Games</Text>
-        </View> */}
         { loggedPlayer ? (
         <GameForm 
             handleAddGame={handleAddGame}

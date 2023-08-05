@@ -1,5 +1,6 @@
 import React, { useState, useEffect } from 'react';
 import { View, Text, TextInput, TouchableOpacity, StyleSheet } from 'react-native';
+import { appStyles } from '../../containers/AppStyles';
 
 const GameAddressUpdateForm = ({ 
   setLoggedPlayer,
@@ -49,48 +50,48 @@ const GameAddressUpdateForm = ({
   };
 
   return (
-    <View style={styles.cardContainer}>
-      <Text style={styles.heading}>Update Address</Text>
-      <Text>Property Number or Name</Text>
+    <View style={appStyles.card}>
+      <Text style={appStyles.cardTitleText}>Update Address</Text>
+      <Text style={appStyles.cardText}>Property Number or Name</Text>
       <TextInput
-        style={styles.input}
+        style={appStyles.input}
         placeholder="Property Number or Name"
         value={propertyNumberOrName}
         onChangeText={text => setPropertyNumberOrName(text)}
       />
-      <Text>Street</Text>
+      <Text style={appStyles.cardText}>Street</Text>
       <TextInput
-        style={styles.input}
+        style={appStyles.input}
         placeholder="Street"
         value={street}
         onChangeText={text => setStreet(text)}
       />
-      <Text>City</Text>
+      <Text style={appStyles.cardText}>Village, Town or City</Text>
       <TextInput
-        style={styles.input}
-        placeholder="City"
+        style={appStyles.input}
+        placeholder="Village, Town or City"
         value={city}
         onChangeText={text => setCity(text)}
       />
-      <Text>Country</Text>
+      <Text style={appStyles.cardText}>Country</Text>
       <TextInput
-        style={styles.input}
+        style={appStyles.input}
         placeholder="Country"
         value={country}
         onChangeText={text => setCountry(text)}
       />
-      <Text>Post Code</Text>
+      <Text style={appStyles.cardText}>Post Code</Text>
       <TextInput
-        style={styles.input}
+        style={appStyles.input}
         placeholder="Post Code"
         value={postCode}
         onChangeText={text => setPostCode(text)}
       />
-      <TouchableOpacity style={styles.button} onPress={handleCancelUpdateAddress}>
-        <Text style={styles.buttonText}>Cancel</Text>
+      <TouchableOpacity style={appStyles.buttonColor} onPress={handleCancelUpdateAddress}>
+        <Text style={appStyles.buttonColorText}>Cancel</Text>
       </TouchableOpacity>
-      <TouchableOpacity style={styles.button} onPress={processUpdateAddress}>
-        <Text style={styles.buttonText}>Update Address</Text>
+      <TouchableOpacity style={appStyles.buttonColor} onPress={processUpdateAddress}>
+        <Text style={appStyles.buttonColorText}>Update Address</Text>
       </TouchableOpacity>
     </View>
   );
