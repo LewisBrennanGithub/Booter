@@ -12,9 +12,6 @@ const PlayersScreen = ({
 }) => {
   return (
     <ScrollView>
-        <View style={appStyles.subHeader}>
-          <Text style={appStyles.subHeaderText}>Players</Text>
-        </View>
         <PlayerList
           players={players}
           loggedPlayer={loggedPlayer}

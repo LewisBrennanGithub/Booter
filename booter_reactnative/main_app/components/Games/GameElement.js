@@ -93,37 +93,39 @@ const GameElement = ({
           <View style={appStyles.cardTitle}>
           <Text style={appStyles.cardTitleText}>{game.name}</Text>
           </View>
-          <Text>Creator: {players && game && game.creator ? getPlayerUsername(game.creator.id) : 'N/A'}</Text>
-          <Text>Address: {game.address ? `${game.address.street}, ${game.address.city}` : 'N/A'}</Text>
-          <Text>Date and Time: {formatGameDateAndTime(game.dateAndTime)}</Text>
-          <Text>Duration: {game.duration}</Text>
-          <Text>Recommended Ability Level: {game.recommendedAbilityLevel}</Text>
-          <Text>Recommended Seriousness Level: {game.recommendedSeriousnessLevel}</Text>
-          <Text>Actual Ability Level: {game.actualAbilityLevel.toFixed(1)}</Text>
-          <Text>Actual Seriousness Level: {game.actualSeriousnessLevel.toFixed(1)}</Text>
-          <Text>Completed: {game.completedStatus ? 'Yes' : 'No'}</Text>
-          <Text>Max Players: {game.maxPlayers}</Text>
+          <Text style={appStyles.cardText}>Creator: {players && game && game.creator ? getPlayerUsername(game.creator.id) : 'N/A'}</Text>
+          <Text style={appStyles.cardText}>Address: {game.address ? `${game.address.street}, ${game.address.city}` : 'N/A'}</Text>
+          <Text style={appStyles.cardText}>Date and Time: {formatGameDateAndTime(game.dateAndTime)}</Text>
+          <Text style={appStyles.cardText}>Duration: {game.duration}</Text>
+          <Text style={appStyles.cardText}>Recommended Ability Level: {game.recommendedAbilityLevel}</Text>
+          <Text style={appStyles.cardText}>Recommended Seriousness Level: {game.recommendedSeriousnessLevel}</Text>
+          <Text style={appStyles.cardText}>Actual Ability Level: {game.actualAbilityLevel.toFixed(1)}</Text>
+          <Text style={appStyles.cardText}>Actual Seriousness Level: {game.actualSeriousnessLevel.toFixed(1)}</Text>
+          <Text style={appStyles.cardText}>Completed: {game.completedStatus ? 'Yes' : 'No'}</Text>
+          <Text style={appStyles.cardText}>Max Players: {game.maxPlayers}</Text>
           {gamePlayers.map(player => (
-            <Text key={player.id}>Player: {player.userName}</Text>
+            <Text  style={appStyles.cardText} key={player.id}>Player: {player.userName}</Text>
           ))}
           {!playerIsInGame && !gameIsFull && (
+            <View style={appStyles.soloButtonAlinger}>
             <TouchableOpacity style={appStyles.button} onPress={() => handleJoinGame(game.id, loggedPlayer)}>
-              <Text style={appStyles.buttonText}>Join</Text>
+              <Text style={appStyles.buttonText}>Join Game</Text>
             </TouchableOpacity>
+            </View>
           )}
           {isCreator && (
-            <View>
+              <View style={appStyles.buttonGroup}>
               <TouchableOpacity style={appStyles.button} onPress={() => handleSetGameCompletedStatus(game)}>
-                <Text style={appStyles.buttonText}>Toggle Completed Status</Text>
+                <Text style={appStyles.buttonText}>Game Completed</Text>
+              </TouchableOpacity>
+              <TouchableOpacity style={appStyles.button} onPress={() => handleDeleteGame(game.id)}>
+                <Text style={appStyles.buttonText}>Delete Game</Text>
               </TouchableOpacity>
               <TouchableOpacity style={appStyles.button} onPress={toggleEditGameTrue}>
-                <Text style={appStyles.buttonText}>Edit</Text>
+                <Text style={appStyles.buttonText}>Edit Game</Text>
               </TouchableOpacity>
               <TouchableOpacity style={appStyles.button} onPress={toggleEditAddressTrue}>
                 <Text style={appStyles.buttonText}>Edit Address</Text>
-              </TouchableOpacity>
-              <TouchableOpacity style={appStyles.button} onPress={() => handleDeleteGame(game.id)}>
-                <Text style={appStyles.buttonText}>Delete</Text>
               </TouchableOpacity>
             </View>
           )}

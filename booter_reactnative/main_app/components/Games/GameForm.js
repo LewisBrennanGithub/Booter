@@ -1,7 +1,6 @@
 import React, { useState } from 'react';
 import { View, Text, TextInput, TouchableOpacity, StyleSheet, Platform } from 'react-native';
 import { appStyles } from '../../containers/AppStyles';
-import { Picker } from '@react-native-picker/picker';
 import CustomSlider from '../../Reusable/CustomSlider';
 import Slider from '@react-native-community/slider';
 import DateTimePicker from '@react-native-community/datetimepicker';
@@ -58,19 +57,23 @@ const GameForm = ({
 <View style={appStyles.cardContainer}>
   {formVisible ? (
     <View style={appStyles.card}>
-      <TouchableOpacity style={styles.button} onPress={() => setFormVisible(false)}>
-        <Text style={styles.buttonText}>Minimize</Text>
+      <TouchableOpacity style={appStyles.buttonColor} onPress={() => setFormVisible(false)}>
+        <Text style={appStyles.buttonColorText}>Minimize</Text>
       </TouchableOpacity>
-      <Text style={styles.heading}>Add Game</Text>
+      <View style={appStyles.subHeader}>
+      <Text style={appStyles.subHeaderText}>Add Game</Text>
+      </View>
+      <Text style={appStyles.cardText}>Name</Text>
       <TextInput
-        style={styles.input}
+        style={appStyles.input}
         placeholder="Name"
         value={name}
         onChangeText={setName}
       />
-      <Text style={styles.label}>Date and Time</Text>
+      <Text style={appStyles.cardText}>Date and Time</Text>
       {showDatePicker && (
         Platform.OS === 'web' ? (
+          <View style={appStyles.centralAligner}>
           <ReactDatePicker
             selected={dateAndTime}
             onChange={date => setDateAndTime(date)}
@@ -78,7 +81,9 @@ const GameForm = ({
             dateFormat="Pp"
             // className={styles.datePickerStyle}
           />
+        </View>
         ) : (
+          <View style={appStyles.centralAligner}>
           <DateTimePicker
             value={dateAndTime || new Date()}
             mode="datetime"
@@ -86,36 +91,38 @@ const GameForm = ({
             onChange={handleDateChange}
             // style={styles.dateTimePicker}
           />
+          </View>
         )
       )}
-      <TouchableOpacity style={styles.button} onPress={() => setShowDatePicker(true)}>
-        <Text style={styles.buttonText}>Select Date and Time</Text>
+      <TouchableOpacity style={appStyles.bespokeButtonOne} onPress={() => setShowDatePicker(true)}>
+        <Text style={appStyles.buttonColorText}>Select Date and Time</Text>
       </TouchableOpacity>
+      <Text style={appStyles.cardText}>Duration</Text>
       <TextInput
-        style={styles.input}
+        style={appStyles.input}
         placeholder="Duration"
         value={duration}
         onChangeText={setDuration}
       />
-        <Text style={styles.label}>Recommended Ability Level</Text>
+        <Text style={appStyles.cardText}>Recommended Ability Level</Text>
         <View style={styles.container}>
-          <Text>Slider Value: {recommendedAbilityLevel.toFixed(1)}</Text>
+          <Text style={appStyles.cardText}>Slider Value: {recommendedAbilityLevel.toFixed(1)}</Text>
           <CustomSlider
             value={recommendedAbilityLevel}
             onValueChange={setRecommendedAbilityLevel}
             step={0.5}
           />
         </View>
-        <Text style={styles.label}>Recommended Seriousness Ability</Text>
+        <Text style={appStyles.cardText}>Recommended Seriousness Ability</Text>
         <View style={styles.container}>
-          <Text>Slider Value: {recommendedSeriousnessLevel.toFixed(1)}</Text>
+          <Text style={appStyles.cardText}>Slider Value: {recommendedSeriousnessLevel.toFixed(1)}</Text>
           <CustomSlider
             value={recommendedSeriousnessLevel}
             onValueChange={setRecommendedSeriousnessLevel}
             step={0.5}
           />
         </View>
-        <Text style={styles.label}>Max Players</Text>
+        <Text style={appStyles.cardText}>Max Players</Text>
         <View style={styles.container}>
           <Text>Slider Value: {maxPlayers.toFixed(1)}</Text>
           <Slider
@@ -124,9 +131,11 @@ const GameForm = ({
             minimumValue={2}
             maximumValue={22}
             step={1}
+            minimumTrackTintColor="#068DA9"
+            maximumTrackTintColor="#d44908"
           />
         </View>
-      <Text style={styles.label}>Select an address</Text>
+      <Text style={appStyles.cardText}>Select an address</Text>
       <AddressInputs 
         propertyNumberOrName={propertyNumberOrName} setPropertyNumberOrName={setPropertyNumberOrName}
         street={street} setStreet={setStreet}
@@ -134,14 +143,14 @@ const GameForm = ({
         country={country} setCountry={setCountry}
         postCode={postCode} setPostCode={setPostCode}
       />
-      <TouchableOpacity style={styles.button} onPress={handleAddNewGame}>
-        <Text style={styles.buttonText}>Add Game</Text>
+      <TouchableOpacity style={appStyles.buttonColor} onPress={handleAddNewGame}>
+        <Text style={appStyles.buttonColorText}>Add Game</Text>
       </TouchableOpacity>
     </View>
   ) :  (
     <View style={appStyles.cardNoBackground}>
-    <TouchableOpacity style={appStyles.button} onPress={() => setFormVisible(true)}>
-      <Text style={appStyles.buttonText}>Host New Game?</Text>
+    <TouchableOpacity style={appStyles.buttonNoCard} onPress={() => setFormVisible(true)}>
+      <Text style={appStyles.buttonNoCardText}>Host New Game</Text>
     </TouchableOpacity>
     </View>
   )}

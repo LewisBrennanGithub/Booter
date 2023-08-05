@@ -2,6 +2,7 @@ import React, { useState } from 'react';
 import { View, Text, TextInput, TouchableOpacity, StyleSheet } from 'react-native';
 import AddressInputs from '../Addresses/AddressInputs';
 import CustomSlider from '../../Reusable/CustomSlider';
+import { appStyles } from '../../containers/AppStyles';
 
 const LoggedPlayerForm = ({ 
   onSubmitPlayerAdded,
@@ -49,41 +50,45 @@ const LoggedPlayerForm = ({
   };
 
   return (
-    <View style={styles.cardContainer}>
-      <Text>{auth0Id}</Text>
-      <Text style={styles.heading}>Add Player</Text>
+    <View style={appStyles.card}>
+      <Text style={appStyles.cardTitleText}>Add Player</Text>
+      <Text style={appStyles.cardText}>First Name</Text>
       <TextInput
-        style={styles.input}
+        style={appStyles.input}
         placeholder="First Name"
         value={firstName}
         onChangeText={setFirstName}
       />
+      <Text style={appStyles.cardText}>Last Name</Text>
       <TextInput
-        style={styles.input}
+        style={appStyles.input}
         placeholder="Last Name"
         value={lastName}
         onChangeText={setLastName}
       />
+      <Text style={appStyles.cardText}>User Name</Text>
       <TextInput
-        style={styles.input}
+        style={appStyles.input}
         placeholder="User Name"
         value={userName}
         onChangeText={setUserName}
       />
+      <Text style={appStyles.cardText}>Phone Number</Text>
       <TextInput
-        style={styles.input}
+        style={appStyles.input}
         placeholder="Phone Number"
         value={phoneNumber}
         onChangeText={setPhoneNumber}
       />
+      <Text style={appStyles.cardText}>Age</Text>
       <TextInput
-        style={styles.input}
+        style={appStyles.input}
         placeholder="Age"
         value={age}
         onChangeText={setAge}
         keyboardType="numeric"
       />
-        <Text style={styles.label}>Self Assessed Ability Level</Text>
+        <Text style={appStyles.cardText}>Self Assessed Ability Level</Text>
         <View style={styles.container}>
           <Text>Slider Value: {selfAssessedAbilityLevel.toFixed(1)}</Text>
           <CustomSlider
@@ -92,7 +97,7 @@ const LoggedPlayerForm = ({
             step={0.5}
           />
         </View>
-        <Text style={styles.label}>Self Assessed Seriousness Level</Text>
+        <Text style={appStyles.cardText}>Self Assessed Seriousness Level</Text>
         <View style={styles.container}>
           <Text>Slider Value: {selfAssessedSeriousnessLevel.toFixed(1)}</Text>
           <CustomSlider
@@ -101,7 +106,7 @@ const LoggedPlayerForm = ({
             step={0.5}
           />
         </View>
-      <Text style={styles.label}>Select an address:</Text>
+      <Text style={appStyles.cardText}>Select an address:</Text>
       <AddressInputs 
         propertyNumberOrName={propertyNumberOrName} setPropertyNumberOrName={setPropertyNumberOrName}
         street={street} setStreet={setStreet}
@@ -109,8 +114,8 @@ const LoggedPlayerForm = ({
         country={country} setCountry={setCountry}
         postCode={postCode} setPostCode={setPostCode}
       />
-      <TouchableOpacity style={styles.button} onPress={handleAddPlayer}>
-        <Text style={styles.buttonText}>Add Player</Text>
+      <TouchableOpacity style={appStyles.buttonColor} onPress={handleAddPlayer}>
+        <Text style={appStyles.buttonColorText}>Add Player</Text>
       </TouchableOpacity>
     </View>
   );

@@ -1,6 +1,7 @@
 import React, { useState } from 'react';
 import { View, Text, TouchableOpacity, StyleSheet } from 'react-native';
 import CustomSlider from '../../Reusable/CustomSlider';
+import { appStyles } from '../../containers/AppStyles';
 
 const PlayerElement = ({ 
   player, 
@@ -12,38 +13,38 @@ const PlayerElement = ({
   const [selectedSeriousnessRating, setSelectedSeriousnessRating] = useState(levels[0]);
 
   return (
-    <View style={styles.cardContainer}>
-          <Text style={styles.usernameText}>{player.userName}</Text>
+    <View style={appStyles.card}>
+          <Text style={appStyles.cardTitleText}>{player.userName}</Text>
       <View>
-        <Text>Participating Games:</Text>
+        <Text style={appStyles.cardText}>Participating Games:</Text>
         {player.games && player.games.map((game) => (
-          <Text key={game.id}>- {game.name}</Text>
+          <Text style={appStyles.cardText} key={game.id}>- {game.name}</Text>
         ))}
       </View>
-      <Text>Ability Rating: {player.displayedAbilityLevel.toFixed(1)}</Text>
-      <Text>Seriousness Rating: {player.displayedSeriousnessLevel.toFixed(1)}</Text>
-          <Text style={styles.label}>Self Assessed Ability Level</Text>
+      <Text style={appStyles.cardText}>Ability Rating: {player.displayedAbilityLevel.toFixed(1)}</Text>
+      <Text style={appStyles.cardText}>Seriousness Rating: {player.displayedSeriousnessLevel.toFixed(1)}</Text>
+          <Text style={appStyles.cardText}>Self Assessed Ability Level</Text>
         <View style={styles.container}>
-          <Text>Slider Value: {selectedAbilityRating}</Text>
+          <Text style={appStyles.cardText}>Slider Value: {selectedAbilityRating}</Text>
           <CustomSlider
             value={selectedAbilityRating}
             onValueChange={setSelectedAbilityRating}
             step={0.5}
           />
         </View>
-        <TouchableOpacity style={styles.cardButton} onPress={() => handleRatePlayerAbility(player, selectedAbilityRating)}>
-            <Text style={styles.buttonText}>Rate Ability</Text>
+        <TouchableOpacity style={appStyles.buttonColor} onPress={() => handleRatePlayerAbility(player, selectedAbilityRating)}>
+            <Text style={appStyles.buttonColorText}>Rate Ability</Text>
           </TouchableOpacity>
-        <Text style={styles.label}>Self Assessed Seriousness Level</Text>
+        <Text style={appStyles.cardText}>Self Assessed Seriousness Level</Text>
         <View style={styles.container}>
-          <Text>Slider Value: {selectedSeriousnessRating}</Text>
+          <Text style={appStyles.cardText}>Slider Value: {selectedSeriousnessRating}</Text>
           <CustomSlider
             value={selectedSeriousnessRating}
             onValueChange={setSelectedSeriousnessRating}
             step={0.5}
           />
-          <TouchableOpacity style={styles.cardButton} onPress={() => handleRatePlayerSeriousness(player, selectedSeriousnessRating)}>
-            <Text style={styles.buttonText}>Rate Seriousness</Text>
+          <TouchableOpacity style={appStyles.buttonColor} onPress={() => handleRatePlayerSeriousness(player, selectedSeriousnessRating)}>
+            <Text style={appStyles.buttonColorText}>Rate Seriousness</Text>
           </TouchableOpacity>
         </View>
     </View>

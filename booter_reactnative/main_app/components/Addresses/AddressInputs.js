@@ -1,5 +1,6 @@
 import React from 'react';
 import { View, Text, TextInput, StyleSheet } from 'react-native';
+import { appStyles } from '../../containers/AppStyles';
 
 const AddressInputs = ({ 
   propertyNumberOrName, setPropertyNumberOrName,
@@ -9,34 +10,34 @@ const AddressInputs = ({
   postCode, setPostCode
 }) => {
   return (
-    <View style={styles.cardContainer}>
-      <Text style={styles.heading}>Address Form</Text>
+    <View style={appStyles.cardContainer}>
+      <Text style={appStyles.subHeaderText}>Address Form</Text>
       <TextInput
-        style={styles.input}
+        style={appStyles.input}
         placeholder="Property Number or Name"
         value={propertyNumberOrName}
         onChangeText={(text) => setPropertyNumberOrName(text)}
       />
       <TextInput
-        style={styles.input}
+        style={appStyles.input}
         placeholder="Street"
         value={street}
         onChangeText={(text) => setStreet(text)}
       />
       <TextInput
-        style={styles.input}
+        style={appStyles.input}
         placeholder="City"
         value={city}
         onChangeText={(text) => setCity(text)}
       />
       <TextInput
-        style={styles.input}
+        style={appStyles.input}
         placeholder="Country"
         value={country}
         onChangeText={(text) => setCountry(text)}
       />
       <TextInput
-        style={styles.input}
+        style={appStyles.input}
         placeholder="Post Code"
         value={postCode}
         onChangeText={(text) => setPostCode(text)}

@@ -9,9 +9,6 @@ const LoginScreen= ({setAuth0Id, setLoggedPlayer }) => {
 
   return (
     <View>
-        <View style={appStyles.subHeader}>
-          <Text style={appStyles.subHeaderText}>Login / Logout Screen</Text>
-        </View>
       <LogInButton 
         setAuth0Id={setAuth0Id}
         setLoggedPlayer={setLoggedPlayer}

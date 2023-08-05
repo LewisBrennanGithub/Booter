@@ -1,13 +1,13 @@
 import React from 'react';
 import Slider from '@react-native-community/slider';
+import { appStyles } from '../containers/AppStyles';
 
 const CustomSlider = ({ value, onValueChange, step }) => (
   <Slider
-    // style={{width: 200, height: 40}}
     minimumValue={0}
     maximumValue={5}
-    // minimumTrackTintColor="#FFFFFF"
-    // maximumTrackTintColor="#000000"
+    minimumTrackTintColor="#068DA9"
+    maximumTrackTintColor="#d44908"
     step={step}
     value={value}
     onValueChange={onValueChange}

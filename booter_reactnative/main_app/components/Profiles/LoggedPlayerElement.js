@@ -3,6 +3,7 @@ import { useState, useEffect } from 'react';
 import LoggedPlayerForm from "./LoggedPlayerForm";
 import LoggedPlayerUpdateForm from "./LoggedPlayerUpdateForm";
 import LoggedPlayerAddressUpdateForm from "./LoggedPlayerAddressUpdateForm";
+import { appStyles } from "../../containers/AppStyles";
 
 const LoggedPlayerElement = ({ 
   loggedPlayer,
@@ -45,37 +46,22 @@ const LoggedPlayerElement = ({
 
   return (
     loggedPlayer ? (
-      <ScrollView style={styles.cardContainer}>
-        <Text style={styles.usernameText}>{loggedPlayer.userName}</Text>
+      <ScrollView style={appStyles.card}>
+        <Text style={appStyles.cardTitleText}>{loggedPlayer.userName}</Text>
         <View>
-          <Text>Participating Games:</Text>
+          <Text style={appStyles.cardText}>Participating Games:</Text>
           {loggedPlayer.games && loggedPlayer.games.length > 0 
             ? loggedPlayer.games.map((game) => (
-              <Text key={game.id}>- {game.name}</Text>
+              <Text style={appStyles.cardText} key={game.id}>- {game.name}</Text>
             ))
-            : <Text>None</Text>
+            : <Text style={appStyles.cardText}>None</Text>
           }
         </View>
-        <Text>Ability Rating: {loggedPlayer.displayedAbilityLevel}</Text>
-        <Text>Seriousness Rating: {loggedPlayer.displayedSeriousnessLevel}</Text>
-        <Text>Address: {loggedPlayer.address.propertyNumberOrName || 'N/A'}, {loggedPlayer.address.street || 'N/A'}, {loggedPlayer.address.city || 'N/A'}, {loggedPlayer.address.country || 'N/A'}, {loggedPlayer.address.postCode || 'N/A'}
+        <Text style={appStyles.cardText}>Ability Rating: {loggedPlayer.displayedAbilityLevel}</Text>
+        <Text style={appStyles.cardText}>Seriousness Rating: {loggedPlayer.displayedSeriousnessLevel}</Text>
+        <Text style={appStyles.cardText}>Address: {loggedPlayer.address.propertyNumberOrName || 'N/A'}, {loggedPlayer.address.street || 'N/A'}, {loggedPlayer.address.city || 'N/A'}, {loggedPlayer.address.country || 'N/A'}, {loggedPlayer.address.postCode || 'N/A'}
               </Text>
-        {editingAddressBoolean ? (
-          <LoggedPlayerAddressUpdateForm
-            setLoggedPlayer={setLoggedPlayer}
-            address={loggedPlayer.address}
-            handleUpdateAddress={handleUpdateAddress}
-            toggleEditAddressFalse={toggleEditAddressFalse}
-          />
-        ) : (
-            <>
-              <TouchableOpacity style={styles.cardButton} onPress={toggleEditAddressTrue}>
-                <Text style={styles.whiteText}>Update Address</Text>
-              </TouchableOpacity>
-            </>
-   
-        )}
-        {editingProfileBoolean ? (
+              {editingProfileBoolean ? (
           <LoggedPlayerUpdateForm
             loggedPlayer={loggedPlayer}
             auth0Id={auth0Id}
@@ -85,17 +71,32 @@ const LoggedPlayerElement = ({
             toggleEditProfileFalse={toggleEditProfileFalse}
           />
         ) : (
-          <TouchableOpacity style={styles.cardButton} onPress={toggleEditProfileTrue}>
-            <Text style={styles.whiteText}>Edit Profile</Text>
+          <TouchableOpacity style={appStyles.buttonColor} onPress={toggleEditProfileTrue}>
+            <Text style={appStyles.buttonColorText}>Edit Profile</Text>
           </TouchableOpacity>
         )}
-        <TouchableOpacity style={styles.cardButton} onPress={() => handleDeletePlayer(loggedPlayer.id)}>
-          <Text style={styles.whiteText}>Delete</Text>
+        {editingAddressBoolean ? (
+          <LoggedPlayerAddressUpdateForm
+            setLoggedPlayer={setLoggedPlayer}
+            address={loggedPlayer.address}
+            handleUpdateAddress={handleUpdateAddress}
+            toggleEditAddressFalse={toggleEditAddressFalse}
+          />
+        ) : (
+            <>
+              <TouchableOpacity style={appStyles.buttonColor} onPress={toggleEditAddressTrue}>
+                <Text style={appStyles.buttonColorText}>Update Address</Text>
+              </TouchableOpacity>
+            </>
+   
+        )}
+
+        <TouchableOpacity style={appStyles.buttonColor} onPress={() => handleDeletePlayer(loggedPlayer.id)}>
+          <Text style={appStyles.buttonColorText}>Delete</Text>
         </TouchableOpacity>
       </ScrollView>
     ) : (
       <ScrollView>
-        <Text>Create a new player</Text>
         <LoggedPlayerForm 
           onSubmitPlayerAdded={onSubmitPlayerAdded}
           auth0Id={auth0Id}

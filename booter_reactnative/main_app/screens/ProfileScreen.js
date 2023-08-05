@@ -16,9 +16,6 @@ const ProfileScreen = ({
 
     return(
         <ScrollView>
-        <View style={appStyles.subHeader}>
-          <Text style={appStyles.subHeaderText}>Profile</Text>
-        </View>
             <LoggedPlayerElement
                 loggedPlayer={loggedPlayer}
                 setLoggedPlayer={setLoggedPlayer}

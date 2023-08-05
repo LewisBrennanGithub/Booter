@@ -222,7 +222,14 @@ const handleAddGame = async (gameData, addressData) => {
       <Text style={appStyles.headerText}>{`Logged Player: ${loggedPlayer ? loggedPlayer.userName : 'Guest'}`} | {`Account: ${auth0Id ? 'Logged in' : 'Not logged in'}`}</Text>
     </View>
     <View style={appStyles.content}>
-    <BottomTab.Navigator>
+    <BottomTab.Navigator
+  screenOptions={{
+    tabBarActiveTintColor: '#d44908',
+    tabBarInactiveTintColor: '#068DA9',
+    tabBarLabelStyle: { fontSize: 12 },
+    tabBarStyle: { backgroundColor: '#f0ebe9' },
+  }}
+    >
       <BottomTab.Screen
         name="GamesScreen"
         options={{ title: 'Games', headerShown: false }}
