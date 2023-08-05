@@ -1,0 +1,45 @@
+{
+  "migIndex": 1,
+  "data": [
+    {
+      "path": "assets/fonts/Bungee-Regular.ttf",
+      "sha1": "5229858062d1cc9c3b96abf7a23c4fca2a78efd5"
+    },
+    {
+      "path": "assets/fonts/Calistoga-Regular.ttf",
+      "sha1": "14035c6703e7980699c923775412cf30d940cca0"
+    },
+    {
+      "path": "assets/fonts/JosefinSans-Italic-VariableFont_wght.ttf",
+      "sha1": "6c47591a940e3c86a268d5bed1e151214eb4d1df"
+    },
+    {
+      "path": "assets/fonts/JosefinSans-VariableFont_wght.ttf",
+      "sha1": "ad2439d6f0dfc795c4dbefb342383f9f02810427"
+    },
+    {
+      "path": "assets/fonts/PassionOne-Black.ttf",
+      "sha1": "8b2675552ba5e4af55205116e80909e929a0f12d"
+    },
+    {
+      "path": "assets/fonts/PassionOne-Bold.ttf",
+      "sha1": "8529424dcfb3c01d284434f45dc6331e0ef283f1"
+    },
+    {
+      "path": "assets/fonts/PassionOne-Regular.ttf",
+      "sha1": "5acf813f59c57f10555e64824fccbf588001b478"
+    },
+    {
+      "path": "assets/fonts/Raleway-Italic-VariableFont_wght.ttf",
+      "sha1": "f7dd11047c65dac9c3538930cec65db6de4500f6"
+    },
+    {
+      "path": "assets/fonts/Raleway-VariableFont_wght.ttf",
+      "sha1": "1313d0f3ae4fe109e8ee0d416bbae29b6f95dece"
+    },
+    {
+      "path": "assets/fonts/Righteous-Regular.ttf",
+      "sha1": "3129e2b47e224dec082c4169b396b1fa27a95749"
+    }
+  ]
+}

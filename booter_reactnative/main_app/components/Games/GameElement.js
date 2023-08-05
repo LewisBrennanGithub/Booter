@@ -1,5 +1,6 @@
 import React, { useState, useEffect } from 'react';
 import { View, Text, TouchableOpacity, StyleSheet } from 'react-native';
+import { appStyles } from '../../containers/AppStyles';
 import GameUpdateForm from './GameUpdateForm';
 import * as GameServices from "../../services/GameServices";
 import GameAddressUpdateForm from './GameAddressUpdateForm';
@@ -73,7 +74,7 @@ const GameElement = ({
   };
 
   return (
-    <View style={styles.cardContainer}>
+    <View style={appStyles.cardContainer}>
       {isEditing && isCreator ? (
         <GameUpdateForm
           game={game}
@@ -88,8 +89,10 @@ const GameElement = ({
           handleCancelUpdateAddress={handleCancelUpdateAddress}
         />
       ) : (
-        <View style={styles.card}>
-          <Text style={styles.cardTitle}>Name: {game.name}</Text>
+        <View style={appStyles.card}>
+          <View style={appStyles.cardTitle}>
+          <Text style={appStyles.cardTitleText}>Name: {game.name}</Text>
+          </View>
           <Text>Creator: {players && game && game.creator ? getPlayerUsername(game.creator.id) : 'N/A'}</Text>
           <Text>Address: {game.address ? `${game.address.street}, ${game.address.city}` : 'N/A'}</Text>
           <Text>Date and Time: {formatGameDateAndTime(game.dateAndTime)}</Text>
@@ -104,23 +107,23 @@ const GameElement = ({
             <Text key={player.id}>Player: {player.userName}</Text>
           ))}
           {!playerIsInGame && !gameIsFull && (
-            <TouchableOpacity style={styles.cardButton} onPress={() => handleJoinGame(game.id, loggedPlayer)}>
-              <Text style={styles.buttonText}>Join</Text>
+            <TouchableOpacity style={appStyles.button} onPress={() => handleJoinGame(game.id, loggedPlayer)}>
+              <Text style={appStyles.buttonText}>Join</Text>
             </TouchableOpacity>
           )}
           {isCreator && (
             <View>
-              <TouchableOpacity style={styles.cardButton} onPress={() => handleSetGameCompletedStatus(game)}>
-                <Text style={styles.buttonText}>Toggle Completed Status</Text>
+              <TouchableOpacity style={appStyles.button} onPress={() => handleSetGameCompletedStatus(game)}>
+                <Text style={appStyles.buttonText}>Toggle Completed Status</Text>
               </TouchableOpacity>
-              <TouchableOpacity style={styles.cardButton} onPress={toggleEditGameTrue}>
-                <Text style={styles.buttonText}>Edit</Text>
+              <TouchableOpacity style={appStyles.button} onPress={toggleEditGameTrue}>
+                <Text style={appStyles.buttonText}>Edit</Text>
               </TouchableOpacity>
-              <TouchableOpacity style={styles.cardButton} onPress={toggleEditAddressTrue}>
-                <Text style={styles.buttonText}>Edit Address</Text>
+              <TouchableOpacity style={appStyles.button} onPress={toggleEditAddressTrue}>
+                <Text style={appStyles.buttonText}>Edit Address</Text>
               </TouchableOpacity>
-              <TouchableOpacity style={styles.cardButton} onPress={() => handleDeleteGame(game.id)}>
-                <Text style={styles.buttonText}>Delete</Text>
+              <TouchableOpacity style={appStyles.button} onPress={() => handleDeleteGame(game.id)}>
+                <Text style={appStyles.buttonText}>Delete</Text>
               </TouchableOpacity>
             </View>
           )}

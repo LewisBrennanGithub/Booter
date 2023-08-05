@@ -1,5 +1,6 @@
 import React from 'react';
-import { View, StyleSheet } from 'react-native';
+import { ScrollView, View, Text } from 'react-native';
+import { appStyles } from '../containers/AppStyles';
 import LogInButton from '../components/Authorisation/LogInButton';
 import LogOutButton from '../components/Authorisation/LogOutButton';
 import LogProfileInformation from '../components/Authorisation/LogProfileInformation';
@@ -7,7 +8,10 @@ import LogProfileInformation from '../components/Authorisation/LogProfileInforma
 const LoginScreen= ({setAuth0Id, setLoggedPlayer }) => {
 
   return (
-    <View style={styles.container}>
+    <View>
+        <View style={appStyles.subHeader}>
+          <Text style={appStyles.subHeaderText}>Login / Logout Screen</Text>
+        </View>
       <LogInButton 
         setAuth0Id={setAuth0Id}
         setLoggedPlayer={setLoggedPlayer}
@@ -16,17 +20,8 @@ const LoginScreen= ({setAuth0Id, setLoggedPlayer }) => {
         setAuth0Id={setAuth0Id}
         setLoggedPlayer={setLoggedPlayer}
       />
-      <LogProfileInformation/>
     </View>
   );
 };
-
-const styles = StyleSheet.create({
-  container: {
-    flex: 1,
-    justifyContent: 'center',
-    alignItems: 'center',
-  },
-});
 
 export default LoginScreen;

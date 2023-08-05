@@ -1,54 +1,96 @@
 import { StyleSheet } from 'react-native';
 
-export const styles = StyleSheet.create({
-  bodyStyle: {
-    width: '50%',
-    fontFamily: 'Arial',
-  },
+// COLOUR PALETE 
+// #068DA9 < UNUSED TURQUOISE
+// #5c9c99 < CURRENT TURQUOISE
+// #bf5900 < BRASS ORANGE
+// #b3571e < DULLER ORANGE
 
-  headerStyle: {
-    backgroundColor: '#783c08',
-    color: 'white',
-    width: '100%',
-    textAlign: 'center'
-  },
+// FONTS
+// 'Calistoga' / 'Bungee' / 'Josefin Sans' / 'Passion One'
+// 'Raleway' / 'Righteous' /
 
-  topLineStyle: {
-    flexDirection: 'row',
-    justifyContent: 'space-evenly',
-  },
-  leftContent: {
+export const appStyles = StyleSheet.create({
+  container: {
     flex: 1,
   },
-  rightContent: {
-    flex: 1,
+  
+  content: {
+    flex: 1, 
+  },
+  
+  header: {
+    backgroundColor: '#5c9c99',
+    height: 75, 
+    alignItems: 'center',
+    paddingTop: 15, 
   },
 
-  navBarStyle: {
-    display: 'flex',
-    flexDirection: 'row',
-    justifyContent: 'space-around',
-    marginBottom: '5px'
+  headerLogoText: {
+    fontFamily: 'Raleway',
+    fontSize: 30,
+    textTransform: 'uppercase',
+    fontWeight: 'bold',
+    color: '#ffffff',
   },
 
-  iconWhiteText: {
-    color: 'white',
-    fontSize: '20px',
-    marginBottom: '5px'
+  headerText: {
+    fontFamily: 'Raleway',
+    fontWeight: 'bold',
+    color: '#ffffff',
   },
 
-  whiteText: {
-    color: 'white',
+  subHeader: {
+    alignItems: 'center',
+    padding: 10,
+    backgroundColor: '#ffffff',
   },
 
-  buttonStyle: {
-    backgroundColor: '#783c08',
-    // color: '#783c08',
-    textAlign: 'center'
+  subHeaderText: {
+    fontFamily: 'Raleway',
+    fontWeight: 'bold',
+    fontSize: 15,
   },
 
-  datePickerStyle: {
-    backgroundColor: '#783c08',
-  }
-  // Other styles...
+  cardContainer: {
+    backgroundColor: '#ffffff',
+    marginVertical: 10,
+  },
+
+  card: {
+    backgroundColor: '#ffffff',
+    padding: 10
+  },
+
+  cardTitle: {
+    fontFamily: 'Raleway',
+    fontWeight: 'bold',
+    color: '#ffffff',
+    backgroundColor: '#5c9c99',
+    textAlign: 'center',
+    padding: 10,
+    borderRadius: 4,
+  },
+
+  cardTitleText: {
+    fontFamily: 'Raleway',
+    fontWeight: 'bold',
+    color: '#ffffff',
+    backgroundColor: '#5c9c99',
+  },
+
+  button: {
+    backgroundColor: '#b3571e',
+    padding: 10,
+    marginHorizontal: 50,
+    marginTop: 5,
+    borderRadius: 4,
+  },
+
+  buttonText: {
+    color: '#ffffff',
+    textAlign: 'center',
+    fontFamily: 'Raleway',
+    fontWeight: 'bold',
+  },
 });

@@ -49,7 +49,7 @@
 		</dict>
 	</dict>
 	<key>NSLocationWhenInUseUsageDescription</key>
-	<string></string>
+	<string/>
 	<key>UILaunchStoryboardName</key>
 	<string>LaunchScreen</string>
 	<key>UIRequiredDeviceCapabilities</key>
@@ -64,5 +64,18 @@
 	</array>
 	<key>UIViewControllerBasedStatusBarAppearance</key>
 	<false/>
+	<key>UIAppFonts</key>
+	<array>
+		<string>Calistoga-Regular.ttf</string>
+		<string>Righteous-Regular.ttf</string>
+		<string>Bungee-Regular.ttf</string>
+		<string>JosefinSans-Italic-VariableFont_wght.ttf</string>
+		<string>JosefinSans-VariableFont_wght.ttf</string>
+		<string>PassionOne-Black.ttf</string>
+		<string>PassionOne-Bold.ttf</string>
+		<string>PassionOne-Regular.ttf</string>
+		<string>Raleway-Italic-VariableFont_wght.ttf</string>
+		<string>Raleway-VariableFont_wght.ttf</string>
+	</array>
 </dict>
 </plist>

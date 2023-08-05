@@ -1,4 +1,5 @@
-import { ScrollView } from "react-native";
+import { ScrollView, View, Text } from 'react-native';
+import { appStyles } from '../containers/AppStyles';
 import LoggedPlayerElement from "../components/Profiles/LoggedPlayerElement";
 
 const ProfileScreen = ({
@@ -15,6 +16,9 @@ const ProfileScreen = ({
 
     return(
         <ScrollView>
+        <View style={appStyles.subHeader}>
+          <Text style={appStyles.subHeaderText}>Profile</Text>
+        </View>
             <LoggedPlayerElement
                 loggedPlayer={loggedPlayer}
                 setLoggedPlayer={setLoggedPlayer}

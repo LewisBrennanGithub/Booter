@@ -1,5 +1,6 @@
 import React, { useState, useEffect } from 'react';
 import { View, Text, StyleSheet } from 'react-native';
+import { appStyles } from './AppStyles';
 import { createBottomTabNavigator } from '@react-navigation/bottom-tabs';
 import {useAuth0} from 'react-native-auth0';
 import * as GameServices from "../services/GameServices";
@@ -215,16 +216,16 @@ const handleAddGame = async (gameData, addressData) => {
   };
   
   const BottomTabNavigator = () => (
-    <View style={styles.container}>
-    <View style={styles.header}>
-    <Text>Booter {user ? user.sub : 'Nothing'} </Text>
-      <Text>{`Logged Player: ${loggedPlayer ? loggedPlayer.userName : 'Guest'}`} {`Auth0 State: ${auth0Id ? auth0Id : 'Not logged in'}`}</Text>
+    <View style={appStyles.container}>
+    <View style={appStyles.header}>
+    <Text style={appStyles.headerLogoText}>Booter</Text>
+      <Text style={appStyles.headerText}>{`Logged Player: ${loggedPlayer ? loggedPlayer.userName : 'Guest'}`} | {`Account: ${auth0Id ? 'Logged in' : 'Not logged in'}`}</Text>
     </View>
-    <View style={styles.content}>
+    <View style={appStyles.content}>
     <BottomTab.Navigator>
       <BottomTab.Screen
         name="GamesScreen"
-        options={{ title: 'Games' }}
+        options={{ title: 'Games', headerShown: false }}
         children={(props) => (
           <GamesScreen
             {...props}
@@ -243,7 +244,7 @@ const handleAddGame = async (gameData, addressData) => {
       />
       <BottomTab.Screen
         name="PlayersScreen"
-        options={{ title: 'Players' }}
+        options={{ title: 'Players', headerShown: false }}
         children={(props) => (
           <PlayersScreen
             {...props}
@@ -257,7 +258,7 @@ const handleAddGame = async (gameData, addressData) => {
       />
       <BottomTab.Screen 
         name="Profile"
-        options={{ title: 'Profile' }}
+        options={{ title: 'Profile', headerShown: false }}
         children={(props) => (
           <ProfileScreen
           {...props}
@@ -275,7 +276,7 @@ const handleAddGame = async (gameData, addressData) => {
         />
       <BottomTab.Screen
           name="LoginScreen"
-          options={{ title: 'Login' }}
+          options={{ title: 'Login', headerShown: false }}
           children={(props) => (
             <LoginScreen
               {...props}
@@ -296,20 +297,5 @@ const handleAddGame = async (gameData, addressData) => {
 );
 };
 
-const styles = StyleSheet.create({
-  container: {
-    flex: 1,
-  },
-  header: {
-    height: 75, 
-    backgroundColor: 'lightgrey', 
-    alignItems: 'center',
-    justifyContent: 'center',
-    paddingTop: 25, 
-  },
-  content: {
-    flex: 1, 
-  }
-});
 
 export default BooterContainer;

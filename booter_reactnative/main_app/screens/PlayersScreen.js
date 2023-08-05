@@ -1,5 +1,6 @@
 import React from 'react';
-import { View, ScrollView } from 'react-native';
+import { ScrollView, View, Text } from 'react-native';
+import { appStyles } from '../containers/AppStyles';
 import PlayerList from '../components/Players/PlayerList';
 
 const PlayersScreen = ({
@@ -11,6 +12,9 @@ const PlayersScreen = ({
 }) => {
   return (
     <ScrollView>
+        <View style={appStyles.subHeader}>
+          <Text style={appStyles.subHeaderText}>Players</Text>
+        </View>
         <PlayerList
           players={players}
           loggedPlayer={loggedPlayer}

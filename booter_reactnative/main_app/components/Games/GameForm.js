@@ -1,5 +1,6 @@
 import React, { useState } from 'react';
 import { View, Text, TextInput, TouchableOpacity, StyleSheet, Platform } from 'react-native';
+import { appStyles } from '../../containers/AppStyles';
 import { Picker } from '@react-native-picker/picker';
 import CustomSlider from '../../Reusable/CustomSlider';
 import Slider from '@react-native-community/slider';
@@ -54,9 +55,9 @@ const GameForm = ({
 };
 
   return (
-<View style={styles.cardContainer}>
+<View style={appStyles.cardContainer}>
   {formVisible ? (
-    <>
+    <View style={appStyles.card}>
       <TouchableOpacity style={styles.button} onPress={() => setFormVisible(false)}>
         <Text style={styles.buttonText}>Minimize</Text>
       </TouchableOpacity>
@@ -136,11 +137,13 @@ const GameForm = ({
       <TouchableOpacity style={styles.button} onPress={handleAddNewGame}>
         <Text style={styles.buttonText}>Add Game</Text>
       </TouchableOpacity>
-    </>
+    </View>
   ) :  (
-    <TouchableOpacity style={styles.button} onPress={() => setFormVisible(true)}>
-      <Text style={styles.buttonText}>Host New Game?</Text>
+    <View style={appStyles.card}>
+    <TouchableOpacity style={appStyles.button} onPress={() => setFormVisible(true)}>
+      <Text style={appStyles.buttonText}>Host New Game?</Text>
     </TouchableOpacity>
+    </View>
   )}
 </View>
 );

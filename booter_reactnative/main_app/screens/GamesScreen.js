@@ -1,4 +1,5 @@
-import { ScrollView } from 'react-native';
+import { ScrollView, View, Text } from 'react-native';
+import { appStyles } from '../containers/AppStyles';
 import GameList from '../components/Games/GameList';
 import GameForm from '../components/Games/GameForm';
 
@@ -17,6 +18,9 @@ const GamesScreen = ({
 
   return (
       <ScrollView>
+        {/* <View style={appStyles.subHeader}>
+          <Text style={appStyles.subHeaderText}>Games</Text>
+        </View> */}
         { loggedPlayer ? (
         <GameForm 
             handleAddGame={handleAddGame}
