@@ -90,44 +90,47 @@ const GameElement = ({
         />
       ) : (
         <View style={appStyles.card}>
-          <View style={appStyles.cardTitle}>
           <Text style={appStyles.cardTitleText}>{game.name}</Text>
-          </View>
+          <Text style={appStyles.subHeaderText}>Game Information</Text>
           <Text style={appStyles.cardText}>Creator: {players && game && game.creator ? getPlayerUsername(game.creator.id) : 'N/A'}</Text>
           <Text style={appStyles.cardText}>Address: {game.address ? `${game.address.street}, ${game.address.city}` : 'N/A'}</Text>
           <Text style={appStyles.cardText}>Date and Time: {formatGameDateAndTime(game.dateAndTime)}</Text>
           <Text style={appStyles.cardText}>Duration: {game.duration}</Text>
+          <Text style={appStyles.cardText}>Completed: {game.completedStatus ? 'Yes' : 'No'}</Text>
+          <View style={appStyles.presentationalCopperLine}></View>
+          <Text style={appStyles.subHeaderText}>Game Composition</Text>
           <Text style={appStyles.cardText}>Recommended Ability Level: {game.recommendedAbilityLevel}</Text>
           <Text style={appStyles.cardText}>Recommended Seriousness Level: {game.recommendedSeriousnessLevel}</Text>
           <Text style={appStyles.cardText}>Actual Ability Level: {game.actualAbilityLevel.toFixed(1)}</Text>
           <Text style={appStyles.cardText}>Actual Seriousness Level: {game.actualSeriousnessLevel.toFixed(1)}</Text>
-          <Text style={appStyles.cardText}>Completed: {game.completedStatus ? 'Yes' : 'No'}</Text>
+          <View style={appStyles.presentationalCopperLine}></View>
+          <Text style={appStyles.subHeaderText}>Game Player Information</Text>
           <Text style={appStyles.cardText}>Max Players: {game.maxPlayers}</Text>
           {gamePlayers.map(player => (
             <Text  style={appStyles.cardText} key={player.id}>Player: {player.userName}</Text>
           ))}
           {!playerIsInGame && !gameIsFull && (
-            <View style={appStyles.soloButtonAlinger}>
-            <TouchableOpacity style={appStyles.button} onPress={() => handleJoinGame(game.id, loggedPlayer)}>
-              <Text style={appStyles.buttonText}>Join Game</Text>
+
+            <TouchableOpacity style={appStyles.buttonColor} onPress={() => handleJoinGame(game.id, loggedPlayer)}>
+              <Text style={appStyles.buttonColorText}>Join Game</Text>
             </TouchableOpacity>
-            </View>
+
           )}
           {isCreator && (
-              <View style={appStyles.buttonGroup}>
-              <TouchableOpacity style={appStyles.button} onPress={() => handleSetGameCompletedStatus(game)}>
-                <Text style={appStyles.buttonText}>Game Completed</Text>
+            <>
+              <TouchableOpacity style={appStyles.buttonColor} onPress={() => handleSetGameCompletedStatus(game)}>
+                <Text style={appStyles.buttonColorText}>Game Completed</Text>
               </TouchableOpacity>
-              <TouchableOpacity style={appStyles.button} onPress={() => handleDeleteGame(game.id)}>
-                <Text style={appStyles.buttonText}>Delete Game</Text>
+              <TouchableOpacity style={appStyles.buttonColor} onPress={() => handleDeleteGame(game.id)}>
+                <Text style={appStyles.buttonColorText}>Delete Game</Text>
               </TouchableOpacity>
-              <TouchableOpacity style={appStyles.button} onPress={toggleEditGameTrue}>
-                <Text style={appStyles.buttonText}>Edit Game</Text>
+              <TouchableOpacity style={appStyles.buttonColor} onPress={toggleEditGameTrue}>
+                <Text style={appStyles.buttonColorText}>Edit Game</Text>
               </TouchableOpacity>
-              <TouchableOpacity style={appStyles.button} onPress={toggleEditAddressTrue}>
-                <Text style={appStyles.buttonText}>Edit Address</Text>
+              <TouchableOpacity style={appStyles.buttonColor} onPress={toggleEditAddressTrue}>
+                <Text style={appStyles.buttonColorText}>Edit Address</Text>
               </TouchableOpacity>
-            </View>
+              </>
           )}
         </View>
       )}

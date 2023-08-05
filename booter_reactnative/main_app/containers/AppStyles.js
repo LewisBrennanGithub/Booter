@@ -70,8 +70,7 @@ export const appStyles = StyleSheet.create({
     fontFamily: 'Josefin Sans',
     fontWeight: 'bold',
     fontSize: 15,
-    textAlign: 'center',
-    marginBottom: 10,
+    marginVertical: 5,
     // textTransform: 'uppercase',
   },
 
@@ -97,7 +96,7 @@ export const appStyles = StyleSheet.create({
 
   cardNoBackground: {
     padding: 10,
-    marginHorizontal: 4,
+    marginBottom: -15,
   },
 
   cardTitle: {
@@ -226,5 +225,21 @@ input: {
   paddingHorizontal: 10,
   fontFamily: 'Josefin Sans',
 },
+
+// MISC
+
+presentationalTurqouoiseLine: {
+  height: 1,
+  borderColor: '#068DA9',
+  borderWidth: 2,
+  marginVertical: 2,
+},
+
+presentationalCopperLine: {
+  height: 1,
+  borderColor: '#d44908',
+  borderWidth: 2,
+  marginVertical: 2,
+}
 
 });

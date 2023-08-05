@@ -8,7 +8,7 @@ import LogProfileInformation from '../components/Authorisation/LogProfileInforma
 const LoginScreen= ({setAuth0Id, setLoggedPlayer }) => {
 
   return (
-    <View>
+    <View style={appStyles.card}>
       <LogInButton 
         setAuth0Id={setAuth0Id}
         setLoggedPlayer={setLoggedPlayer}

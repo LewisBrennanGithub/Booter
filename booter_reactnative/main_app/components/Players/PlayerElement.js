@@ -23,20 +23,20 @@ const PlayerElement = ({
       </View>
       <Text style={appStyles.cardText}>Ability Rating: {player.displayedAbilityLevel.toFixed(1)}</Text>
       <Text style={appStyles.cardText}>Seriousness Rating: {player.displayedSeriousnessLevel.toFixed(1)}</Text>
-          <Text style={appStyles.cardText}>Self Assessed Ability Level</Text>
-        <View style={styles.container}>
+      <View style={appStyles.presentationalTurqouoiseLine}></View>
+          <Text style={appStyles.subHeaderText}>Rate Player</Text>
+        {/* <View style={styles.container}> */}
           <Text style={appStyles.cardText}>Slider Value: {selectedAbilityRating}</Text>
           <CustomSlider
             value={selectedAbilityRating}
             onValueChange={setSelectedAbilityRating}
             step={0.5}
           />
-        </View>
+        {/* </View> */}
         <TouchableOpacity style={appStyles.buttonColor} onPress={() => handleRatePlayerAbility(player, selectedAbilityRating)}>
             <Text style={appStyles.buttonColorText}>Rate Ability</Text>
           </TouchableOpacity>
-        <Text style={appStyles.cardText}>Self Assessed Seriousness Level</Text>
-        <View style={styles.container}>
+        {/* <View style={styles.container}> */}
           <Text style={appStyles.cardText}>Slider Value: {selectedSeriousnessRating}</Text>
           <CustomSlider
             value={selectedSeriousnessRating}
@@ -46,50 +46,10 @@ const PlayerElement = ({
           <TouchableOpacity style={appStyles.buttonColor} onPress={() => handleRatePlayerSeriousness(player, selectedSeriousnessRating)}>
             <Text style={appStyles.buttonColorText}>Rate Seriousness</Text>
           </TouchableOpacity>
-        </View>
+        {/* </View> */}
     </View>
   );
 };
-
-const styles = StyleSheet.create({
-  cardContainer: {
-    marginBottom: 10,
-    backgroundColor: '#ffffff',
-    borderRadius: 8,
-    padding: 16,
-    shadowColor: '#000000',
-    shadowOffset: { width: 0, height: 2 },
-    shadowOpacity: 0.1,
-    shadowRadius: 4,
-    elevation: 2,
-  },
-  username: {
-    color: 'black',
-    marginBottom: 8,
-  },
-  usernameText: {
-    fontWeight: 'bold',
-    fontSize: 16,
-  },
-  selectedUsername: {
-    backgroundColor: 'green',
-    color: 'white',
-    marginBottom: 8,
-    padding: 4,
-    borderRadius: 4,
-  },
-  cardButton: {
-    backgroundColor: '#783c08',
-    borderRadius: 4,
-    paddingVertical: 8,
-    paddingHorizontal: 12,
-    marginTop: 8,
-  },
-  buttonText: {
-    color: 'white',
-    textAlign: 'center',
-  },
-});
 
 
 export default PlayerElement;

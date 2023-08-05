@@ -57,12 +57,7 @@ const GameForm = ({
 <View style={appStyles.cardContainer}>
   {formVisible ? (
     <View style={appStyles.card}>
-      <TouchableOpacity style={appStyles.buttonColor} onPress={() => setFormVisible(false)}>
-        <Text style={appStyles.buttonColorText}>Minimize</Text>
-      </TouchableOpacity>
-      <View style={appStyles.subHeader}>
-      <Text style={appStyles.subHeaderText}>Add Game</Text>
-      </View>
+      <Text style={appStyles.cardTitleText}>Add Game</Text>
       <Text style={appStyles.cardText}>Name</Text>
       <TextInput
         style={appStyles.input}
@@ -146,11 +141,14 @@ const GameForm = ({
       <TouchableOpacity style={appStyles.buttonColor} onPress={handleAddNewGame}>
         <Text style={appStyles.buttonColorText}>Add Game</Text>
       </TouchableOpacity>
+      <TouchableOpacity style={appStyles.buttonColor} onPress={() => setFormVisible(false)}>
+        <Text style={appStyles.buttonColorText}>Cancel</Text>
+      </TouchableOpacity>
     </View>
   ) :  (
     <View style={appStyles.cardNoBackground}>
-    <TouchableOpacity style={appStyles.buttonNoCard} onPress={() => setFormVisible(true)}>
-      <Text style={appStyles.buttonNoCardText}>Host New Game</Text>
+    <TouchableOpacity style={appStyles.buttonColor} onPress={() => setFormVisible(true)}>
+      <Text style={appStyles.buttonColorText}>Host New Game</Text>
     </TouchableOpacity>
     </View>
   )}

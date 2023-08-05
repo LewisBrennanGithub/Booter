@@ -1,5 +1,6 @@
 import { useAuth0 } from 'react-native-auth0';
-import { Button } from 'react-native';
+import { TouchableOpacity, Text } from 'react-native';
+import { appStyles } from '../../containers/AppStyles';
 
 const LogOutButton = ({setAuth0Id, setLoggedPlayer}) => {
     const {clearSession} = useAuth0();
@@ -18,7 +19,11 @@ const LogOutButton = ({setAuth0Id, setLoggedPlayer}) => {
         }
     };
 
-    return <Button onPress={onPress} title="Log out" />
+    return ( 
+  <TouchableOpacity style={appStyles.buttonColor} onPress={onPress}>
+    <Text style={appStyles.buttonColorText}>Log Out</Text>
+  </TouchableOpacity>
+    );
 }
 
 export default LogOutButton;

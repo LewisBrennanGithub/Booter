@@ -1,7 +1,8 @@
 import React, { useEffect, useState } from 'react';
 import { useAuth0 } from 'react-native-auth0';
-import { Button } from 'react-native';
+import { TouchableOpacity, Text } from 'react-native';
 import * as PlayerServices from "../../services/PlayerServices";
+import { appStyles } from '../../containers/AppStyles';
 
 const LogInButton = ({ setAuth0Id, setLoggedPlayer }) => {
   const { authorize, user } = useAuth0();
@@ -38,9 +39,9 @@ const LogInButton = ({ setAuth0Id, setLoggedPlayer }) => {
   }
 
   return (
-    <>
-      <Button onPress={handleAuthorize} title="Log in" />
-    </>
+    <TouchableOpacity style={appStyles.buttonColor} onPress={handleAuthorize} >
+      <Text style={appStyles.buttonColorText}>Log In</Text>
+    </TouchableOpacity>
   );
 }
 
