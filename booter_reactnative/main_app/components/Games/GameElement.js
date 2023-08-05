@@ -91,7 +91,7 @@ const GameElement = ({
       ) : (
         <View style={appStyles.card}>
           <View style={appStyles.cardTitle}>
-          <Text style={appStyles.cardTitleText}>Name: {game.name}</Text>
+          <Text style={appStyles.cardTitleText}>{game.name}</Text>
           </View>
           <Text>Creator: {players && game && game.creator ? getPlayerUsername(game.creator.id) : 'N/A'}</Text>
           <Text>Address: {game.address ? `${game.address.street}, ${game.address.city}` : 'N/A'}</Text>

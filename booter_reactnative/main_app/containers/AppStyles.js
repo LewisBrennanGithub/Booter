@@ -2,7 +2,8 @@ import { StyleSheet } from 'react-native';
 
 // COLOUR PALETE 
 // #068DA9 < UNUSED TURQUOISE
-// #5c9c99 < CURRENT TURQUOISE
+// #5c9c99 < NEWISH TURQUOISE
+// #86b8ac < NEWEST ^
 // #bf5900 < BRASS ORANGE
 // #b3571e < DULLER ORANGE
 
@@ -20,7 +21,7 @@ export const appStyles = StyleSheet.create({
   },
   
   header: {
-    backgroundColor: '#5c9c99',
+    backgroundColor: '#86b8ac',
     height: 75, 
     alignItems: 'center',
     paddingTop: 15, 
@@ -53,21 +54,32 @@ export const appStyles = StyleSheet.create({
   },
 
   cardContainer: {
-    backgroundColor: '#ffffff',
     marginVertical: 10,
   },
 
   card: {
-    backgroundColor: '#ffffff',
-    padding: 10
+    backgroundColor: '#FFFFFF',
+    padding: 10,
+    shadowColor: '#000000',
+    shadowOffset: { width: 0, height: 2 },
+    shadowOpacity: 0.1,
+    shadowRadius: 4,
+    elevation: 2,
+    borderRadius: 4,
+    marginHorizontal: 4,
+  },
+
+  cardNoBackground: {
+    padding: 10,
+    marginHorizontal: 4,
   },
 
   cardTitle: {
     fontFamily: 'Raleway',
     fontWeight: 'bold',
     color: '#ffffff',
-    backgroundColor: '#5c9c99',
-    textAlign: 'center',
+    backgroundColor: '#86b8ac',
+    alignItems: 'center',
     padding: 10,
     borderRadius: 4,
   },
@@ -76,11 +88,10 @@ export const appStyles = StyleSheet.create({
     fontFamily: 'Raleway',
     fontWeight: 'bold',
     color: '#ffffff',
-    backgroundColor: '#5c9c99',
   },
 
   button: {
-    backgroundColor: '#b3571e',
+    backgroundColor: '#86b8ac',
     padding: 10,
     marginHorizontal: 50,
     marginTop: 5,

@@ -139,7 +139,7 @@ const GameForm = ({
       </TouchableOpacity>
     </View>
   ) :  (
-    <View style={appStyles.card}>
+    <View style={appStyles.cardNoBackground}>
     <TouchableOpacity style={appStyles.button} onPress={() => setFormVisible(true)}>
       <Text style={appStyles.buttonText}>Host New Game?</Text>
     </TouchableOpacity>
