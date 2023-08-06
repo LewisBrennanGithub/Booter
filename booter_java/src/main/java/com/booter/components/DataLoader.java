@@ -16,7 +16,7 @@ import java.util.ArrayList;
 import java.util.Arrays;
 import java.util.List;
 
-//@Component
+@Component
 public class DataLoader implements ApplicationRunner {
     @Autowired
     PlayerRepository playerRepository;
@@ -28,9 +28,6 @@ public class DataLoader implements ApplicationRunner {
     public DataLoader(){
     }
     public void run(ApplicationArguments args) {
-//        gameRepository.deleteAll();
-//        playerRepository.deleteAll();
-//        addressRepository.deleteAll();
 
         Address dumbiedykesLane6 = new Address("6", "Dumbiedykes Lane", "Edinburgh", "United Kingdom", "ED12 2YP");
         addressRepository.save(dumbiedykesLane6);
