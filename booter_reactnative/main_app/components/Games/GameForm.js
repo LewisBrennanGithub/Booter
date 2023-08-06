@@ -122,7 +122,6 @@ const GameForm = ({
             minimumTrackTintColor="#068DA9"
             maximumTrackTintColor="#d44908"
           />
-      <Text style={appStyles.cardText}>Select an address</Text>
       <AddressInputs 
         propertyNumberOrName={propertyNumberOrName} setPropertyNumberOrName={setPropertyNumberOrName}
         street={street} setStreet={setStreet}

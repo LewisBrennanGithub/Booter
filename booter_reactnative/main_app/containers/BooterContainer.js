@@ -72,6 +72,9 @@ const handleJoinGame = (gameId, player) => {
         fetchAllGames();
         fetchAllPlayers();
     })
+    .then(() => {
+      fetchPlayerByAuth0Id(auth0Id);
+    })
     .catch(err => console.error("Error joining game:", err));
 };
 
@@ -81,8 +84,8 @@ const handleAddPlayer = async (playerData, addressData) => {
     const savedAddressId = response.id; 
     const newPlayerData = {...playerData, address: {id: savedAddressId}};
     const playerResponse = await PlayerServices.postPlayer(newPlayerData);
+    fetchPlayerByAuth0Id(auth0Id); 
     fetchAllPlayers();
-    fetchAllAddresses();
     return playerResponse; 
   } catch (error) {
     console.error('An error occurred:', error);

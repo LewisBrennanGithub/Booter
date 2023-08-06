@@ -96,11 +96,9 @@ export const appStyles = StyleSheet.create({
     marginHorizontal: 10,
   },
 
-  // REMOVE?
-  // cardNoBackground: {
-  //   padding: 10,
-  //   marginBottom: -15,
-  // },
+  cardNoBackground: {
+    padding: 10,
+  },
 
   // REMOVE?
   // cardTitle: {
