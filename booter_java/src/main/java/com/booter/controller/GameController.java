@@ -7,11 +7,10 @@ import com.booter.repository.AddressRepository;
 import com.booter.repository.GameRepository;
 import com.booter.repository.PlayerRepository;
 import org.springframework.beans.factory.annotation.Autowired;
+import org.springframework.data.domain.Sort;
 import org.springframework.http.HttpStatus;
 import org.springframework.http.ResponseEntity;
 import org.springframework.web.bind.annotation.*;
-
-import javax.xml.ws.Response;
 import java.util.List;
 import java.util.Optional;
 
@@ -27,7 +26,7 @@ public class GameController {
 
     @GetMapping(value = "/games")
     public ResponseEntity<List<Game>> getAllGames(){
-        return new ResponseEntity<>(gameRepository.findAll(), HttpStatus.OK);
+        return new ResponseEntity<>(gameRepository.findAll(Sort.by("id")), HttpStatus.OK);
     }
 
     @GetMapping(value = "/games/{id}")
@@ -49,6 +48,25 @@ public class GameController {
         return new ResponseEntity<>(game, HttpStatus.CREATED);
     }
 
+    @PatchMapping("/games/{id}")
+    public ResponseEntity<Game> updateGame(@PathVariable Long id, @RequestBody Game game) {
+        Optional<Game> gameOptional = gameRepository.findById(id);
+        Game existingGame = gameOptional.get();
+        existingGame.setName(game.getName());
+//        existingGame.setAddress(game.getAddress());
+        if (game.getAddress() != null) {
+            existingGame.setAddress(game.getAddress());
+        }
+        existingGame.setDateAndTime(game.getDateAndTime());
+        existingGame.setDuration(game.getDuration());
+        existingGame.setRecommendedAbilityLevel(game.getRecommendedAbilityLevel());
+        existingGame.setRecommendedSeriousnessLevel(game.getRecommendedSeriousnessLevel());
+        existingGame.setPlayers(game.getPlayers());
+        existingGame.setMaxPlayers(game.getMaxPlayers());
+        gameRepository.save(existingGame);
+        return new ResponseEntity<>(existingGame, HttpStatus.OK);
+    }
+
     @DeleteMapping(value = "/games/{id}")
     public ResponseEntity<Void> deleteGame(@PathVariable Long id) {
         Optional<Game> gameOptional = gameRepository.findById(id);
@@ -62,19 +80,4 @@ public class GameController {
             return new ResponseEntity<>(HttpStatus.NO_CONTENT);
     }
 
-    @PatchMapping("/games/{id}")
-    public ResponseEntity<Game> updateGame(@PathVariable Long id, @RequestBody Game game) {
-        Optional<Game> gameOptional = gameRepository.findById(id);
-            Game existingGame = gameOptional.get();
-            existingGame.setName(game.getName());
-            existingGame.setAddress(game.getAddress());
-            existingGame.setDateAndTime(game.getDateAndTime());
-            existingGame.setDuration(game.getDuration());
-            existingGame.setRecommendedAbilityLevel(game.getRecommendedAbilityLevel());
-            existingGame.setRecommendedSeriousnessLevel(game.getRecommendedSeriousnessLevel());
-            existingGame.setPlayers(game.getPlayers());
-            existingGame.setMaxPlayers(game.getMaxPlayers());
-            gameRepository.save(existingGame);
-            return new ResponseEntity<>(existingGame, HttpStatus.OK);
-    }
 }

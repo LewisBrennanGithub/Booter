@@ -42,7 +42,7 @@ public class Game {
     private boolean completedStatus;
 
     @JsonIgnore
-    @ManyToMany
+    @ManyToMany(cascade = CascadeType.REMOVE)
     @JoinTable(
             name = "players_games",
             joinColumns = {@JoinColumn(name = "game_id", nullable = false, updatable = false)},

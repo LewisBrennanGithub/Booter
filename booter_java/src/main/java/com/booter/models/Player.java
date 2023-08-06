@@ -13,6 +13,8 @@ public class Player {
     @Id
     @GeneratedValue(strategy = GenerationType.IDENTITY)
     private Long id;
+    @Column(name = "auth0_id")
+    private String auth0Id;
     @Column(name="first_name")
     private String firstName;
     @Column(name="last_name")
@@ -57,7 +59,8 @@ public class Player {
 //    @OneToOne(mappedBy = "creator")
 //    private Game lastGameCreated;
 
-    public Player(String firstName, String lastName, String userName, String phoneNumber, Address address, int age, double selfAssessedAbilityLevel, double selfAssessedSeriousnessLevel) {
+    public Player(String auth0Id, String firstName, String lastName, String userName, String phoneNumber, Address address, int age, double selfAssessedAbilityLevel, double selfAssessedSeriousnessLevel) {
+        this.auth0Id = auth0Id;
         this.firstName = firstName;
         this.lastName = lastName;
         this.userName = userName;
@@ -82,6 +85,10 @@ public class Player {
 
     public Long getId() {
         return id;
+    }
+
+    public String getAuth0Id() {
+        return auth0Id;
     }
 
     public String getFirstName() {
@@ -156,6 +163,10 @@ public class Player {
         this.id = id;
     }
 
+    public void setAuth0Id(String auth0Id) {
+        this.auth0Id = auth0Id;
+    }
+
     public void setFirstName(String firstName) {
         this.firstName = firstName;
     }
@@ -225,13 +236,12 @@ public class Player {
     }
 
 //    FOR UNIT TESTING ONLY
-
-    public Game createGame(String name, Address address, ZonedDateTime dateAndTime, int duration, double recommendedAbilityLevel, double recommendedSeriousnessLevel, int maxPlayers ) {
-        Game newGame = new Game(this, name, address, dateAndTime, duration, recommendedAbilityLevel, recommendedSeriousnessLevel, false, maxPlayers);
-        this.games.add(newGame);
-        return newGame;
-    }
-    // ^^ FOR UNITTESTS >> address.getGames().add(newGame);
+//    public Game createGame(String name, Address address, ZonedDateTime dateAndTime, int duration, double recommendedAbilityLevel, double recommendedSeriousnessLevel, int maxPlayers ) {
+//        Game newGame = new Game(this, name, address, dateAndTime, duration, recommendedAbilityLevel, recommendedSeriousnessLevel, false, maxPlayers);
+//        this.games.add(newGame);
+//        return newGame;
+//    }
+// ^^ FOR UNITTESTS >> address.getGames().add(newGame);
 
 //    FOR UNIT TESTING ONLY
 //    public Game getLastGameCreated() {
