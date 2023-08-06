@@ -56,16 +56,6 @@ public class PlayerController {
         return new ResponseEntity<>(games, HttpStatus.OK);
     }
 
-//    @PostMapping(value = "/players")
-//    public ResponseEntity<Player> postPlayer(@RequestBody Player player){
-//        Player existingPlayer = playerRepository.findByAuth0Id(player.getAuth0Id());
-//        if (existingPlayer != null) {
-//            return new ResponseEntity<>(HttpStatus.CONFLICT);
-//        }
-//        playerRepository.save(player);
-//        return new ResponseEntity<>(player, HttpStatus.CREATED);
-//    }
-
     @PostMapping(value = "/players")
     public ResponseEntity<Player> postPlayer(@RequestBody Player player){
         Player existingPlayer = playerRepository.findByAuth0Id(player.getAuth0Id());
@@ -145,7 +135,6 @@ public class PlayerController {
         playerRepository.save(ratedAbilityPlayer);
         return new ResponseEntity<>(Collections.singletonMap("message", "Player has rated other player's ability"), HttpStatus.OK);
     }
-
 
     @PatchMapping("/players/{ratingSeriousnessPlayerId}/rateOtherPlayerSeriousness/{ratedSeriousnessPlayerId}")
     public ResponseEntity<Map<String, String>> rateOtherPlayerSeriousness(

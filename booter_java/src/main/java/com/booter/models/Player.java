@@ -50,14 +50,9 @@ public class Player {
     private int communityAssessedSeriousnessLevelCount;
     @ManyToMany(mappedBy = "players")
     private List<Game> games = new ArrayList<>();
-//    CHANGES MADE BELOW, PROCEED WITH CAUTION
-//    @ManyToMany(cascade = CascadeType.REMOVE, mappedBy = "players")
-//    private List<Game> games = new ArrayList<>();
+
     @OneToMany(mappedBy = "creator")
     private List<Game> createdGames;
-    //    CHANGES MADE BELOW, PROCEED WITH CAUTION
-//    @OneToMany(cascade = CascadeType.REMOVE, mappedBy = "creator", orphanRemoval = true)
-//    private List<Game> createdGames;
 
 //    KEEP FOR UNIT TESTING
 //    @JsonManagedReference("player_last_game_created")
@@ -241,13 +236,12 @@ public class Player {
     }
 
 //    FOR UNIT TESTING ONLY
-
-    public Game createGame(String name, Address address, ZonedDateTime dateAndTime, int duration, double recommendedAbilityLevel, double recommendedSeriousnessLevel, int maxPlayers ) {
-        Game newGame = new Game(this, name, address, dateAndTime, duration, recommendedAbilityLevel, recommendedSeriousnessLevel, false, maxPlayers);
-        this.games.add(newGame);
-        return newGame;
-    }
-    // ^^ FOR UNITTESTS >> address.getGames().add(newGame);
+//    public Game createGame(String name, Address address, ZonedDateTime dateAndTime, int duration, double recommendedAbilityLevel, double recommendedSeriousnessLevel, int maxPlayers ) {
+//        Game newGame = new Game(this, name, address, dateAndTime, duration, recommendedAbilityLevel, recommendedSeriousnessLevel, false, maxPlayers);
+//        this.games.add(newGame);
+//        return newGame;
+//    }
+// ^^ FOR UNITTESTS >> address.getGames().add(newGame);
 
 //    FOR UNIT TESTING ONLY
 //    public Game getLastGameCreated() {

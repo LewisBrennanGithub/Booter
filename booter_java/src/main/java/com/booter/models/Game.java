@@ -42,7 +42,6 @@ public class Game {
     private boolean completedStatus;
 
     @JsonIgnore
-    //    CHANGES MADE BELOW, PROCEED WITH CAUTION
     @ManyToMany(cascade = CascadeType.REMOVE)
     @JoinTable(
             name = "players_games",
