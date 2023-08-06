@@ -87,8 +87,7 @@ const GameForm = ({
           </View>
         )
       )}
-      {/* REDO THE BELOW BUTTON POSSIBLY */}
-      <TouchableOpacity style={appStyles.bespokeButtonOne} onPress={() => setShowDatePicker(true)}>
+      <TouchableOpacity style={appStyles.buttonColor} onPress={() => setShowDatePicker(true)}>
         <Text style={appStyles.buttonColorText}>Select Date and Time</Text>
       </TouchableOpacity>
       <Text style={appStyles.cardText}>Duration</Text>

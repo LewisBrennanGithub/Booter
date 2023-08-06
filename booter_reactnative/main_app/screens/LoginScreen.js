@@ -1,13 +1,14 @@
 import React from 'react';
-import { ScrollView, View, Text } from 'react-native';
+import { View } from 'react-native';
 import { appStyles } from '../containers/AppStyles';
 import LogInButton from '../components/Authorisation/LogInButton';
 import LogOutButton from '../components/Authorisation/LogOutButton';
-import LogProfileInformation from '../components/Authorisation/LogProfileInformation';
 
 const LoginScreen= ({setAuth0Id, setLoggedPlayer }) => {
 
   return (
+    <>    
+    <View style={appStyles.clearSpace}></View>
     <View style={appStyles.card}>
       <LogInButton 
         setAuth0Id={setAuth0Id}
@@ -18,6 +19,8 @@ const LoginScreen= ({setAuth0Id, setLoggedPlayer }) => {
         setLoggedPlayer={setLoggedPlayer}
       />
     </View>
+    </>
+
   );
 };
 

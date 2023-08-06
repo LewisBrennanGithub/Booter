@@ -277,7 +277,6 @@ const handleAddGame = async (gameData, addressData) => {
           handleDeletePlayer={handleDeletePlayer}
           handleUpdateAddress={handleUpdateAddress}
           fetchAllPlayers={fetchAllPlayers}
-          fetchAllAddresses={fetchAllAddresses}
           />
         )}
         />

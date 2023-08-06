@@ -2,7 +2,6 @@ import React, { useState, useEffect } from 'react';
 import { View, Text, TouchableOpacity } from 'react-native';
 import { appStyles } from '../../containers/AppStyles';
 import { formatGameDateAndTime } from '../../Reusable/DateTimeInterpreter';
-// Why the straight import? Consider prop drilling
 import * as GameServices from "../../services/GameServices";
 import GameUpdateForm from './GameUpdateForm';
 import GameAddressUpdateForm from './GameAddressUpdateForm';

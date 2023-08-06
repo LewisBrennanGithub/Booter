@@ -1,5 +1,5 @@
 import React, { useState } from 'react';
-import { View, Text, TextInput, TouchableOpacity, StyleSheet } from 'react-native';
+import { View, Text, TextInput, TouchableOpacity } from 'react-native';
 import CustomSlider from '../../Reusable/CustomSlider';
 import * as PlayerServices from "../../services/PlayerServices";
 import { appStyles } from '../../containers/AppStyles';
@@ -49,7 +49,7 @@ const LoggedPlayerUpdateForm = ({
   }
 
     return (
-        <>
+        <View style={appStyles.card}>
         <View style={appStyles.presentationalTurqouoiseLine}></View>
         <Text style={appStyles.cardTitleText}>Edit Player</Text>
         <Text style={appStyles.cardText}>First Name</Text>
@@ -108,53 +108,8 @@ const LoggedPlayerUpdateForm = ({
         <TouchableOpacity style={appStyles.buttonColor} onPress={toggleEditProfileFalse}>
         <Text style={appStyles.buttonColorText}>Cancel Edit Profile</Text>
         </TouchableOpacity>
-        </>
+        </View>
     );
 };
-
-const styles = StyleSheet.create({
-    cardContainer: {
-      backgroundColor: '#ffffff',
-      marginVertical: 10,
-      padding: 20,
-      borderRadius: 8,
-      shadowColor: '#000000',
-      shadowOpacity: 0.1,
-      shadowRadius: 4,
-      shadowOffset: {
-        width: 0,
-        height: 2,
-      },
-      elevation: 4,
-    },
-    heading: {
-      fontSize: 18,
-      fontWeight: 'bold',
-      marginBottom: 10,
-    },
-    label: {
-      fontSize: 16,
-      marginBottom: 5,
-    },
-    input: {
-      height: 40,
-      borderColor: 'gray',
-      borderWidth: 1,
-      borderRadius: 4,
-      marginBottom: 10,
-      paddingHorizontal: 10,
-    },
-    button: {
-      backgroundColor: '#783c08',
-      paddingVertical: 10,
-      paddingHorizontal: 20,
-      borderRadius: 4,
-    },
-    buttonText: {
-      color: '#ffffff',
-      textAlign: 'center',
-      fontWeight: 'bold',
-    },
-  });
 
 export default LoggedPlayerUpdateForm;

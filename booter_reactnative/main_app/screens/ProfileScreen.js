@@ -11,11 +11,11 @@ const ProfileScreen = ({
     handleDeletePlayer,
     handleUpdateAddress,
     fetchAllPlayers,
-    fetchAllAddresses
 }) => {
 
     return(
         <ScrollView>
+            <View style={appStyles.clearSpace}></View>
             <LoggedPlayerElement
                 loggedPlayer={loggedPlayer}
                 setLoggedPlayer={setLoggedPlayer}
@@ -25,7 +25,6 @@ const ProfileScreen = ({
                 handleDeletePlayer={handleDeletePlayer}
                 handleUpdateAddress={handleUpdateAddress}
                 fetchAllPlayers={fetchAllPlayers}
-                fetchAllAddresses={fetchAllAddresses}
             />
         </ScrollView>
     )

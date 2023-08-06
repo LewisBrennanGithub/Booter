@@ -12,6 +12,7 @@ const PlayersScreen = ({
 }) => {
   return (
     <ScrollView>
+      <View style={appStyles.clearSpace}></View>
         <PlayerList
           players={players}
           loggedPlayer={loggedPlayer}

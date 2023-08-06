@@ -1,4 +1,4 @@
-import { View, Text, TouchableOpacity } from "react-native";
+import { View } from "react-native";
 import PlayerElement from "./PlayerElement";
 
 const PlayerList = ({ 

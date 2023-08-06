@@ -35,13 +35,17 @@ export const appStyles = StyleSheet.create({
     alignItems: 'center'
   },
 
+  clearSpace: {
+    padding: 5,
+  },
+
   // HEADERS
   
   header: {
     backgroundColor: '#068DA9',
-    height: 80, 
+    height: 82.5, 
     alignItems: 'center',
-    paddingTop: 20, 
+    paddingTop: 25, 
     borderBottomWidth: 5,
     borderBottomColor: '#d44908',
   },
@@ -56,7 +60,6 @@ export const appStyles = StyleSheet.create({
 
   headerText: {
     fontFamily: 'Josefin Sans',
-    // fontWeight: 'bold',
     color: '#ffffff',
   },
 
@@ -71,14 +74,14 @@ export const appStyles = StyleSheet.create({
     fontWeight: 'bold',
     fontSize: 15,
     marginVertical: 5,
-    // textTransform: 'uppercase',
   },
 
   // CARDS
 
-  cardContainer: {
-    marginVertical: 10,
-  },
+  // REMOVE?
+  // cardContainer: {
+  //   marginVertical: 10,
+  // },
 
   card: {
     backgroundColor: '#FFFFFF',
@@ -90,28 +93,26 @@ export const appStyles = StyleSheet.create({
     shadowRadius: 4,
     elevation: 2,
     marginVertical: 5,
-    // borderRadius: 4,
     marginHorizontal: 10,
   },
 
-  cardNoBackground: {
-    padding: 10,
-    marginBottom: -15,
-  },
+  // REMOVE?
+  // cardNoBackground: {
+  //   padding: 10,
+  //   marginBottom: -15,
+  // },
 
-  cardTitle: {
-    fontFamily: 'Josefin Sans',
-    fontWeight: 'bold',
-    color: '#ffffff',
-    backgroundColor: '#068DA9',
-    alignItems: 'center',
-    padding: 10,
-    paddingBottom: 5,
-    marginBottom: 10,
-    // borderWidth: 2.5,
-    // borderColor: '#b3571e',
-    
-  },
+  // REMOVE?
+  // cardTitle: {
+  //   fontFamily: 'Josefin Sans',
+  //   fontWeight: 'bold',
+  //   color: '#ffffff',
+  //   backgroundColor: '#068DA9',
+  //   alignItems: 'center',
+  //   padding: 10,
+  //   paddingBottom: 5,
+  //   marginBottom: 10,
+  // },
 
   cardTitleText: {
     fontFamily: 'Josefin Sans',
@@ -127,60 +128,7 @@ export const appStyles = StyleSheet.create({
     marginBottom: 2.5,
   },
 
-  soloButtonAlinger: {
-    alignItems: 'center',
-  },
-
 // BUTTONS
-
-  buttonGroup: {
-    flexDirection: 'row', 
-    flexWrap: 'wrap',  
-    justifyContent: 'space-around', 
-    alignItems: 'center',
-},
-
-  button: {
-    backgroundColor: '#f0ebe9',
-    padding: 10,
-    marginTop: 10,
-    marginBottom: 10,
-    shadowColor: '#000000',
-    shadowOffset: { width: 0, height: 2 },
-    shadowOpacity: 0.1,
-    shadowRadius: 4,
-    elevation: 2,
-    maxWidth: 150,
-    minWidth: 150,
-    // borderRadius: 4,
-  },
-
-  buttonText: {
-    color: '#d44908',
-    textAlign: 'center',
-    fontFamily: 'Josefin Sans',
-    fontWeight: 'bold',
-  },
-
-  buttonNoCard: {
-    backgroundColor: '#ffffff',
-    padding: 10,
-    marginHorizontal: 50,
-    marginTop: 5,
-    shadowColor: '#000000',
-    shadowOffset: { width: 0, height: 2 },
-    shadowOpacity: 0.1,
-    shadowRadius: 4,
-    elevation: 2,
-    // borderRadius: 4,
-  },
-
-  buttonNoCardText: {
-    color: '#d44908',
-    textAlign: 'center',
-    fontFamily: 'Josefin Sans',
-    fontWeight: 'bold',
-  },
 
   buttonColor: {
     backgroundColor: '#068DA9',
@@ -202,25 +150,12 @@ export const appStyles = StyleSheet.create({
     fontWeight: 'bold',
   },
 
-  bespokeButtonOne: {
-    backgroundColor: '#068DA9',
-    padding: 10,
-    marginBottom: 5,
-    // marginTop: 2.5,
-    shadowColor: '#000000',
-    shadowOffset: { width: 0, height: 2 },
-    shadowOpacity: 0.1,
-    shadowRadius: 4,
-    elevation: 2,
-  },
-
 // FORMS
 
 input: {
-  height: 40,
+  height: 35,
   borderColor: 'gray',
   borderWidth: 1,
-  // borderRadius: 4,
   marginBottom: 10,
   paddingHorizontal: 10,
   fontFamily: 'Josefin Sans',
